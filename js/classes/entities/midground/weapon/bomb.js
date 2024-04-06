@@ -17,7 +17,8 @@ class Bomb {
             Bomb.INITIAL_SPEED,
             Bomb.WEIGHT,
             (block) => this.onBlockCollision(block),
-            (enemy) => this.onEnemyCollision(enemy)
+            (enemy) => this.onEnemyCollision(enemy),
+            (player) => this.onPlayerCollision(player)
         );
 
         this.animations = [];
@@ -119,6 +120,11 @@ class Bomb {
 
     /** Called when the bomb collides with an enemy. */
     onEnemyCollision(enemy) {
+        // do nothing?
+    }
+
+    /** Called when the bomb collides with the player. */
+    onPlayerCollision(player) {
         // do nothing?
     }
 

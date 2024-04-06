@@ -60,7 +60,7 @@ class DeathScreen {
      * Respond to the respawn button click.
      */
     handleRespawnButtonClick() {
-        CHAD.health = Chad.MAX_HEALTH;
+        CHAD.health = CHAD.maxHealth;
         LAST_ZONE = null;
         ZONE = Zone.getZones().village.main;
         ZONE.load();
@@ -82,13 +82,13 @@ class DeathScreen {
         CTX.font = DeathScreen.MESSAGE_FONT_SIZE + "px vt323";
         const messageSize = CTX.measureText(this.message);
         const messagePos = new Vector((Camera.SIZE.x - messageSize.width) / 2,
-            (Camera.SIZE.y - messageSize.emHeightAscent) / 2);
+            (Camera.SIZE.y - messageSize.actualBoundingBoxAscent) / 2);
         CTX.fillText(this.message, messagePos.x, messagePos.y);
 
         // calculate position and size of the respawn button
         const buttonSize = DeathScreen.RESPAWN_BUTTON_SIZE;
         this.respawnButton.pos = new Vector((Camera.SIZE.x - buttonSize.x) / 2,
-            messagePos.y + messageSize.emHeightAscent);
+            messagePos.y + messageSize.actualBoundingBoxAscent);
 
         this.respawnButton.draw();
     }

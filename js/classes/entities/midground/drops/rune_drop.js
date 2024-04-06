@@ -9,7 +9,7 @@ class RuneDrop {
      * @param {Vector} pos 
      * @param {number} type 
      */
-    constructor(pos, type, hasGravity = true, popInAir = false) {
+    constructor(pos, type, hasGravity = true, popInAir = true) {
         this.pos = pos;
         this.type = type;
         this.amount = RuneDrop.VALUE_MAP[type];
@@ -72,7 +72,7 @@ class RuneDrop {
 
         const text = "$" + this.amount;
         const textWidth = CTX.measureText(text).width;
-        const worldPos = Vector.worldToCanvasSpace(this.pos);
+        const worldPos = Vector.worldToCanvasSpace(Vector.add(this.pos, new Vector(0, -ItemLabel.TEXT_SIZE)));
         CTX.fillText(text, worldPos.x + this.scaledSize.x - textWidth, worldPos.y + ItemLabel.TEXT_SIZE);
     }
 
@@ -107,7 +107,7 @@ class RuneDrop {
     }
 
     static get SCALE() {
-        return 1.8;
+        return 1.5;
     }
 
     static get SIZE() {

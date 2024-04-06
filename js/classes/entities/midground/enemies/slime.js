@@ -20,7 +20,7 @@ class Slime {
         /** The type of Slime that this is. Slime.SAP, .POLLUTED, .FROST, .MAGMA, or .EVIL. Default SAP. */
         this.type = type ?? Slime.SAP; // If no type parameter input, assume SAP.
 
-        this.base = new EnemyBase(
+        this.base = new GroundEnemyBase(
             this, 
             pos, 
             Slime.SCALED_SIZE, 
@@ -28,7 +28,7 @@ class Slime {
             Slime.MAX_HEALTH, 
             Slime.PACE_DISTANCE, 
             () => this.handleDeath(),
-            EnemyBase.AGGRESSIVE_STANCE
+            GroundEnemyBase.AGGRESSIVE_STANCE
         );
 
         /** An associative array of the animations for this Snake. Arranged [facing][action]. */
@@ -117,13 +117,21 @@ class Slime {
     handleDeath() {
         this.action = "dying";
 
+        const pos = Vector.add(this.base.getCenter(), new Vector(0, -40));
+
         const rand = Math.random();
         if (rand < 0.3) {
-            const pos = Vector.add(this.base.getCenter(), new Vector(0, -40));
-            GAME.addEntity(new AmmoDrop(pos, AmmoDrop.SLIMEBALL));
+            if (this.type === Slime.FROST) {
+                GAME.addEntity(new AmmoDrop(pos, AmmoDrop.SNOWBALL, 2));
+            } else {
+                GAME.addEntity(new AmmoDrop(pos, AmmoDrop.SLIMEBALL, 1));
+            }
         } else if (rand < 0.5) {
-            const pos = Vector.add(this.base.getCenter(), new Vector(0, -40));
-            GAME.addEntity(new AmmoDrop(pos, AmmoDrop.SLIMEBALL, 2));
+            if (this.type === Slime.FROST) {
+                GAME.addEntity(new AmmoDrop(pos, AmmoDrop.SUS_SNOWBALL, 2));
+            } else {
+                GAME.addEntity(new AmmoDrop(pos, AmmoDrop.SLIMEBALL, 2));
+            }
         }
     }
     

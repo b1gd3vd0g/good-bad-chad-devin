@@ -10,7 +10,7 @@ class DrillBot {
      * @param {Vector} pos the initial position of the DrillBot
      */
     constructor(pos) {
-        this.base = new EnemyBase(
+        this.base = new GroundEnemyBase(
             this, 
             pos, 
             DrillBot.SCALED_SIZE, 
@@ -18,7 +18,7 @@ class DrillBot {
             DrillBot.MAX_HEALTH, 
             DrillBot.ROAM_DISTANCE, 
             () => this.handleDeath(),
-            EnemyBase.AGGRESSIVE_STANCE
+            GroundEnemyBase.AGGRESSIVE_STANCE
         );
 
         this.animations = [];
@@ -47,7 +47,7 @@ class DrillBot {
 
     /** The speed of the DrillBot. */
     static get SPEED() {
-        return DrillBot.SCALE * 32;
+        return DrillBot.SCALE * 30;
     }
 
     /** The file path to the DrillBot's spritesheet. */
@@ -57,7 +57,7 @@ class DrillBot {
 
     /** The maximum health of the DrillBot. */
     static get MAX_HEALTH() {
-        return 60;
+        return 50;
     };
 
     /** The distance the DrillBot will wander from its original position when roaming. */
@@ -98,21 +98,28 @@ class DrillBot {
      * Perform any necessary operations when the DrillBot dies.
      */
     handleDeath() {
-        // if the enemy is now dead, remove it from the game
-        // replace this code with any death effects, state changes, etc.
-        this.removeFromWorld = true;
+
+        this.action = "dying";
+
+        if (Math.random() < 0.5) {
+            ASSET_MGR.playSFX(SFX.ROBOT_DEATH3.path, SFX.ROBOT_DEATH3.volume);
+        } else {
+            ASSET_MGR.playSFX(SFX.ROBOT_DEATH1.path, SFX.ROBOT_DEATH1.volume);
+        }
+
+        const pos = Vector.add(this.base.getCenter(), new Vector(0, -40));
 
         // add a piece of bacon in the DrillBot's place at bottom-center of drill_bot
         if (Math.random() < 0.5) {
-            const pos = Vector.add(this.base.getCenter(), new Vector(0, -40));
-            GAME.addEntity(new FoodDrop(pos, FoodDrop.ENERGY_DRINK));
+            GAME.addEntity(new FoodDrop(pos, FoodDrop.ENERGY_DRINK, true, true));
         } else if (Math.random() < 0.5) {
-            const pos = Vector.add(this.base.getCenter(), new Vector(0, -40));
             GAME.addEntity(new AmmoDrop(pos, AmmoDrop.BOMB));
-
         }
 
-        ASSET_MGR.playSFX(SFX.ROBOT_DEATH1.path, SFX.ROBOT_DEATH1.volume);
+        if (Math.random() < 0.5) {
+            GAME.addEntity(new RuneDrop(pos, RuneDrop.RED));
+        }
+
         this.statusEffect.removeAll();
 
         if (STORY.botsKilled) {
@@ -127,42 +134,56 @@ class DrillBot {
     update() {
         this.base.update();
 
-        const secondsSinceLastAttack = Date.now() / 1000 - this.lastAttack;
+        const deathAnim = this.animations[this.getFacing()]["dying"];
 
-        // if we've finished our current attack, change action to idle
-        if (this.action === "attacking" 
-            && this.animations[this.base.getFacing()]["attacking"].totalTime < secondsSinceLastAttack) {
-                
-            this.action = "idle";
-        }
+        if (this.health > 0) {
 
-        // if Chad is close enough and we want to beat him up, react accordingly
-        if (this.withinAttackRange() && this.state === "pursue") {
-            if (secondsSinceLastAttack > DrillBot.ATTACK_COOLDOWN) {
-                // if it's been long enough, start a new attack 
-                this.animations[this.base.getFacing()]["attacking"].elapsedTime = 0;
-                this.action = "attacking"
-                this.lastAttack = Date.now() / 1000;
-                this.performedFirstAttack = false;
-                this.performedSecondAttack = false;
-            }
+            const secondsSinceLastAttack = Date.now() / 1000 - this.lastAttack;
+
+            // if we've finished our current attack, change action to idle
             if (this.action === "attacking" 
-                && secondsSinceLastAttack > DrillBot.FIRST_DAMAGE_DELAY && !this.performedFirstAttack) {
-                // if we're at the proper point in our attack animation, deal damage the first time
-
-                ASSET_MGR.playSFX(SFX.DRILL2.path, SFX.DRILL2.volume);
-                CHAD.takeDamage(DrillBot.ATTACK_DAMAGE);
-                this.performedFirstAttack = true;
-                this.timeOfFirstAttack = Date.now() / 1000; // Record the time of the first attack
+                && this.animations[this.base.getFacing()]["attacking"].totalTime < secondsSinceLastAttack) {
+                    
+                this.action = "idle";
             }
-            const secondsSinceFirstAttack = Date.now() / 1000 - this.timeOfFirstAttack;
-            if (this.action === "attacking" 
-                && secondsSinceFirstAttack > DrillBot.SECOND_DAMAGE_DELAY && !this.performedSecondAttack) {
-                // if we're at the proper point in our attack animation, deal damage the second time
 
-                ASSET_MGR.playSFX(SFX.DRILL1.path, SFX.DRILL1.volume);
-                CHAD.takeDamage(DrillBot.ATTACK_DAMAGE);
-                this.performedSecondAttack = true;
+            // if Chad is close enough and we want to beat him up, react accordingly
+            if (this.withinAttackRange() && this.state === "pursue") {
+                if (secondsSinceLastAttack > DrillBot.ATTACK_COOLDOWN) {
+                    // if it's been long enough, start a new attack 
+                    this.animations[this.base.getFacing()]["attacking"].elapsedTime = 0;
+                    this.action = "attacking"
+                    this.lastAttack = Date.now() / 1000;
+                    this.performedFirstAttack = false;
+                    this.performedSecondAttack = false;
+                }
+                if (this.action === "attacking" 
+                    && secondsSinceLastAttack > DrillBot.FIRST_DAMAGE_DELAY && !this.performedFirstAttack) {
+                    // if we're at the proper point in our attack animation, deal damage the first time
+
+                    ASSET_MGR.playSFX(SFX.DRILL2.path, SFX.DRILL2.volume);
+                    CHAD.takeDamage(DrillBot.ATTACK_DAMAGE);
+                    this.performedFirstAttack = true;
+                    this.timeOfFirstAttack = Date.now() / 1000; // Record the time of the first attack
+                }
+                const secondsSinceFirstAttack = Date.now() / 1000 - this.timeOfFirstAttack;
+                if (this.action === "attacking" 
+                    && secondsSinceFirstAttack > DrillBot.SECOND_DAMAGE_DELAY && !this.performedSecondAttack) {
+                    // if we're at the proper point in our attack animation, deal damage the second time
+
+                    ASSET_MGR.playSFX(SFX.DRILL1.path, SFX.DRILL1.volume);
+                    CHAD.takeDamage(DrillBot.ATTACK_DAMAGE);
+                    this.performedSecondAttack = true;
+                }
+            }
+        } else {
+            if (deathAnim.currentFrame() === deathAnim.frameCount - 1) {
+                this.removeFromWorld = true;
+                if (STORY.botsKilled) {
+                    STORY.botsKilled++;
+                } else {
+                    STORY.botsKilled = 1;
+                }
             }
         }
     };
@@ -217,5 +238,17 @@ class DrillBot {
             DrillBot.SIZE,
             8, 1/8);
         
+        
+        // dying animations
+        this.animations["left"]["dying"] = new Animator(
+            DrillBot.SPRITESHEET,
+            new Vector(DrillBot.SIZE.x * 10, DrillBot.SIZE.y),
+            DrillBot.SIZE,
+            2, 1/2);
+        this.animations["right"]["dying"] = new Animator(
+            DrillBot.SPRITESHEET,
+            new Vector(DrillBot.SIZE.x * 10, 0),
+            DrillBot.SIZE,
+            2, 1/2);
     };
 };

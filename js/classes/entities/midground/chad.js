@@ -38,7 +38,9 @@ class Chad {
         /** Name of character. */
         this.name = "Chad";
         /** The health of Chad. */
-        this.health = Chad.MAX_HEALTH;
+        this.health = Chad.DEFAULT_MAX_HEALTH;
+        /** The maximum health of Chad. */
+        this.maxHealth = Chad.DEFAULT_MAX_HEALTH;
         /** Chad's base speed */
         this.speed = Chad.DEFAULT_SPEED;
         /** Chad's damage multiplier (applied on sword/slingshot hit) */
@@ -116,7 +118,7 @@ class Chad {
     }
 
     /** The maximum amount of health Chad can have. */
-    static get MAX_HEALTH() {
+    static get DEFAULT_MAX_HEALTH() {
         return 100;
     };
 
@@ -242,17 +244,46 @@ class Chad {
         }
     };
 
+    knockback(direction, amount) {
+        // this.pos = Vector.add(this.pos, Vector.multiply(direction, amount));
+
+        this.knockbackForce = Vector.multiply(direction, amount * 100);
+        this.isKnockedBack = true;
+    }
+
+    manageKnockback() {
+        if (this.isKnockedBack) {
+            this.knockbackForce = Vector.multiply(this.knockbackForce, 0.5);
+            this.velocity = Vector.add(this.velocity, this.knockbackForce);
+
+            // If velocity is below a certain threshold, end knockback
+            if (Vector.magnitude(this.knockbackForce) < 0.1) {
+                this.isKnockedBack = false;
+            }
+        }
+    }
+
+
     /**
      * Increase the health of Chad by the provided amount
      * 
      * @param {number} amount the amount by which to increase Chad's health
      */
     restoreHealth(amount) {
-        if (this.health + amount > Chad.MAX_HEALTH) {
-            this.health = Chad.MAX_HEALTH;
+        if (this.health + amount > this.maxHealth) {
+            this.health = this.maxHealth;
         } else {
             this.health += amount;
         }
+    }
+
+    /**
+     * Increase the maximum health of Chad by the provided amount
+     * 
+     * @param {number} amount the amount by which to increase Chad's max health
+     */
+    increaseMaxHealth(amount) {
+        this.maxHealth += amount;
     }
 
     /**
@@ -261,6 +292,11 @@ class Chad {
      * @returns {number} the x velocity of Chad
      */
     manageXDirectionMovement() {
+        if (this.isKnockedBack) {
+            // don't allow movement while knocked back
+            return this.velocity.x;
+        }
+
         let xVelocity = this.velocity.x;
 
         let dirSign = 0;
@@ -318,7 +354,7 @@ class Chad {
             }
 
             // release wind particles every 0.05 seconds
-            if (GAME.gameTime % 0.05 < 0.01) { // we use `< 0.01` instead of `== 0` to avoid floating point errors
+            if (GAME.gameTime % 0.07 < 0.01) { // we use `< 0.01` instead of `== 0` to avoid floating point errors
                 GAME.addEntity(new ParticleEffect(this.getCenter(), ParticleEffect.WIND));
             }
 
@@ -446,6 +482,8 @@ class Chad {
             return;
         }
 
+        this.manageKnockback();
+
         // Chad shouldn't be able to double jump by default.
         this.canDoubleJump = false;
 
@@ -511,10 +549,8 @@ class Chad {
         }
 
 
-        // Step 2: Account for gravity, which is always going to push you downward.
+        // Step 3: Account for gravity, which is always going to push you downward.
         this.velocity.y += PHYSICS.GRAVITY_ACC * GAME.clockTick;
-
-
 
         // Step 4: Now move.
         this.pos = Vector.add(this.pos, Vector.multiply(this.velocity, GAME.clockTick));
@@ -654,7 +690,7 @@ class Chad {
         // Step 6: Check for any zone-specific conditions
         if (ZONE.name === "River Start") {
             if (this.pos.y > Vector.blockToWorldSpace(new Vector(0, 28)).y) {
-                this.takeDamage(Chad.MAX_HEALTH);
+                this.takeDamage(this.maxHealth);
             }
         }
     };

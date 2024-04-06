@@ -19,8 +19,7 @@ class Button {
         this.size = size;
         this.text = text;
         this.fontSize = fontSize;
-
-        this.listener = document.body.addEventListener("click", () => {
+        this.listener = () => {
             const mouseOverButton = GAME.mousePos.x > this.pos.x
                 && GAME.mousePos.y > this.pos.y
                 && GAME.mousePos.x < this.pos.x + this.size.x
@@ -32,7 +31,8 @@ class Button {
                     this.removeFromWorld = true;
                 }
             }
-        });
+        }
+        document.body.addEventListener("click", this.listener);
     }
 
     /** The width, in pixels, of the Button's border. */
@@ -61,8 +61,8 @@ class Button {
         const buttonTextSize = CTX.measureText(this.text);
         CTX.fillText(
             this.text, this.pos.x + (this.size.x - buttonTextSize.width) / 2,
-            this.pos.y + this.size.y - (this.size.y - buttonTextSize.emHeightAscent
-                + buttonTextSize.emHeightDescent) / 2
+            this.pos.y + this.size.y - (this.size.y - buttonTextSize.actualBoundingBoxAscent
+                + buttonTextSize.actualBoundingBoxDescent) / 2
         );
     }
 }

@@ -7,7 +7,10 @@ class ProjectileFactory {
             [ProjectileFactory.SNOWBALL]: Snowball,
             [ProjectileFactory.SUS_SNOWBALL]: SusSnowball,
             [ProjectileFactory.BROCCOLI]: Broccoli,
-            [ProjectileFactory.WATER_BALLOON]: WaterBalloon
+            [ProjectileFactory.WATER_BALLOON]: WaterBalloon,
+            [ProjectileFactory.LASER]: Laser,
+            [ProjectileFactory.SONIC_WAVE]: SonicWave,
+            [ProjectileFactory.MISSILE]: Missile,
         };
         return new (projectileMap[type])(startPos, targetPos);
     }
@@ -38,5 +41,17 @@ class ProjectileFactory {
 
     static get WATER_BALLOON() {
         return "water_balloon";
+    }
+
+    static get LASER() {
+        return "laser";
+    }
+
+    static get SONIC_WAVE() {
+        return "sonic_wave";
+    }
+
+    static get MISSILE() {
+        return "missile";
     }
 }

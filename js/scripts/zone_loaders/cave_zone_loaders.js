@@ -366,16 +366,13 @@ const loadCave2 = () => {
 
         TilemapInterpreter.setTilemap(cave_2_tilemap);
 
-        let botPortal1 = new Portal(new Vector(95, 44), Portal.YELLOW);
-        GAME.addEntity(botPortal1);
-        let botPortal2 = new Portal(new Vector(94, 44), Portal.PURPLE);
-        GAME.addEntity(botPortal2);
+        let botPortal = new Portal(new Vector(82, 44), Portal.YELLOW);
+        GAME.addEntity(botPortal);
+        let transportPortal = new TransportPortal(new Vector(94, 44), Portal.PURPLE);
+        GAME.addEntity(transportPortal);
 
-        GAME.addEntity(new Border(
-            Vector.blockToWorldSpace(new Vector(95, 44)),
-            Vector.blockToWorldSpace(new Vector(1, 3)),
-            Zone.getZones().end.endZone
-        ));
+        transportPortal.activate(); // TODO only activate after necessary bots are killed
+
         // Temp for testing out fights.
         // Adding these to the current zone seems to also add them to the other cave zone if you travel to that zone.
         // May be due to timeout.

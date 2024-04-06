@@ -17,7 +17,8 @@ class Rock {
             Rock.INITIAL_SPEED,
             Rock.WEIGHT,
             (block) => this.onBlockCollision(block),
-            (enemy) => this.onEnemyCollision(enemy)
+            (enemy) => this.onEnemyCollision(enemy),
+            (player) => this.onPlayerCollision(player)
         );
 
         this.animations = [];
@@ -82,8 +83,9 @@ class Rock {
     onBlockCollision(block) {
         // checkBlockCollisions() is NOT stopping the rock's movement, but rather resetting its yVelocity to 0.
         // This produces a slight bounce effect, but only when the rock was launched upward and on its way down, NOT when Chad is aiming downward.
-        const collisions = checkBlockCollisions(this, Rock.SCALED_SIZE);
+        // the upward movement is caused by the projectile's direction given by its target coordinates at intialization.
         this.speed *= Rock.BOUNCINESS; // reduce speed after each bounce
+        const collisions = checkBlockCollisions(this, Rock.SCALED_SIZE);
 
         if (!this.hasHit) {
             ASSET_MGR.playSFX(SFX.RICOCHET2.path, SFX.RICOCHET2.volume);
@@ -105,6 +107,11 @@ class Rock {
             this.hasHit = true;
             this.removeFromWorld = true;
         }
+    }
+
+    /** Called when the rock collides with the player. */
+    onPlayerCollision(player) {
+        // do nothing
     }
 
     loadAnimations() {

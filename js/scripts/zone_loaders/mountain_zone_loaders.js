@@ -12,6 +12,7 @@ const loadMountainSlope1 = () => {
         ASSET_MGR.queueDownload(Precipitation.SPRITESHEET);
 
         ASSET_MGR.queueDownload(MUSIC.MOUNTAIN_MYSTERIOUS.path);
+
     };
 
     const addEntities = () => {
@@ -19,8 +20,8 @@ const loadMountainSlope1 = () => {
         GAME.addEntity(new Border(
             new Vector(ZONE.MIN_PT.x, 0),
             new Vector(1, ZONE.PIXEL_SIZE.y),
-            // Zone.getZones().river.river1
-            Zone.getZones().village.woods
+            Zone.getZones().river.river1
+            // Zone.getZones().village.woods
         ));
         GAME.addEntity(new Border(
             new Vector(0, 0),
@@ -29,6 +30,7 @@ const loadMountainSlope1 = () => {
         ));
         const groundLevel = 92;
 
+        WeatherSystem.setWeather("snow", 1, "day");
         TilemapInterpreter.setTilemap(mountainSlope1TileMap, false);
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.grass.GRASS_2, Vector.blockToWorldSpace(new Vector(0, groundLevel))), 1);
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.grass.GRASS_2, Vector.blockToWorldSpace(new Vector(5, groundLevel))), 1);
@@ -41,7 +43,6 @@ const loadMountainSlope1 = () => {
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.grass.GRASS_2, Vector.blockToWorldSpace(new Vector(19, groundLevel - 1))), 1);
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.grass.GRASS_3, Vector.blockToWorldSpace(new Vector(27, groundLevel))), 1);
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.grass.GRASS_2, Vector.blockToWorldSpace(new Vector(28, groundLevel))), 1);
-        WeatherSystem.setWeather("snow", 1, "day");
 
 
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.trees.SPRUCE_5, Vector.blockToWorldSpace(new Vector(-15, groundLevel))), -1);
@@ -72,7 +73,7 @@ const loadMountainSlope1 = () => {
         }
 
         // add 8 snowball ammodrops
-        GAME.addEntity(new AmmoDrop(Vector.blockToWorldSpace(new Vector(46, 75)), AmmoDrop.SNOWBALL, 8));       
+        GAME.addEntity(new AmmoDrop(Vector.blockToWorldSpace(new Vector(46, 75)), AmmoDrop.SNOWBALL, 8));
     };
 
     setTimeout(() => {
@@ -96,7 +97,9 @@ const loadMountainSlope2 = () => {
         ASSET_MGR.queueDownload(Slime.SPRITESHEET);
         ASSET_MGR.queueDownload(Yeti.SPRITESHEET);
 
-        ASSET_MGR.queueDownload(MUSIC.MOUNTAIN_MYSTERIOUS.path);
+        ASSET_MGR.queueDownload(MUSIC.ICE.path);
+
+
     };
 
     const addEntities = () => {
@@ -150,19 +153,25 @@ const loadMountainSlope2 = () => {
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.trees.SPRUCE_2, Vector.blockToWorldSpace(new Vector(71, 25))), -1);
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.trees.SPRUCE_3, Vector.blockToWorldSpace(new Vector(75, 25))), -1);
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.trees.SPRUCE_2, Vector.blockToWorldSpace(new Vector(92, 25))), -1);
-
+        GAME.addEntity(new FoodDrop(
+            Vector.blockToWorldSpace(new Vector(67, 57)),
+            FoodDrop.BURGER,
+            false
+        ));
         if ((LAST_ZONE && LAST_ZONE.equals(Zone.getZones().mountain.slope1) || LAST_ZONE === null)) { // Coming down the mounatin.
             // Set spawn point on the right.
-            const blockPos = new Vector(ZONE.MIN_BLOCK.x, 88);
+            const blockPos = new Vector(ZONE.MIN_BLOCK.x + 1, 87);
             CHAD.pos = Vector.blockToWorldSpace(blockPos);
         } else {
             const blockPos = new Vector(ZONE.MAX_BLOCK.x - 2, 20);
             CHAD.pos = Vector.blockToWorldSpace(blockPos);
         }
+
+        GAME.addEntity(new AmmoDrop(Vector.blockToWorldSpace(new Vector(25, 60)), AmmoDrop.SNOWBALL, 5, false));
     };
 
     setTimeout(() => {
-        ASSET_MGR.playMusic(MUSIC.MOUNTAIN_MYSTERIOUS.path, MUSIC.MOUNTAIN_MYSTERIOUS.volume);
+        ASSET_MGR.playMusic(MUSIC.ICE.path, MUSIC.ICE.volume);
     }, 500);
 
     queueAssets();

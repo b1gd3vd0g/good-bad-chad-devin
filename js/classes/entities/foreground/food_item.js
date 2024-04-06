@@ -85,6 +85,10 @@ class FoodItem {
     static get GIANT_MUSHROOM() {
         return 7;
     }
+
+    static get ROAST_TURKEY() {
+        return 8;
+    }
     
 
     print() {

@@ -12,7 +12,7 @@ class Snake {
      * @param {Vector} pos the position at which the Snake should start
      */
     constructor(pos) {
-        this.base = new EnemyBase(
+        this.base = new GroundEnemyBase(
             this, 
             pos, 
             Snake.SCALED_SIZE, 
@@ -20,7 +20,7 @@ class Snake {
             Snake.MAX_HEALTH, 
             Snake.PACE_DISTANCE, 
             () => this.handleDeath(),
-            EnemyBase.DEFENSIVE_STANCE
+            GroundEnemyBase.DEFENSIVE_STANCE
         );
 
         /** An associative array of the animations for this Snake. Arranged [facing][action]. */
@@ -87,10 +87,14 @@ class Snake {
     handleDeath() {
         this.action = "dying";
 
+        const pos = Vector.add(this.base.getCenter(), new Vector(0, -80));
+
         // add a piece of food in the snake's place at bottom-center of snake
         if (Math.random() < 0.6) {
-            const pos = Vector.add(this.base.getCenter(), new Vector(0, -80));
-            GAME.addEntity(new FoodDrop(pos, FoodDrop.STEAK));
+            GAME.addEntity(new FoodDrop(pos, FoodDrop.STEAK, true, true));
+        }
+        if (Math.random() < 0.5) {
+            GAME.addEntity(new RuneDrop(pos, RuneDrop.GREEN, true, true));
         }
     }
     
@@ -124,6 +128,7 @@ class Snake {
                     && secondsSinceLastAttack > Snake.DAMAGE_DELAY && !this.dealtDamage) {
                     // if we're at the proper point in our attack animation, deal damage
     
+                    ASSET_MGR.playSFX(SFX.SNAKE_HISS.path, SFX.SNAKE_HISS.volume);
                     CHAD.takeDamage(Snake.ATTACK_DAMAGE);
                     this.dealtDamage = true;
                 }

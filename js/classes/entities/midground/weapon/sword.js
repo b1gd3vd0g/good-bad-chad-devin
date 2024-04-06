@@ -112,6 +112,12 @@ class Sword {
                     if (bb.collide(entity.boundingBox)) {
                         entity.takeDamage(this.damage * CHAD.damageMultiplier);
                         this.hasHit = true;
+
+                        //TODO find a way to implement knockback that appears more natural
+                        // if (entity.knockback) {
+                        //     // if the entity has a knockback method, knock it back
+                        //     entity.knockback(30);
+                        // }
                         
                         // choose from 3 different hit sounds
                         const rand = Math.floor(Math.random() * 3) + 1;

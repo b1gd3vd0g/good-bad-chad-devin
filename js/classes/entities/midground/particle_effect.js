@@ -308,6 +308,30 @@ class ParticleEffect {
         };
     }
 
+    static get RED_LASER_TRAIL() {
+        return {
+            spread: 15,
+            size: 5,
+            amount: 1,
+            lifetime: 0.3,
+            color: COLORS.RED,
+            opacity: 0.7,
+            behavior: ParticleEffect.FAST_EXPAND
+        };
+    }
+
+    static get YELLOW_LASER_TRAIL() {
+        return {
+            spread: 15,
+            size: 5,
+            amount: 1,
+            lifetime: 0.3,
+            color: COLORS.YELLOW,
+            opacity: 0.7,
+            behavior: ParticleEffect.FAST_EXPAND
+        };
+    }
+
     static get VEGGIE_TRAIL() {
         return {
             spread: 15,
@@ -317,6 +341,18 @@ class ParticleEffect {
             color: COLORS.DARK_GREEN,
             opacity: 0.7,
             behavior: ParticleEffect.FALL
+        };
+    }
+
+    static get WAVE_TRAIL() {
+        return {
+            spread: 30,
+            size: 5,
+            amount: 1,
+            lifetime: 0.3,
+            color: COLORS.LIGHT_BLUE,
+            opacity: 0.7,
+            behavior: ParticleEffect.WIGGLE
         };
     }
 
@@ -358,6 +394,18 @@ class ParticleEffect {
             lifetime: 0.5,
             color: COLORS.ORANGE,
             opacity: 1.0,
+            behavior: ParticleEffect.FAST_EXPAND
+        };
+    }
+
+    static get MISSILE_EXPLOSION() {
+        return {
+            spread: 80,
+            size: 8,
+            amount: 15,
+            lifetime: 0.3,
+            color: COLORS.RED,
+            opacity: 0.8,
             behavior: ParticleEffect.FAST_EXPAND
         };
     }
@@ -407,7 +455,7 @@ class ParticleEffect {
             size: 4,
             amount: 20,
             lifetime: 0.8,
-            color: COLORS.LIGHT_PURPLE,
+            color: COLORS.LIGHT_GRAY,
             opacity: 0.8,
             behavior: ParticleEffect.RISE
         };

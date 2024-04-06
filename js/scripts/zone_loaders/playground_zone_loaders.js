@@ -224,6 +224,7 @@ const loadPlaygroundTrae = () => {
         }
         GAME.addEntity(new Bunny(Vector.blockToWorldSpace(new Vector(60, 20))));
         GAME.addEntity(new Snake(Vector.blockToWorldSpace(new Vector(80, 20))));
+        GAME.addEntity(new FlyingSnake(Vector.blockToWorldSpace(new Vector(80, 17))));
         GAME.addEntity(new Slime(Vector.blockToWorldSpace(new Vector(100, 20))));
         GAME.addEntity(new Yeti(Vector.blockToWorldSpace(new Vector(120, 0))));
 

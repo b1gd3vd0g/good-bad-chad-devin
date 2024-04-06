@@ -83,7 +83,7 @@ class StatusEffect {
                 this.strongTimer = duration ? duration : StatusEffect.STRONG_DURATION;
                 if (!this.strong) { // if already strong, don't take the same effect again
                     this.strong = true;
-                    this.entity.damageMultiplier = 2;
+                    this.entity.damageMultiplier = 3;
                     if (this.entity === CHAD) {
                         console.log("BIG CHUNGUS");
                         this.restoreScale();

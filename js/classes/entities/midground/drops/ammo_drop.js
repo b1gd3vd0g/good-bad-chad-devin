@@ -10,7 +10,7 @@ class AmmoDrop {
      * @param {Vector} pos The position at which the AmmoDrop should start.
      * @param {number} type The type of AmmoDrop that should be generated. AmmoDrop.ROCK, .BOMB, etc.
      */
-    constructor(pos, type, amount = 1, hasGravity = true, popInAir = false) {
+    constructor(pos, type, amount = 1, hasGravity = true, popInAir = true) {
 
         this.type = type;
         this.pos = pos;
@@ -27,8 +27,6 @@ class AmmoDrop {
         this.lastBoundingBox = this.boundingBox;
 
         const yCoordinate = AmmoDrop.SPRITESHEET_COORDINATES[type];
-        console.log("y coordinate", yCoordinate);
-        console.log("sprite sheet", AmmoDrop.SPRITESHEET);
         this.animation = new Animator(AmmoDrop.SPRITESHEET, 
             new Vector(0, yCoordinate * AmmoDrop.SIZE.y),
             AmmoDrop.SIZE, 7, 0.15);

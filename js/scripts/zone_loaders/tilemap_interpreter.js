@@ -27,6 +27,24 @@ class TilemapInterpreter {
             for (let x = ZONE.MAX_BLOCK.x; x >= ZONE.MIN_BLOCK.x; x--) {
 
                 switch (TilemapInterpreter.tilemap[y][x]) {
+                    case '`':
+                        GAME.addEntity(new Block(new Vector(x, y), Block.END_BLOCK_6), -1);
+                        break;
+                    case '~':
+                        GAME.addEntity(new Block(new Vector(x, y), Block.END_BLOCK_5), -1);
+                        break;
+                    case '!':
+                        GAME.addEntity(new Block(new Vector(x, y), Block.END_BLOCK_4), -1);
+                        break;
+                    case '#':
+                        GAME.addEntity(new Block(new Vector(x, y), Block.END_BLOCK_3), -1);
+                        break;
+                    case ':':
+                        GAME.addEntity(new Block(new Vector(x, y), Block.END_BLOCK_2), -1);
+                        break;
+                    case ';':
+                        GAME.addEntity(new Block(new Vector(x, y), Block.END_BLOCK_1));
+                        break;
                     case 'X':
                         GAME.addEntity(new Block(new Vector(x, y), Block.STONE_COBBLE), -1);
                         break;

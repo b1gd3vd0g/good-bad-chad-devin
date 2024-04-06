@@ -10,7 +10,7 @@ class Yeti {
      * @param {Vector} pos the initial position of the Yeti
      */
     constructor(pos) {
-        this.base = new EnemyBase(
+        this.base = new GroundEnemyBase(
             this, 
             pos, 
             Yeti.SCALED_SIZE, 
@@ -18,7 +18,7 @@ class Yeti {
             Yeti.MAX_HEALTH, 
             Yeti.ROAM_DISTANCE, 
             () => this.handleDeath(),
-            EnemyBase.AGGRESSIVE_STANCE
+            GroundEnemyBase.AGGRESSIVE_STANCE
         );
 
         this.animations = [];
@@ -98,6 +98,8 @@ class Yeti {
         } else {
             GAME.addEntity(new AmmoDrop(pos, AmmoDrop.SUS_SNOWBALL, 5));
         }
+
+        GAME.addEntity(new RuneDrop(pos, RuneDrop.YELLOW));
 
     }
 

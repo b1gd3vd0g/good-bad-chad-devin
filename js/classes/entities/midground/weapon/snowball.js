@@ -17,7 +17,8 @@ class Snowball {
             Snowball.INITIAL_SPEED,
             Snowball.WEIGHT,
             (block) => this.onBlockCollision(block),
-            (enemy) => this.onEnemyCollision(enemy)
+            (enemy) => this.onEnemyCollision(enemy),
+            (player) => this.onPlayerCollision(player)
         );
 
         this.animations = [];
@@ -58,7 +59,7 @@ class Snowball {
     }
 
     static get ALIVE_TIME() {
-        return 1;
+        return 2;
     }
 
     static get DAMAGE() {
@@ -101,7 +102,11 @@ class Snowball {
             this.hasHit = true;
             this.removeFromWorld = true;
         }
+    }
 
+    /** Called when the snowball collides with the player. */
+    onPlayerCollision(player) {
+        // do nothing
     }
 
     loadAnimations() {

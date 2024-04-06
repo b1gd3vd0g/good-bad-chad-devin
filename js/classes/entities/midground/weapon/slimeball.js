@@ -17,7 +17,8 @@ class Slimeball {
             Slimeball.INITIAL_SPEED,
             Slimeball.WEIGHT,
             (block) => this.onBlockCollision(block),
-            (enemy) => this.onEnemyCollision(enemy)
+            (enemy) => this.onEnemyCollision(enemy),
+            (player) => this.onPlayerCollision(player)
         );
 
         this.animations = [];
@@ -104,6 +105,11 @@ class Slimeball {
 
             this.removeFromWorld = true;
         }
+    }
+
+    /** Called when the slimeball collides with the player. */
+    onPlayerCollision(player) {
+        // do nothing
     }
 
     loadAnimations() {

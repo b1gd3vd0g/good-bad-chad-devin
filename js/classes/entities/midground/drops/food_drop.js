@@ -12,7 +12,7 @@ class FoodDrop {
      * @param {Vector} pos The position at which the FoodDrop should start.
      * @param {number} type The type of FoodDrop that should be generated. FoodDrop.BACON, .BURGER, .ENERGY_DRINK, .STEAK, .HAM, or .CHICKEN. 
      */
-    constructor(pos, type, hasGravity = true, popInAir = false) {
+    constructor(pos, type, hasGravity = true, popInAir = true) {
         if (typeof type !== "number" || type % 1 !== 0 || type < 0) {
             throw new Error("Invalid FoodDrop type: please use a FoodDrop member type (e.g. FoodDrop.STEAK).");
         }
@@ -26,7 +26,7 @@ class FoodDrop {
             this.yVelocity = -200;
         }
         this.scale = FoodDrop.NORMAL_FOOD_SCALE;
-        if (this.type == FoodDrop.BACON) {
+        if (this.type == FoodDrop.BACON || this.type == FoodDrop.ROAST_TURKEY) {
             this.scale = FoodDrop.SPECIAL_FOOD_SCALE;
         }
         this.scaledSize = Vector.multiply(FoodDrop.SIZE, this.scale);
@@ -53,6 +53,13 @@ class FoodDrop {
         ASSET_MGR.playSFX(sfx.path, sfx.volume);
 
         switch (this.type) {
+            case FoodItem.ROAST_TURKEY:
+                // grant Chad extra max health
+                CHAD.increaseMaxHealth(15);
+                CHAD.restoreHealth(CHAD.maxHealth);
+                console.log("Chad's max health is now " + CHAD.maxHealth + " HP.");
+                ASSET_MGR.playSFX(SFX.LIFE_UP.path, SFX.LIFE_UP.volume);
+                break;
             case FoodItem.GIANT_MUSHROOM:
                 // grow chad total size by 3.5x 
                 // allow him to crush enemies
@@ -94,8 +101,8 @@ class FoodDrop {
                 break;
 
             case FoodItem.BEEF:
-                // fully restore HP
-                CHAD.restoreHealth(Chad.MAX_HEALTH);
+                // restore 80 HP
+                CHAD.restoreHealth(80);
                 break;
         }
     }
@@ -188,5 +195,10 @@ class FoodDrop {
     /** The Giant Mushroom FoodDrop type. */
     static get GIANT_MUSHROOM() {
         return 7;
+    }
+
+    /** The Roast Turkey FoodDrop type. */
+    static get ROAST_TURKEY() {
+        return 8;
     }
 }

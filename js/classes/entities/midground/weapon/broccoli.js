@@ -17,7 +17,8 @@ class Broccoli {
             Broccoli.INITIAL_SPEED,
             Broccoli.WEIGHT,
             (block) => this.onBlockCollision(block),
-            (enemy) => this.onEnemyCollision(enemy)
+            (enemy) => this.onEnemyCollision(enemy),
+            (player) => this.onPlayerCollision(player)
         );
 
         this.animations = [];

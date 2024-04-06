@@ -235,6 +235,59 @@ class Decoration {
                     FRAME_DURATION: 1,
                     SIZE: new Vector(64, 64),
                     SCALE: 30
+                },
+                MAGIC_TREE_1: {
+                    SPRITESHEET: "./sprites/magicaltree1.png",
+                    SPRITESHEET_START_POS: new Vector(0, 0),
+                    FRAME_COUNT: 16,
+                    FRAME_DURATION: .5,
+                    SIZE: new Vector(256, 255
+                    ),
+                    SCALE: 3
+                },
+                MAGIC_TREE_2: {
+                    SPRITESHEET: "./sprites/magicaltree1.png",
+                    SPRITESHEET_START_POS: new Vector(0, 0),
+                    FRAME_COUNT: 16,
+                    FRAME_DURATION: .5,
+                    SIZE: new Vector(256, 255
+                    ),
+                    SCALE: 2
+                },
+                MAGIC_TREE_3: {
+                    SPRITESHEET: "./sprites/magicaltree1.png",
+                    SPRITESHEET_START_POS: new Vector(0, 0),
+                    FRAME_COUNT: 16,
+                    FRAME_DURATION: .5,
+                    SIZE: new Vector(256, 255
+                    ),
+                    SCALE: 5
+                },
+                MAGIC_TREE_4: {
+                    SPRITESHEET: "./sprites/magicaltree2.png",
+                    SPRITESHEET_START_POS: new Vector(0, 0),
+                    FRAME_COUNT: 16,
+                    FRAME_DURATION: .5,
+                    SIZE: new Vector(256, 255
+                    ),
+                    SCALE: 3
+                },
+                MAGIC_TREE_5: {
+                    SPRITESHEET: "./sprites/magicaltree2.png",
+                    SPRITESHEET_START_POS: new Vector(0, 0),
+                    FRAME_COUNT: 16,
+                    FRAME_DURATION: .5,
+                    SIZE: new Vector(256, 255
+                    ),
+                    SCALE: 2
+                },
+                MAGIC_TREE_6: {
+                    SPRITESHEET: "./sprites/magicaltree2.png",
+                    SPRITESHEET_START_POS: new Vector(0, 0),
+                    FRAME_COUNT: 16,
+                    FRAME_DURATION: .5,
+                    SIZE: new Vector(256, 255),
+                    SCALE: 5
                 }
 
             },

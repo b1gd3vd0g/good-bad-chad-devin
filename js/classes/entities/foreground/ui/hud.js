@@ -578,6 +578,7 @@ class HudHealthBar {
      */
     constructor(pos) {
         this.pos = pos;
+        this.length = Chad.DEFAULT_MAX_HEALTH * 4;
     };
 
     /** The height of the actual health bar. */
@@ -597,20 +598,25 @@ class HudHealthBar {
 
     /** Update the HealthBar. */
     update() {
-
+        this.length = CHAD.maxHealth * 4;
     };
 
     /** Draw the HealthBar. */
     draw() {
         // draw background
         CTX.fillStyle = "#000000";
-        CTX.fillRect(this.pos.x, this.pos.y, HudHealthBar.SIZE.x, HudHealthBar.BAR_HEIGHT);
+        CTX.fillRect(this.pos.x, this.pos.y, this.length, HudHealthBar.BAR_HEIGHT);
 
         // draw the actual health bar
         CTX.fillStyle = "#ff0000";
         CTX.fillRect(this.pos.x + HudHealthBar.PADDING, this.pos.y + HudHealthBar.PADDING,
-            (HudHealthBar.SIZE.x - HudHealthBar.PADDING * 2) * CHAD.health / Chad.MAX_HEALTH,
+            (this.length - HudHealthBar.PADDING * 2) * CHAD.health / CHAD.maxHealth,
             HudHealthBar.BAR_HEIGHT - HudHealthBar.PADDING * 2);
+
+        // draw text for health / max health
+        CTX.fillStyle = "white";
+        CTX.font = Hud.TEXT_SIZE + "px vt323";
+        CTX.fillText(CHAD.health + " / " + CHAD.maxHealth + " HP", this.pos.x + this.length + 10, this.pos.y + Hud.TEXT_SIZE/2);
     };
 }
 

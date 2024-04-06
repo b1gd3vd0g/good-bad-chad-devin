@@ -43,7 +43,7 @@ class Block {
         //             this.canPassThru.left = true;
         //             this.canPassThru.right = true;
         //             break;
-    
+
         //         // ... other cases
         //     }
         // }
@@ -257,6 +257,24 @@ class Block {
     }
     static get WATER_BOTTOM() {
         return 52;
+    }
+    static get END_BLOCK_1() {
+        return 53;
+    }
+    static get END_BLOCK_2() {
+        return 54;
+    }
+    static get END_BLOCK_3() {
+        return 55;
+    }
+    static get END_BLOCK_4() {
+        return 56;
+    }
+    static get END_BLOCK_5() {
+        return 57;
+    }
+    static get END_BLOCK_6() {
+        return 58;
     }
     /** How much bigger should the sprite be drawn on the canvas than it is on the spritesheet? */
     static get SCALE() {

@@ -17,7 +17,8 @@ class SusSnowball {
             SusSnowball.INITIAL_SPEED,
             SusSnowball.WEIGHT,
             (block) => this.onBlockCollision(block),
-            (enemy) => this.onEnemyCollision(enemy)
+            (enemy) => this.onEnemyCollision(enemy),
+            (player) => this.onPlayerCollision(player)
         );
 
         this.animations = [];
@@ -58,7 +59,7 @@ class SusSnowball {
     }
 
     static get ALIVE_TIME() {
-        return 3;
+        return 2;
     }
 
     /** Called when the sus snowball collides with a block. */
@@ -98,7 +99,11 @@ class SusSnowball {
             this.hasHit = true;
             this.removeFromWorld = true;
         }
+    }
 
+    /** Called when the sus snowball collides with the player. */
+    onPlayerCollision(player) {
+        // do nothing
     }
 
     loadAnimations() {

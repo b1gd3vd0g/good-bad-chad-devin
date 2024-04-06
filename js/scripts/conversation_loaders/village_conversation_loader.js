@@ -291,7 +291,7 @@ const wizardConversationLoader = () => {
                     });
                 }),
             new DialogBubble(none,
-                "The rest of the world has opened up to explore! He must have run off somewhere to the east!",
+                "The rest of the world has opened up to explore! The evil wizard must have run off somewhere to the east!",
                 true)
         ]
     }

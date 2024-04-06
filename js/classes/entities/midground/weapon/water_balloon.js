@@ -17,7 +17,8 @@ class WaterBalloon {
             WaterBalloon.INITIAL_SPEED,
             WaterBalloon.WEIGHT,
             (block) => this.onBlockCollision(block),
-            (enemy) => this.onEnemyCollision(enemy)
+            (enemy) => this.onEnemyCollision(enemy),
+            (player) => this.onPlayerCollision(player)
         );
 
         this.animations = [];
@@ -79,16 +80,21 @@ class WaterBalloon {
         this.explode();
     }
 
+    /** Called when the waterballoon collides with the player. */
+    onPlayerCollision(player) {
+        // do nothing
+    }
+
     explode() {
         if (this.hasHit) return;
         // release a particle effect
         const center = Vector.add(this.pos, Vector.divide(WaterBalloon.SCALED_SIZE, 2));
         GAME.addEntity(new ParticleEffect(center, ParticleEffect.WATER_EXPLOSION));
         ASSET_MGR.playSFX(SFX.WATER_BALLOON.path, SFX.WATER_BALLOON.volume);
-
+        
         const nearbyEntities = getNearbyEntities(this.pos, 120);
         for (const entity of nearbyEntities) {
-            if (entity.takeDamage) {
+            if (entity.takeDamage && entity != CHAD) {
                 entity.takeDamage(WaterBalloon.DAMAGE);
             }
         }

@@ -50,7 +50,7 @@ class WeatherSystem {
     static makeHeavens() {
         let sunVector = new Vector(Camera.SIZE.x - 2 * Sun.SCALED_SIZE, Sun.SCALED_SIZE - 100);
         if (WeatherSystem.time === "night") {
-            BG_COLOR = COLORS.SKY_DARK;
+            BG_COLOR = COLORS.SKY_DARK_BLUE;
             GAME.addEntity(new Sun(sunVector, Sun.MOON), -1);
 
         } else {
