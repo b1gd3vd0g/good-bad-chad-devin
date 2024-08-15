@@ -203,12 +203,12 @@ const loadVillageMain = () => {
         let aboveGroundLevel = 17;
         // let skyHeight = 14;
         let chadOnGround = 10;
-        // Add a border to the right side of the map, leading to the field.
-        GAME.addEntity(new Border(
-            new Vector(ZONE.MIN_PT.x, 0),
-            new Vector(1, ZONE.PIXEL_SIZE.y),
-            Zone.getZones().village.field
-        ));
+        // // Add a border to the right side of the map, leading to the field.
+        // GAME.addEntity(new Border(
+        //     new Vector(ZONE.MIN_PT.x, 0),
+        //     new Vector(1, ZONE.PIXEL_SIZE.y),
+        //     Zone.getZones().village.field
+        // ));
 
         const easternBorderLocked = STORY.villageAttackEnded ? false : true;
         GAME.addEntity(new Border(
