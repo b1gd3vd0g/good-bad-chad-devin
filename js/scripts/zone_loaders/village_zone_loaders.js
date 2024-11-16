@@ -268,6 +268,8 @@ const loadVillageMain = () => {
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.trees.SPRUCE_2, Vector.blockToWorldSpace(new Vector(84, aboveGroundLevel))), 1);
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.trees.SPRUCE_1, Vector.blockToWorldSpace(new Vector(87, aboveGroundLevel))));
 
+        GAME.addEntity(new DrillBot(Vector.blockToWorldSpace(new Vector(80, aboveGroundLevel-8))));
+
         /*
         The above content was all static. Below, there are conditional spawns/settings based on story progression.
         Namely, we need to script the village attack when the tutorial (snake/bunny hunt) is complete.

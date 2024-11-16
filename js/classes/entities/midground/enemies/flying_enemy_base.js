@@ -123,4 +123,8 @@ class FlyingEnemyBase {
         return [new Vector(0, 0), new Vector(200, 0), new Vector(0, 0)];
     }
 
+    static get JUMP() {
+        return [new Vector(0, 0), new Vector(0, -200), new Vector(0, 0)];
+    }
+
 }

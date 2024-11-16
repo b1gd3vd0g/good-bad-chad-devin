@@ -68,6 +68,17 @@ class EnemyBase {
     };
 
     /**
+     * Calculates the distance between Chad and the enemy, comparing their bottom left corners
+     * in order to avoid having to account for character/enemy height.
+     * 
+     * @returns {number} the distance between the bottom left corners of Chad and the enemy
+     */
+    chadDistance() {
+        return Vector.distance(Vector.add(CHAD.getCenter(), new Vector(0, CHAD.scaledSize.y / 2)),
+            Vector.add(this.enemy.getCenter(), new Vector(0, this.enemy.scaledSize.y / 2)));
+    }
+
+    /**
      * NOTE: Slight bug where enemy is considered "out of view" when it's at the LEFT edge of the camera. Should be insignificant.
      * Fix with an offset if it becomes a problem.
      * 

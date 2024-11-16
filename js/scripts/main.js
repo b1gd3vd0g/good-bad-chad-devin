@@ -47,18 +47,18 @@ document.addEventListener("keydown", (key) => {
 // 1ST APPROACH: 
 // If the window loses focus, pause the game.
 CANVAS.onblur = () => {
+	HUD.swapToPointer();
 	GAME.running = false;
 	ASSET_MGR.stopAllSFX();
 	ASSET_MGR.playSFX(SFX.UI_HIGH_BEEP.path, SFX.UI_HIGH_BEEP.volume);
 	ASSET_MGR.pauseMusic();
-	HUD.swapToPointer();
 };
 // If the window regains focus, unpause the game.
 CANVAS.onfocus = () => {
+	HUD.swapToCrosshair();
 	GAME.running = true;
 	ASSET_MGR.playSFX(SFX.UI_HIGH_BEEP.path, SFX.UI_HIGH_BEEP.volume);
 	ASSET_MGR.resumeMusic();
-	HUD.swapToCrosshair();
 }
 
 // 2ND APPROACH:

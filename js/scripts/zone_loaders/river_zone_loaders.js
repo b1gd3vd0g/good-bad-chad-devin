@@ -89,9 +89,9 @@ const loadRiver = () => {
         false
     ));
 
-    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(8.5, 29)), 500, 0, 8));
-    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(20.5, 29)), 700, 30, 10));
-    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(25.5, 29)), 700, -30, 12));
+    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(8.5, 29)), FlyingEnemyBase.JUMP, 300));
+    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(20.5, 29)), FlyingEnemyBase.JUMP, 350));
+    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(25.5, 29)), FlyingEnemyBase.JUMP, 400));
 
     GAME.addEntity(new EelBoss(Vector.blockToWorldSpace(new Vector(145, 18))));
 
@@ -100,7 +100,7 @@ const loadRiver = () => {
     setTimeout(() => {
         ASSET_MGR.playMusic(MUSIC.RUSHING_WATER.path, MUSIC.RUSHING_WATER.volume);
     }, 500);
-    
+
 
     // Set background color:
     BG_COLOR = COLORS.SKY_BLUE;
