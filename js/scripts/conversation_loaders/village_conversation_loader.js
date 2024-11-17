@@ -182,6 +182,51 @@ const blacksmithConversationLoader = () => {
             new DialogBubble(bs, "mmhm...", true),
             // 9
             new DialogBubble(bs, "Gonna need more than that.", true)
+        ], merchantScared: [
+            // 0
+            new DialogBubble(bs,
+                "Ever since the attack I decided to leave the village. \nI will sell from here to support you as you bring our village to justice."),
+            // 1
+            new DecisionBubble('Blacksmith', 'Hello.', [
+                new Choice('I\'d like to see what you have for sale.', 2),
+                new Choice('Leave.', 7)
+            ]),
+            // 2
+            new DialogBubble(bs, 'Okay.'),
+            // 3
+            new DecisionBubble('Blacksmith', 'Okay', [
+                new Choice("Rock ammo (25 for 25 runes)", () => {
+                    return INVENTORY.runes >= 25 ? 4 : 9;
+                }),
+                new Choice("Rock ammo (100 for 100 runes)", () => {
+                    return INVENTORY.runes >= 100 ? 5 : 9;
+                }),
+                new Choice("Bomb ammo (5 for 50 runes)", () => {
+                    return INVENTORY.runes >= 50 ? 6 : 9;
+                }),
+                new Choice('Leave.', 7)
+            ]),
+            // 4
+            new DialogBubble(bs, "Here you go.", true, () => {
+                INVENTORY.spendRunes(25);
+                INVENTORY.adjustAmmo(AmmoItem.ROCK, 25);
+            }),
+            // 5
+            new DialogBubble(bs, "Here you go.", true, () => {
+                INVENTORY.spendRunes(100);
+                INVENTORY.adjustAmmo(AmmoItem.ROCK, 100);
+            }),
+            // 6
+            new DialogBubble(bs, "Here you go.", true, () => {
+                INVENTORY.spendRunes(50);
+                INVENTORY.adjustAmmo(AmmoItem.BOMB, 5);
+            }),
+            // 7
+            new DialogBubble(chad, "See ya!"),
+            // 8
+            new DialogBubble(bs, "mmhm...", true),
+            // 9
+            new DialogBubble(bs, "Gonna need more than that.", true)
         ]
     };
 }
@@ -272,7 +317,7 @@ const wizardConversationLoader = () => {
     const none = DialogBubble.SPEAKERS.NONE;
     return {
         threateningIntroduction: [
-            new DialogBubble(wiz, 
+            new DialogBubble(wiz,
                 "Stop right there, boy!"),
             new DialogBubble(wiz,
                 "You've gotten lucky facing my army of slime. Do not spoil your luck now by trying anything stupid."),

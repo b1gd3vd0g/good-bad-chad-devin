@@ -12,11 +12,11 @@ class OculiBot {
      */
     constructor(pos, path) {
         this.base = new FlyingEnemyBase(
-            this, 
-            pos, 
-            OculiBot.SCALED_SIZE, 
-            OculiBot.SPEED, 
-            OculiBot.MAX_HEALTH, 
+            this,
+            pos,
+            OculiBot.SCALED_SIZE,
+            OculiBot.SPEED,
+            OculiBot.MAX_HEALTH,
             () => this.handleDeath(),
             path
         );
@@ -113,7 +113,7 @@ class OculiBot {
             GAME.addEntity(new RuneDrop(pos, RuneDrop.GRAY));
         }
     }
-    
+
     /** Change what the OculiBot is doing and where it is. */
     update() {
         this.base.update();
@@ -124,12 +124,12 @@ class OculiBot {
             const secondsSinceLastAttack = Date.now() / 1000 - this.lastAttack;
 
             // if we've finished our current attack, change action to idle
-            if (this.action === "attacking" 
+            if (this.action === "attacking"
                 && this.animations[this.getFacing()]["attacking"].totalTime < secondsSinceLastAttack) {
-                    
+
                 this.action = "moving";
             }
-    
+
             // if Chad is close enough, shoot him
             if (Vector.distance(CHAD.pos, this.pos) < OculiBot.ATTACK_DISTANCE) {
                 if (secondsSinceLastAttack > OculiBot.ATTACK_COOLDOWN) {
@@ -138,10 +138,10 @@ class OculiBot {
                     this.action = "attacking";
                     this.lastAttack = Date.now() / 1000;
                     this.dealtDamage = false;
-                } else if (this.action === "attacking" 
+                } else if (this.action === "attacking"
                     && secondsSinceLastAttack > OculiBot.DAMAGE_DELAY && !this.dealtDamage) {
                     // if we're at the proper point in our attack animation, deal damage
-    
+
                     const misdirectVector = new Vector(Math.random() * 20 - 10, Math.random() * 20 - 10);
                     const target = Vector.add(CHAD.getCenter(), misdirectVector);
                     GAME.addEntity(ProjectileFactory.create(ProjectileFactory.LASER, this.pos, target));
@@ -156,7 +156,7 @@ class OculiBot {
                 STORY.botsKilled = 1;
             }
         }
-        
+
 
     };
 
@@ -181,7 +181,7 @@ class OculiBot {
             new Vector(0, OculiBot.SIZE.y),
             OculiBot.SIZE,
             3, 0.5);
-        
+
         // moving animations (same as idle)
         this.animations["right"]["moving"] = new Animator(
             OculiBot.SPRITESHEET,

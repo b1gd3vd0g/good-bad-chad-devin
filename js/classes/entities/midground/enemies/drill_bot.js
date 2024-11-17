@@ -11,12 +11,12 @@ class DrillBot {
      */
     constructor(pos) {
         this.base = new GroundEnemyBase(
-            this, 
-            pos, 
-            DrillBot.SCALED_SIZE, 
-            DrillBot.SPEED, 
-            DrillBot.MAX_HEALTH, 
-            DrillBot.ROAM_DISTANCE, 
+            this,
+            pos,
+            DrillBot.SCALED_SIZE,
+            DrillBot.SPEED,
+            DrillBot.MAX_HEALTH,
+            DrillBot.ROAM_DISTANCE,
             () => this.handleDeath(),
             GroundEnemyBase.AGGRESSIVE_STANCE
         );
@@ -64,7 +64,7 @@ class DrillBot {
     static get ROAM_DISTANCE() {
         return DrillBot.SCALED_SIZE.x * 2;
     };
-    
+
     /** The number of seconds between attacks. */
     static get ATTACK_COOLDOWN() {
         return 2;
@@ -127,7 +127,7 @@ class DrillBot {
         }
     }
 
-    
+
     /** Update the DrillBot. */
     update() {
         this.base.update();
@@ -139,9 +139,9 @@ class DrillBot {
             const secondsSinceLastAttack = Date.now() / 1000 - this.lastAttack;
 
             // if we've finished our current attack, change action to idle
-            if (this.action === "attacking" 
+            if (this.action === "attacking"
                 && this.animations[this.base.getFacing()]["attacking"].totalTime < secondsSinceLastAttack) {
-                    
+
                 this.action = "idle";
             }
 
@@ -155,7 +155,7 @@ class DrillBot {
                     this.performedFirstAttack = false;
                     this.performedSecondAttack = false;
                 }
-                if (this.action === "attacking" 
+                if (this.action === "attacking"
                     && secondsSinceLastAttack > DrillBot.FIRST_DAMAGE_DELAY && !this.performedFirstAttack) {
                     // if we're at the proper point in our attack animation, deal damage the first time
 
@@ -165,7 +165,7 @@ class DrillBot {
                     this.timeOfFirstAttack = Date.now() / 1000; // Record the time of the first attack
                 }
                 const secondsSinceFirstAttack = Date.now() / 1000 - this.timeOfFirstAttack;
-                if (this.action === "attacking" 
+                if (this.action === "attacking"
                     && secondsSinceFirstAttack > DrillBot.SECOND_DAMAGE_DELAY && !this.performedSecondAttack) {
                     // if we're at the proper point in our attack animation, deal damage the second time
 
@@ -211,42 +211,42 @@ class DrillBot {
             new Vector(0, 0),
             DrillBot.SIZE,
             1, 1);
-        
+
         // moving animations
         this.animations["left"]["moving"] = new Animator(
             DrillBot.SPRITESHEET,
             new Vector(0, DrillBot.SIZE.y),
             DrillBot.SIZE,
-            2, 1/2);
+            2, 1 / 2);
         this.animations["right"]["moving"] = new Animator(
             DrillBot.SPRITESHEET,
             new Vector(0, 0),
             DrillBot.SIZE,
-            2, 1/2);
+            2, 1 / 2);
 
         // attacking animations
         this.animations["left"]["attacking"] = new Animator(
             DrillBot.SPRITESHEET,
             new Vector(DrillBot.SIZE.x * 2, DrillBot.SIZE.y),
             DrillBot.SIZE,
-            8, 1/8);
+            8, 1 / 8);
         this.animations["right"]["attacking"] = new Animator(
             DrillBot.SPRITESHEET,
             new Vector(DrillBot.SIZE.x * 2, 0),
             DrillBot.SIZE,
-            8, 1/8);
-        
-        
+            8, 1 / 8);
+
+
         // dying animations
         this.animations["left"]["dying"] = new Animator(
             DrillBot.SPRITESHEET,
             new Vector(DrillBot.SIZE.x * 10, DrillBot.SIZE.y),
             DrillBot.SIZE,
-            2, 1/2);
+            2, 1 / 2);
         this.animations["right"]["dying"] = new Animator(
             DrillBot.SPRITESHEET,
             new Vector(DrillBot.SIZE.x * 10, 0),
             DrillBot.SIZE,
-            2, 1/2);
+            2, 1 / 2);
     };
 };

@@ -46,7 +46,7 @@ class EelBoss {
 
     /** The speed of the EelBoss. */
     static get SPEED() {
-        return 50;
+        return 100;
     }
 
     /** The filepath to the spritesheet of the EelBoss. */
@@ -95,6 +95,7 @@ class EelBoss {
         GAME.addEntity(new FoodDrop(pos, FoodDrop.ROAST_TURKEY, true, true));
         GAME.addEntity(new FoodDrop(Vector.add(pos, new Vector(-5, 5)), FoodDrop.BURGER, true, true));
 
+
         GAME.addEntity(new RuneDrop(pos, RuneDrop.RED, true, true));
         GAME.addEntity(new RuneDrop(Vector.add(pos, new Vector(5, 0)), RuneDrop.GREEN, true, true));
         GAME.addEntity(new RuneDrop(Vector.add(pos, new Vector(-5, 0)), RuneDrop.GREEN, true, true));
@@ -117,6 +118,7 @@ class EelBoss {
         if (!this.playingBossMusic && this.isInView()) {
             ASSET_MGR.playMusic(MUSIC.RIVER_BOSS.path, MUSIC.RIVER_BOSS.volume);
             this.playingBossMusic = true;
+            this.state = "pursue";
         }
 
         const deathAnim = this.animations[this.base.getFacing()]["dying"];

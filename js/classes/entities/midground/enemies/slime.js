@@ -21,12 +21,12 @@ class Slime {
         this.type = type ?? Slime.SAP; // If no type parameter input, assume SAP.
 
         this.base = new GroundEnemyBase(
-            this, 
-            pos, 
-            Slime.SCALED_SIZE, 
-            Slime.SPEED, 
-            Slime.MAX_HEALTH, 
-            Slime.PACE_DISTANCE, 
+            this,
+            pos,
+            Slime.SCALED_SIZE,
+            Slime.SPEED,
+            Slime.MAX_HEALTH,
+            Slime.PACE_DISTANCE,
             () => this.handleDeath(),
             GroundEnemyBase.AGGRESSIVE_STANCE
         );
@@ -39,7 +39,7 @@ class Slime {
     };
 
     // Types:
-   /** A constant for the Sap type that can be passed to the constructor. */
+    /** A constant for the Sap type that can be passed to the constructor. */
     static get SAP() {
         return 0;
     }
@@ -95,8 +95,8 @@ class Slime {
         return Slime.SCALED_SIZE.x * 5;
     }
 
-     /** The number of seconds between attacks. */
-     static get ATTACK_COOLDOWN() {
+    /** The number of seconds between attacks. */
+    static get ATTACK_COOLDOWN() {
         return 1;
     };
 
@@ -123,18 +123,21 @@ class Slime {
         if (rand < 0.4) {
             if (this.type === Slime.FROST) {
                 GAME.addEntity(new AmmoDrop(pos, AmmoDrop.SNOWBALL, 2));
-            } else {
+            } else if (this.type === Slime.EVIL) {
+                GAME.addEntity(new AmmoDrop(pos, AmmoDrop.BROCCOLI, 1));
+            } else if (this.type !== Slime.EVIL) {
                 GAME.addEntity(new AmmoDrop(pos, AmmoDrop.SLIMEBALL, 1));
             }
+
         } else if (rand < 0.7) {
             if (this.type === Slime.FROST) {
                 GAME.addEntity(new AmmoDrop(pos, AmmoDrop.SUS_SNOWBALL, 2));
-            } else {
+            } else if (this.type !== Slime.EVIL) {
                 GAME.addEntity(new AmmoDrop(pos, AmmoDrop.SLIMEBALL, 2));
             }
         }
     }
-    
+
     /** Change what the Slime is doing and where it is. */
     update() {
         this.base.update();
@@ -181,7 +184,7 @@ class Slime {
             new Vector(Slime.SIZE.x, this.type * 4 * Slime.SIZE.y + Slime.SIZE.y),
             Slime.SIZE,
             1, 1);
-        
+
         // Moving animations
         this.animations["right"]["moving"] = new Animator(
             Slime.SPRITESHEET,
@@ -193,17 +196,17 @@ class Slime {
             new Vector(0, this.type * 4 * Slime.SIZE.y + Slime.SIZE.y),
             Slime.SIZE,
             4, 0.25);
-        
+
         // Death animations
         this.animations["right"]["dying"] = new Animator(
             Slime.SPRITESHEET,
             new Vector(0, this.type * 4 * Slime.SIZE.y + 2 * Slime.SIZE.y),
             Slime.SIZE,
-            7, 1/14);
+            7, 1 / 14);
         this.animations["left"]["dying"] = new Animator(
             Slime.SPRITESHEET,
             new Vector(0, this.type * 4 * Slime.SIZE.y + 3 * Slime.SIZE.y),
             Slime.SIZE,
-            7, 1/14);
+            7, 1 / 14);
     };
 };
