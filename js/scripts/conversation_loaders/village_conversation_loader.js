@@ -99,7 +99,7 @@ const mayorConversationLoader = () => {
             ]),
             // 2
             new DialogBubble(chad,
-                "Sure is, and warm! Might head over to the lake and see if there's any babes!"),
+                "Sure is, and warm! Might head over to the lake and go swimming!"),
             // 3
             new DialogBubble(mayor,
                 "Maybe wait a bit before doing that. I know it doesn't look it, but I sense there will be a storm. There's a strange chill in the air tonight."),

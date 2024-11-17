@@ -40,7 +40,7 @@ const mamaConversationLoaderEnd = () => {
       new DialogBubble(mama,
         "Oh my, where am I? What's going on? Chad? Oh heavens, Chad, are you alright?!"),
       new DialogBubble(chad,
-        "I'm okay mama, are you?! I've come a long way to save you from this blue perv."),
+        "I'm okay mama, are you?! I've come a long way to save you from this horrible wizard."),
       new DialogBubble(wiz,
         "Fool! You know nothing of my motives. I am the greatest conjurer this plane has ever seen!"),
       new DialogBubble(chad,

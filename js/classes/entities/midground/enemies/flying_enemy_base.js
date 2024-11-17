@@ -135,15 +135,18 @@ class FlyingEnemyBase {
     }
 
     static get JUMP_SMALL() {
-        return [new Vector(0, 0), new Vector(0, -200), new Vector(0, 0)];
+        const jumpDistance = 200;
+        return [new Vector(0, 0), new Vector(0, -jumpDistance/4), new Vector(0, -jumpDistance), new Vector(0, 0)];
     }
 
     static get JUMP_MEDIUM() {
-        return [new Vector(0, 0), new Vector(0, -400), new Vector(0, 0)];
+        const jumpDistance = 400;
+        return [new Vector(0, 0), new Vector(0, -jumpDistance/4), new Vector(0, -jumpDistance), new Vector(0, 0)];
     }
 
     static get JUMP_BIG() {
-        return [new Vector(0, 0), new Vector(0, -600), new Vector(0, 0)];
+        const jumpDistance = 600;
+        return [new Vector(0, 0), new Vector(0, -jumpDistance/4), new Vector(0, -jumpDistance), new Vector(0, 0)];
     }
 
 }

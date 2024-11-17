@@ -89,9 +89,9 @@ const loadRiver = () => {
         false
     ));
 
-    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(8.5, 29)), FlyingEnemyBase.JUMP_SMALL, 300));
-    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(20.5, 29)), FlyingEnemyBase.JUMP_BIG, 350));
-    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(25.5, 29)), FlyingEnemyBase.JUMP_BIG, 400));
+    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(8.5, 29)), FlyingEnemyBase.JUMP_SMALL, 450));
+    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(20.5, 29)), FlyingEnemyBase.JUMP_BIG, 550));
+    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(25.5, 29)), FlyingEnemyBase.JUMP_BIG, 600));
 
     GAME.addEntity(new EelBoss(Vector.blockToWorldSpace(new Vector(145, 18))));
 

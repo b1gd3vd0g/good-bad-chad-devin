@@ -36,12 +36,12 @@ class Eel {
 
     /** The size, in pixels, of the Eel ON THE SPRITESHEET. */
     static get SIZE() {
-        return new Vector(40, 13);
+        return new Vector(13, 40);
     }
 
     /** How much bigger should the Eel be drawn on the canvas than it is on the spritesheet? */
     static get SCALE() {
-        return 3;
+        return 3.5;
     };
 
     /** This will be the size of the Eel ON THE CANVAS. */
@@ -52,7 +52,7 @@ class Eel {
 
     /** The filepath to the spritesheet of the Eel. */
     static get SPRITESHEET() {
-        return "./sprites/snake_blue.png";
+        return "./sprites/snake_blue3.png";
     };
 
     /** The maximum health of the Eel. */
@@ -115,8 +115,10 @@ class Eel {
                 this.action = "moving";
             }
 
-            // if Chad is close enough, bite him
-            if (this.base.chadDistance() < Eel.SCALED_SIZE.x / 2) {
+
+
+            // if Chad is close enough, bite em'
+            if (this.base.chadDistance() < Eel.SCALED_SIZE.x * 1.4) {
                 if (secondsSinceLastAttack > Eel.ATTACK_COOLDOWN) {
                     // if it's been long enough, start a new attack 
                     this.animations[this.getFacing()]["attacking"].elapsedTime = 0;
@@ -133,6 +135,7 @@ class Eel {
             }
             if (deathAnim.currentFrame === deathAnim.frameCount - 1) {
                 this.removeFromWorld = true;
+                console.log("DEFEATED EEL. VANISH YOU FOUL CREATURE");
             }
         }
     };
