@@ -1,10 +1,16 @@
+/**
+ * Papa Chad is a mostly idle entity who must be able to walk for the tutorial.
+ * Otherwise he stands still in his idle position and offers dialog options to Chad.
+ * 
+ * @author Devin, Caleb, Nathan, Trae
+ */
 class Miner {
     /**
-      * @param {Vector} pos the position at which he should spawn. 
-      * @param {Conversation} convo The conversation that will show if Miner is interacted with.
-      */
+     * @param {Vector} pos the position at which he should spawn. 
+     * @param {Conversation} convo The conversation that will show if Miner is interacted with.
+     */
     constructor(pos, convo = null) {
-        /** The position of the Miner (in the game world). */
+        /** The position of the Papa Chad (in the game world). */
         this.pos = pos;
         /** The velocity at which Miner is moving. */
         this.velocity = new Vector(0, 0);
@@ -13,7 +19,7 @@ class Miner {
         this.animations = [];
         this.loadAnimations();
         /** What way is the Papa Chad looking? */
-        this.facing = "left";
+        this.facing = "right";
         /** What is the Papa Chad doing? */
         this.action = "idle";
         /** Used to check for collisions with other applicable entities. */
@@ -24,20 +30,24 @@ class Miner {
         this.conversation = convo;
     };
 
-    static get SPRITESHEET() {
-        return './sprites/Miner.png';
-    };
-
+    /** The size, in pixels of the sprite ON THE SPRITESHEET. */
     static get SIZE() {
-        return new Vector(64, 64);
-    };
+        return new Vector(32, 64);
+    }
 
+    /** How much bigger should the sprite be drawn on the canvas than it is on the spritesheet? */
     static get SCALE() {
-        return 2.2;
+        return 2.4;
     };
 
+    /** This will be the size of Papa Chad ON THE CANVAS. */
     static get SCALED_SIZE() {
         return Vector.multiply(Miner.SIZE, Miner.SCALE);
+    }
+
+    /** The filepath to Papa Chad's spritesheet. */
+    static get SPRITESHEET() {
+        return "./sprites/miner.png";
     };
 
     /** Change what Papa Chad is doing and where it is. */
@@ -111,7 +121,7 @@ class Miner {
     /** Draw Papa Chad on the canvas. */
     draw() {
         this.animations[this.facing][this.action].drawFrame(Vector.worldToCanvasSpace(this.pos), Miner.SCALE);
-        if (this.conversation && this.conversation.new) {
+        if (this.conversation.new) {
             const indicator = new OverheadIcon(this, Miner.SCALED_SIZE.x, OverheadIcon.TRIANGLE, OverheadIcon.GREEN);
             indicator.draw();
         }
@@ -119,12 +129,15 @@ class Miner {
 
     /** Called by the constructor. Fills up the animations array. */
     loadAnimations() {
-        this.animations["left"] = [];
+        this.animations["right"] = [];
 
-        this.animations["left"]["idle"] = new Animator(
-            './sprites/Miner.png',
+        this.animations["right"]["idle"] = new Animator(
+            Miner.SPRITESHEET,
             new Vector(0, 0),
             Miner.SIZE,
-            6, .2);
+            1, 1);
+
+
+
     };
 };

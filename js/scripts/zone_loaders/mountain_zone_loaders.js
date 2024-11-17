@@ -160,7 +160,7 @@ const loadMountainSlope2 = () => {
         ));
         if ((LAST_ZONE && LAST_ZONE.equals(Zone.getZones().mountain.slope1) || LAST_ZONE === null)) { // Coming down the mounatin.
             // Set spawn point on the right.
-            const blockPos = new Vector(ZONE.MIN_BLOCK.x + 67, 45);
+            const blockPos = new Vector(ZONE.MIN_BLOCK.x + 1, 87);
             CHAD.pos = Vector.blockToWorldSpace(blockPos);
         } else {
             const blockPos = new Vector(ZONE.MAX_BLOCK.x - 2, 20);

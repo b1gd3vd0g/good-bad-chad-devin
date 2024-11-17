@@ -153,7 +153,7 @@ const loadEndZone = () => {
         const portal1 = new Portal(portal1Coordinates, Portal.YELLOW);
         GAME.addEntity(portal1);
         // if (STORY.botsKilled < 20) {
-            portal1.fillWithEnemies([
+        portal1.fillWithEnemies([
             new OverseerBot(Vector.blockToWorldSpace(portal1Coordinates), FlyingEnemyBase.UP_AND_DOWN),
             new DrillBot(Vector.blockToWorldSpace(portal1Coordinates)),
             new OculiBot(Vector.blockToWorldSpace(portal1Coordinates), FlyingEnemyBase.ZIG_ZAG),
@@ -164,14 +164,14 @@ const loadEndZone = () => {
             new OverseerBot(Vector.blockToWorldSpace(portal1Coordinates), FlyingEnemyBase.CIRCLE),
             new DrillBot(Vector.blockToWorldSpace(portal1Coordinates)),
             new OculiBot(Vector.blockToWorldSpace(portal1Coordinates), FlyingEnemyBase.SINE_WAVE),
-            ]);
+        ]);
         // }
 
         const portal2Coordinates = new Vector(83, 24);
         const portal2 = new Portal(portal2Coordinates, Portal.YELLOW);
         GAME.addEntity(portal2);
         // if (STORY.botsKilled < 20) {
-            portal2.fillWithEnemies([
+        portal2.fillWithEnemies([
             new OculiBot(Vector.blockToWorldSpace(portal2Coordinates), FlyingEnemyBase.UP_AND_DOWN),
             new DrillBot(Vector.blockToWorldSpace(portal2Coordinates)),
             new OverseerBot(Vector.blockToWorldSpace(portal2Coordinates), FlyingEnemyBase.LEFT_AND_RIGHT),
@@ -182,7 +182,7 @@ const loadEndZone = () => {
             new OverseerBot(Vector.blockToWorldSpace(portal2Coordinates), FlyingEnemyBase.SINE_WAVE),
             new OculiBot(Vector.blockToWorldSpace(portal2Coordinates), FlyingEnemyBase.CIRCLE),
             new DrillBot(Vector.blockToWorldSpace(portal2Coordinates)),
-            ]);
+        ]);
         // }
 
         // add evil slimes
@@ -192,7 +192,7 @@ const loadEndZone = () => {
         GAME.addEntity(new Slime(Vector.blockToWorldSpace(new Vector(60, 30)), Slime.EVIL));
         GAME.addEntity(new Slime(Vector.blockToWorldSpace(new Vector(65, 30)), Slime.EVIL));
 
-        GAME.addEntity(new Wizard(Vector.blockToWorldSpace(new Vector(85, 32)),
+        GAME.addEntity(new Wizard(Vector.blockToWorldSpace(new Vector(87, 32)),
             null));
         GAME.addEntity(new MamaChad(Vector.blockToWorldSpace(new Vector(93.5, 27))));
         ASSET_MGR.playMusic(MUSIC.END.path, MUSIC.END.volume);

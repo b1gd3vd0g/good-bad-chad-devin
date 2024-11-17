@@ -23,9 +23,7 @@ const loadCave1 = () => {
         ASSET_MGR.queueDownload(Precipitation.SPRITESHEET);
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.trees.OAK_1.SPRITESHEET);
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.trees.SPRUCE_1.SPRITESHEET);
-        // Miners
         ASSET_MGR.queueDownload(Miner.SPRITESHEET);
-        ASSET_MGR.queueDownload(Mayor.SPRITESHEET);
 
         ASSET_MGR.queueDownload(Bird.SPRITESHEET);
         ASSET_MGR.queueDownload(Bunny.SPRITESHEET);
@@ -231,7 +229,7 @@ const loadCave2 = () => {
         ASSET_MGR.queueDownload(Bird.SPRITESHEET);
         ASSET_MGR.queueDownload(Bunny.SPRITESHEET);
         ASSET_MGR.queueDownload(Snake.SPRITESHEET);
-        ASSET_MGR.queueDownload(DrillBot.SPRITESHEET);  
+        ASSET_MGR.queueDownload(DrillBot.SPRITESHEET);
 
 
         ASSET_MGR.queueDownload(MUSIC.LAVA_NORMAL.path);
@@ -373,7 +371,7 @@ const loadCave2 = () => {
             new OverseerBot(Vector.blockToWorldSpace(portal2Coordinates), FlyingEnemyBase.LEFT_AND_RIGHT),
             new OverseerBot(Vector.blockToWorldSpace(portal2Coordinates), FlyingEnemyBase.UP_AND_DOWN),
             new OculiBot(Vector.blockToWorldSpace(portal2Coordinates), FlyingEnemyBase.CIRCLE),
-            ]);
+        ]);
         GAME.addEntity(botPortal);
         let transportPortal = new TransportPortal(new Vector(94, 44), Portal.PURPLE);
         GAME.addEntity(transportPortal);

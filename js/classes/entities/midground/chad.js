@@ -695,7 +695,11 @@ class Chad {
                 this.takeDamage(this.maxHealth);
             }
         }
-
+        if (ZONE.name === "End Fight Section") {
+            if (this.pos.y > Vector.blockToWorldSpace(new Vector(0, 75)).y) {
+                this.takeDamage(this.maxHealth);
+            }
+        }
         // Step 7: Check general zone conditions
         // if (this.pos.y > Vector.blockToWorldSpace(new Vector(0, 75)).y) {
         //     this.takeDamage(this.maxHealth);
@@ -740,22 +744,22 @@ class Chad {
             Chad.SPRITESHEET,
             new Vector(0, 0),
             Chad.SIZE,
-            31, 1 / 10);
+            30, 1 / 10);
         this.animations["left"]["walking"] = new Animator(
             Chad.SPRITESHEET,
             new Vector(96, 64),
             Chad.SIZE,
-            31, 1 / 10, true, true);
+            30, 1 / 10, true, true);
         this.animations["right"]["running"] = new Animator(
             Chad.SPRITESHEET,
             new Vector(0, 0),
             Chad.SIZE,
-            31, 1 / 10);
+            30, 1 / 10);
         this.animations["left"]["running"] = new Animator(
             Chad.SPRITESHEET,
             new Vector(96, 64),
             Chad.SIZE,
-            31, 1 / 10, true, true);
+            30, 1 / 10, true, true);
 
         this.animations["right"]["dashing"] = new Animator(
             Chad.SPRITESHEET,
@@ -782,13 +786,13 @@ class Chad {
             Chad.SPRITESHEET,
             new Vector(0, 128),
             Chad.SIZE,
-            32, 1 / 20);
+            30, 1 / 20);
         this.animations["left"]["slicing"] = new Animator(
             Chad.SPRITESHEET,
             new Vector(
                 0, 192),
             Chad.SIZE,
-            32, 1 / 20, true, true);
+            30, 1 / 20, true, true);
 
         this.animations["right"]["slicingStill"] = new Animator(
             Chad.SPRITESHEET,

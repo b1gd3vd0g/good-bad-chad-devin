@@ -27,7 +27,7 @@ class Hud {
      * Switch the mouse icon to a crosshair.
      */
     swapToCrosshair() {
-        const crosshairUnclicked = 'url(../sprites/crosshair_unclicked.png) 16 16, auto';
+        const crosshairUnclicked = 'url(./sprites/crosshair_unclicked.png) 16 16, auto';
         document.body.style.cursor = crosshairUnclicked;
     }
 
@@ -35,7 +35,7 @@ class Hud {
      * Switch the mouse icon to a pointer.
      */
     swapToPointer() {
-        const pointerUnclicked = 'url(../sprites/pointer_unclicked.png) 10 4, auto';
+        const pointerUnclicked = 'url(./sprites/pointer_unclicked.png) 10 4, auto';
         document.body.style.cursor = pointerUnclicked;
     }
 

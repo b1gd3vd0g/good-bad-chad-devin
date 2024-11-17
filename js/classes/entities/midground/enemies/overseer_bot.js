@@ -13,11 +13,11 @@ class OverseerBot {
      */
     constructor(pos, path) {
         this.base = new FlyingEnemyBase(
-            this, 
-            pos, 
-            OverseerBot.SCALED_SIZE, 
-            OverseerBot.SPEED, 
-            OverseerBot.MAX_HEALTH, 
+            this,
+            pos,
+            OverseerBot.SCALED_SIZE,
+            OverseerBot.SPEED,
+            OverseerBot.MAX_HEALTH,
             () => this.handleDeath(),
             path
         );
@@ -114,7 +114,7 @@ class OverseerBot {
             GAME.addEntity(new RuneDrop(pos, RuneDrop.RED));
         }
     }
-    
+
     /** Change what the OverseerBot is doing and where it is. */
     update() {
         this.base.update();
@@ -125,12 +125,12 @@ class OverseerBot {
             const secondsSinceLastAttack = Date.now() / 1000 - this.lastAttack;
 
             // if we've finished our current attack, change action to idle
-            if (this.action === "attacking" 
+            if (this.action === "attacking"
                 && this.animations[this.getFacing()]["attacking"].totalTime < secondsSinceLastAttack) {
-                    
+
                 this.action = "moving";
             }
-    
+
             // if Chad is close enough, shoot him
             if (Vector.distance(CHAD.pos, this.pos) < OverseerBot.ATTACK_DISTANCE) {
                 if (secondsSinceLastAttack > OverseerBot.ATTACK_COOLDOWN) {
@@ -139,10 +139,10 @@ class OverseerBot {
                     this.action = "attacking";
                     this.lastAttack = Date.now() / 1000;
                     this.dealtDamage = false;
-                } else if (this.action === "attacking" 
+                } else if (this.action === "attacking"
                     && secondsSinceLastAttack > OverseerBot.DAMAGE_DELAY && !this.dealtDamage) {
                     // if we're at the proper point in our attack animation, deal damage
-    
+
                     const misdirectVector = new Vector(Math.random() * 20 - 10, Math.random() * 20 - 10);
                     const target = Vector.add(CHAD.getCenter(), misdirectVector);
                     if (Math.random() < 0.5) {
@@ -151,7 +151,7 @@ class OverseerBot {
                         GAME.addEntity(ProjectileFactory.create(ProjectileFactory.SONIC_WAVE, this.pos, target));
                     }
 
-                    
+
                     this.dealtDamage = true;
                 }
             }
@@ -163,7 +163,7 @@ class OverseerBot {
                 STORY.botsKilled = 1;
             }
         }
-        
+
 
     };
 
@@ -188,7 +188,7 @@ class OverseerBot {
             new Vector(0, OverseerBot.SIZE.y),
             OverseerBot.SIZE,
             2, 0.5);
-        
+
         // moving animations (same as idle)
         this.animations["right"]["moving"] = new Animator(
             OverseerBot.SPRITESHEET,

@@ -98,6 +98,32 @@ class Eel {
         GAME.addEntity(new AmmoDrop(center, AmmoDrop.WATER_BALLOON, 5));
     }
 
+    /**
+     * The direction in which the enemy is facing as a string, for animation use.
+     * 
+     * @returns {string} "left" or "right"
+     */
+    getFacing() {
+        return (this.getDirection() < 0) ? "left" : "right";
+    }
+
+    /**
+     * Get the direction in which the enemy is currently facing.
+     * 
+     * @returns {number} -1 for left and 1 for right
+     */
+    getDirection() {
+        return this.targetX - this.getCenter().x > 0 ? 1 : -1;
+    }
+
+    /**
+     * Get the center of the enemy.
+     * @returns {Vector} the center of the enemy
+     */
+    getCenter() {
+        return Vector.add(this.pos, new Vector(Eel.SCALED_SIZE.x / 2, Eel.SCALED_SIZE.y / 2));
+    }
+
     /** Change what the Eel is doing and where it is. */
     update() {
         this.base.update();
@@ -111,7 +137,6 @@ class Eel {
             // if we've finished our current attack, change action to idle
             if (this.action === "attacking"
                 && this.animations[this.getFacing()]["attacking"].totalTime < secondsSinceLastAttack) {
-
                 this.action = "moving";
             }
 
@@ -131,9 +156,31 @@ class Eel {
                     this.dealtDamage = true;
                 }
             }
+
             if (deathAnim.currentFrame === deathAnim.frameCount - 1) {
                 this.removeFromWorld = true;
             }
+        }
+
+        if (this.currentJumpHeight <= 0) {
+            this.isJumping = true;
+        }
+
+        if (this.currentJumpHeight >= this.maxJumpHeight) {
+            this.isJumping = false;
+        }
+
+        // console.log("currentJumpHeight: " + this.currentJumpHeight, "maxJumpHeight: " + this.maxJumpHeight)
+
+        if (this.isJumping) {
+            // jump up
+            this.pos = Vector.add(this.pos, new Vector(0, -this.speed * GAME.clockTick));
+            this.currentJumpHeight += this.speed * GAME.clockTick;
+        }
+        else {
+            // fall down
+            this.pos = Vector.add(this.pos, new Vector(0, this.speed * GAME.clockTick));
+            this.currentJumpHeight -= this.speed * GAME.clockTick;
         }
     };
 
