@@ -27,7 +27,7 @@ class Inventory {
     }
 
     initAmmoBag() {
-        this.ammoBag.push(new AmmoItem(AmmoItem.ROCK, 15));
+        this.ammoBag.push(new AmmoItem(AmmoItem.ROCK, 200));
         this.ammoBag.push(new AmmoItem(AmmoItem.SLIMEBALL, 0));
         this.ammoBag.push(new AmmoItem(AmmoItem.BOMB, 0));
         this.ammoBag.push(new AmmoItem(AmmoItem.SNOWBALL, 0));
@@ -36,6 +36,11 @@ class Inventory {
         this.ammoBag.push(new AmmoItem(AmmoItem.WATER_BALLOON, 0));
 
         this.switchToAmmo(AmmoItem.ROCK);
+        
+        // temp
+        setTimeout(() => {
+            this.collectRunes(500);
+        }, 500);
     }
 
     initFoodBag() {

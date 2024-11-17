@@ -143,7 +143,6 @@ class Slime {
         this.base.update();
 
         const deathAnim = this.animations[this.base.getFacing()]["dying"];
-        console.log("deathAnim: ", deathAnim);
 
         if (this.health > 0) {
             if (this.base.chadDistance() < Slime.SCALED_SIZE.x / 2

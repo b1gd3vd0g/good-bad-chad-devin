@@ -25,6 +25,8 @@ const loadRiver = () => {
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.trees.SPRUCE_2.SPRITESHEET);
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.trees.SPRUCE_3.SPRITESHEET);
         ASSET_MGR.queueDownload(LiquidBlock.SPRITESHEET);
+        ASSET_MGR.queueDownload(BlackSmith.SPRITESHEET);
+
         ASSET_MGR.queueDownload(EelBoss.SPRITESHEET);
         ASSET_MGR.queueDownload(Eel.SPRITESHEET);
 
@@ -72,6 +74,9 @@ const loadRiver = () => {
             CHAD.pos = Vector.blockToWorldSpace(blockPos);
         }
     };
+
+    const blockPosBlackSmith = new Vector(60, -25);
+    GAME.addEntity(new BlackSmith(Vector.blockToWorldSpace(blockPosBlackSmith), new Conversation(getAllConversationArrays().village.blacksmith.merchantWater)), 0);
 
     // spawn a water balloon ammo drop
     GAME.addEntity(new AmmoDrop(

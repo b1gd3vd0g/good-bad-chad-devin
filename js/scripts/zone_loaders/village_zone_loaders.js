@@ -187,6 +187,7 @@ const loadVillageMain = () => {
 
         // ASSET_MGR.queueDownload(MUSIC.PEACEFUL_CHIPTUNE.path);
         ASSET_MGR.queueDownload(MUSIC.CHAD_PLAYFUL_ADVENTURE.path);
+        ASSET_MGR.queueDownload(MUSIC.CHAD_VICTORIOUS_EMOTIONAL.path);
         ASSET_MGR.queueDownload(MUSIC.VILLAGE_ATTACK.path);
 
         // NPCs
@@ -278,7 +279,6 @@ const loadVillageMain = () => {
             if (GAME.mode == GameEngine.GAMEPLAY_MODE) { // if we've already clicked the start button, but we re-entered the village.
                 setTimeout(() => {
                     ASSET_MGR.playMusic(MUSIC.CHAD_PLAYFUL_ADVENTURE.path, MUSIC.CHAD_PLAYFUL_ADVENTURE.volume);
-                    // ASSET_MGR.playMusic(MUSIC.PEACEFUL_CHIPTUNE.path, MUSIC.PEACEFUL_CHIPTUNE.volume);
                 }, 500);
             }
 
@@ -296,6 +296,36 @@ const loadVillageMain = () => {
             }
             GAME.addEntity(new BlackSmith(Vector.blockToWorldSpace(blockPosBlackSmith), new Conversation(getAllConversationArrays().village.blacksmith.merchant)), 0);
             GAME.addEntity(new Mayor(Vector.blockToWorldSpace(blockPosMayor), new Conversation(getAllConversationArrays().village.mayor.hopefulGreeting)), 0);
+            GAME.addEntity(idleMama);
+
+            GAME.addEntity(new OculiBot(Vector.blockToWorldSpace(
+                new Vector(93, aboveGroundLevel - 4)),
+                FlyingEnemyBase.SINE_WAVE
+            ));
+
+            GAME.addEntity(new OverseerBot(Vector.blockToWorldSpace(
+                new Vector(95, aboveGroundLevel - 10)),
+                FlyingEnemyBase.CIRCLE
+            ));
+
+            console.log("ending: ", STORY.ending)
+
+        } else if (STORY.ending) {
+            console.log("ENDING TIME")
+            ASSET_MGR.playMusic(MUSIC.CHAD_VICTORIOUS_EMOTIONAL.path, MUSIC.CHAD_VICTORIOUS_EMOTIONAL.volume);
+
+            // NPCs
+            const blockPosPapa = new Vector(62, chadOnGround + 3);
+            const blockPosBlackSmith = new Vector(17, chadOnGround + 3);
+            const blockPosMayor = new Vector(50, chadOnGround + 3);
+            const blockPosIdleMama = new Vector(65, chadOnGround + 3);
+
+            const idleMama = new MamaChad(Vector.blockToWorldSpace(blockPosIdleMama), false, new Conversation(getAllConversationArrays().village.mamaChad.ending));
+            idleMama.action = "idle";
+
+            GAME.addEntity(new PapaChad(Vector.blockToWorldSpace(blockPosPapa), new Conversation(getAllConversationArrays().village.papaChad.ending)), 0);
+            GAME.addEntity(new BlackSmith(Vector.blockToWorldSpace(blockPosBlackSmith), new Conversation(getAllConversationArrays().village.blacksmith.ending)), 0);
+            GAME.addEntity(new Mayor(Vector.blockToWorldSpace(blockPosMayor), new Conversation(getAllConversationArrays().village.mayor.ending)), 0);
             GAME.addEntity(idleMama);
         } else {
             setTimeout(() => {
@@ -342,16 +372,6 @@ const loadVillageMain = () => {
         GAME.addEntity(new RuneDrop(Vector.blockToWorldSpace(new Vector(93, aboveGroundLevel - 4)), RuneDrop.WHITE, false));
         GAME.addEntity(new RuneDrop(Vector.blockToWorldSpace(new Vector(95, aboveGroundLevel - 3)), RuneDrop.WHITE, false));
         GAME.addEntity(new RuneDrop(Vector.blockToWorldSpace(new Vector(97, aboveGroundLevel - 2)), RuneDrop.WHITE, false));
-
-        GAME.addEntity(new OculiBot(Vector.blockToWorldSpace(
-            new Vector(93, aboveGroundLevel - 4)),
-            FlyingEnemyBase.SINE_WAVE
-        ));
-
-        GAME.addEntity(new OverseerBot(Vector.blockToWorldSpace(
-            new Vector(95, aboveGroundLevel - 10)),
-            FlyingEnemyBase.CIRCLE
-        ));
 
         // GAME.addEntity(new DrillBot(Vector.blockToWorldSpace(
         //     new Vector(65, aboveGroundLevel - 5))
@@ -431,7 +451,7 @@ const loadHillDownFromMain = () => {
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.trees.SPRUCE_1, Vector.blockToWorldSpace(new Vector(7, 32))), -1);
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.trees.SPRUCE_1, Vector.blockToWorldSpace(new Vector(10, 34))), -1);
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.trees.SPRUCE_2, Vector.blockToWorldSpace(new Vector(20, 45))), -1);
-        const blockPosBlackSmith = new Vector(1, 26)
+        const blockPosBlackSmith = new Vector(40, 40)
         GAME.addEntity(new BlackSmith(Vector.blockToWorldSpace(blockPosBlackSmith), new Conversation(getAllConversationArrays().village.blacksmith.merchantScared)), 0);
 
 

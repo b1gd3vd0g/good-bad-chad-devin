@@ -49,19 +49,21 @@ class Sword {
 
     /** The amount of damage the Sword deals during an attack. */
     static get LEVEL_2_DAMAGE() {
-        return 5;
+        return 6;
     };
 
     /** The amount of damage the Sword deals during an attack. */
     static get LEVEL_3_DAMAGE() {
-        return 7;
+        return 9;
     };
 
     upgrade() {
         if (this.damage === Sword.LEVEL_1_DAMAGE) {
             this.damage = Sword.LEVEL_2_DAMAGE;
+            CHAD.swordLevel = 2;
         } else if (this.damage === Sword.LEVEL_2_DAMAGE) {
             this.damage = Sword.LEVEL_3_DAMAGE;
+            CHAD.swordLevel = 3;
         } else {
             console.log("Sword is already at its maximum damage level.");
         }

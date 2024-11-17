@@ -72,7 +72,7 @@ CANVAS.onfocus = () => {
 
 // (3) Set the current ZONE to be the first one we encounter - village.main.
 
-let ZONE = Zone.getZones().river.river1;
+let ZONE = Zone.getZones().cave.insideCave1;
 let LAST_ZONE = null;
 // Load all assets, add all entities, place CHAD...
 ZONE.load();

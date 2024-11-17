@@ -56,7 +56,14 @@ const mamaConversationLoaderEnd = () => {
         }),
       new DialogBubble(chad,
         "Let's get outta here mama. All this adventuring just makes me wanna go home.",
-        true)
+        true,
+        () => {
+          setTimeout(() => {
+            // teleport back to home
+            home = Zone.getZones().village.main;
+            home.load();
+          }, 1000);
+        })
     ]
   }
 }

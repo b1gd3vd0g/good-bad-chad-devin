@@ -198,6 +198,13 @@ const loadEndZone = () => {
         ASSET_MGR.playMusic(MUSIC.END.path, MUSIC.END.volume);
 
         setTimeout(() => {
+            // teleport back to home
+            STORY.ending = true;
+            // STORY.tutorialComplete = true; // temp
+            CHAD.health = CHAD.maxHealth;
+            LAST_ZONE = null;
+            ZONE = Zone.getZones().village.main;
+            ZONE.load();
         }, 1000);
     };
 

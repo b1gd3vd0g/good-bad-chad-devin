@@ -44,6 +44,11 @@ class Portal {
     update() {
         //! BUG: if multiple portals are active, they cause conflicts with the music
 
+        if (STORY.botsKilled >= 20) {
+            this.action = "inactive";
+            ASSET_MGR.playSFX(SFX.PORTAL_IDLE.path, SFX.PORTAL_IDLE.volume);
+        }
+
         // check if chad has come into portal range, then activate
         if (this.chadDistance() < Portal.ACTIVATION_RADIUS) {
             if (this.action === "inactive") {
