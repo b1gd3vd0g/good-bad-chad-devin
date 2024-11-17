@@ -125,7 +125,8 @@ const SFX = {
     COIN_COLLECT: {path: "./sfx/rune_collect.mp3", volume: 0.7},
     MEGA_MUSHROOM: {path: "./sfx/mega_mushroom.mp3", volume: 0.4},
     WATER_BALLOON: {path: "./sfx/water_balloon.wav", volume: 0.4},
-    LIFE_UP: {path: "./sfx/life_up.wav", volume: 0.4},
+    LIFE_UP: { path: "./sfx/life_up.wav", volume: 0.4 },
+    SWORD_UPGRADE: { path: "./sfx/sword_upgrade.mp3", volume: 0.4 },
     
     
     // UI

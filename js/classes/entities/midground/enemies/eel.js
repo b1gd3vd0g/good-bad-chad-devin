@@ -116,7 +116,7 @@ class Eel {
             }
 
             // if Chad is close enough, bite him
-            if (this.chadDistance() < Eel.SCALED_SIZE.x / 2) {
+            if (this.base.chadDistance() < Eel.SCALED_SIZE.x / 2) {
                 if (secondsSinceLastAttack > Eel.ATTACK_COOLDOWN) {
                     // if it's been long enough, start a new attack 
                     this.animations[this.getFacing()]["attacking"].elapsedTime = 0;
@@ -130,6 +130,9 @@ class Eel {
                     CHAD.takeDamage(Eel.ATTACK_DAMAGE);
                     this.dealtDamage = true;
                 }
+            }
+            if (deathAnim.currentFrame === deathAnim.frameCount - 1) {
+                this.removeFromWorld = true;
             }
         }
     };

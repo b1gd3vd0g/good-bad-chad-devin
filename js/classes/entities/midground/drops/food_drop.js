@@ -20,16 +20,17 @@ class FoodDrop {
         this.type = type;
         this.pos = pos;
         this.hasGravity = hasGravity;
-        this.yVelocity = 0;
+        this.velocity = new Vector(0, 0);
         if (popInAir) {
             // give the drop a little pop in the air when it spawns
-            this.yVelocity = -200;
+            this.velocity = new Vector(this.velocity.x, -200);
         }
         this.scale = FoodDrop.NORMAL_FOOD_SCALE;
         if (this.type == FoodDrop.BACON || this.type == FoodDrop.ROAST_TURKEY) {
             this.scale = FoodDrop.SPECIAL_FOOD_SCALE;
         }
         this.scaledSize = Vector.multiply(FoodDrop.SIZE, this.scale);
+        this.center = Vector.add(this.pos, Vector.multiply(this.scaledSize, 0.5));
         this.boundingBox = new BoundingBox(this.pos, this.scaledSize);
         this.lastBoundingBox = this.boundingBox;
         this.animation = new Animator(FoodDrop.SPRITESHEET, 
@@ -114,10 +115,19 @@ class FoodDrop {
 
         if (this.hasGravity) {
 
-            this.yVelocity += PHYSICS.GRAVITY_ACC * GAME.clockTick;
+            // move toward player like a magnet when close enough
+            const chadDist = Vector.distance(this.center, CHAD.getCenter());
+            if (chadDist < 300) {
+                const chadDir = Vector.direction(this.pos, CHAD.pos);
+                const speedMultiplier = chadDist / 10; // make the speed increase as the distance decreases
+                this.velocity = Vector.add(this.velocity, Vector.multiply(chadDir, speedMultiplier));
+            } else {
+                this.velocity = new Vector(0, PHYSICS.GRAVITY_ACC * GAME.clockTick);
+            }
+
 
             // update position
-            this.pos.y += this.yVelocity * GAME.clockTick;
+            this.pos = Vector.add(this.pos, Vector.multiply(this.velocity, GAME.clockTick));
 
             // update bounding box
             this.lastBoundingBox = this.boundingBox;
@@ -125,6 +135,7 @@ class FoodDrop {
 
             // check for collision with the ground
             checkBlockCollisions(this, this.scaledSize);
+
         }
     }
 

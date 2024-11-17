@@ -268,7 +268,6 @@ const loadVillageMain = () => {
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.trees.SPRUCE_2, Vector.blockToWorldSpace(new Vector(84, aboveGroundLevel))), 1);
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.trees.SPRUCE_1, Vector.blockToWorldSpace(new Vector(87, aboveGroundLevel))));
 
-        GAME.addEntity(new DrillBot(Vector.blockToWorldSpace(new Vector(80, aboveGroundLevel-8))));
 
         /*
         The above content was all static. Below, there are conditional spawns/settings based on story progression.
@@ -344,15 +343,15 @@ const loadVillageMain = () => {
         GAME.addEntity(new RuneDrop(Vector.blockToWorldSpace(new Vector(95, aboveGroundLevel - 3)), RuneDrop.WHITE, false));
         GAME.addEntity(new RuneDrop(Vector.blockToWorldSpace(new Vector(97, aboveGroundLevel - 2)), RuneDrop.WHITE, false));
 
-        // GAME.addEntity(new OculiBot(Vector.blockToWorldSpace(
-        //     new Vector(65, aboveGroundLevel - 4)),
-        //     [new Vector(300, 100), new Vector(-300, -100), new Vector(0, 0)]
-        // ));
+        GAME.addEntity(new OculiBot(Vector.blockToWorldSpace(
+            new Vector(93, aboveGroundLevel - 4)),
+            FlyingEnemyBase.SINE_WAVE
+        ));
 
-        // GAME.addEntity(new OverseerBot(Vector.blockToWorldSpace(
-        //     new Vector(75, aboveGroundLevel - 3)),
-        //     [new Vector(300, 0), new Vector(-300, 0), new Vector(0, 0)]
-        // ));
+        GAME.addEntity(new OverseerBot(Vector.blockToWorldSpace(
+            new Vector(95, aboveGroundLevel - 10)),
+            FlyingEnemyBase.CIRCLE
+        ));
 
         // GAME.addEntity(new DrillBot(Vector.blockToWorldSpace(
         //     new Vector(65, aboveGroundLevel - 5))

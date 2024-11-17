@@ -360,6 +360,7 @@ class AssetManager {
             SFX.EXPLOSION_BIG.path,
             SFX.SNAKE_HISS.path,
             SFX.LIFE_UP.path,
+            SFX.SWORD_UPGRADE.path,
 
             // Music:
             DialogBubble.SPEAKERS.CHAD.spritesheet

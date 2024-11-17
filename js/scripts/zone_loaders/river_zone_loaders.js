@@ -1,7 +1,6 @@
 const loadRiver = () => {
     const queueAssets = () => {
 
-        // TODO don't forget to add in your water sprites.
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.clouds.CLOUD_JUST_CLOUD.SPRITESHEET);
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.clouds.CLOUD_BUSHY.SPRITESHEET);
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.clouds.CLOUD_LANKY.SPRITESHEET);
@@ -46,7 +45,8 @@ const loadRiver = () => {
         GAME.addEntity(new Border(
             new Vector(ZONE.MAX_PT.x, 0), // start at the far right side of the Zone, and at the top
             new Vector(1, ZONE.PIXEL_SIZE.y), // only one pixel wide, but as tall as the entire Zone.
-            Zone.getZones().mountain.slope1
+            Zone.getZones().mountain.slope1,
+            true
         ));
 
         // spread water in a line
@@ -89,9 +89,9 @@ const loadRiver = () => {
         false
     ));
 
-    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(8.5, 29)), FlyingEnemyBase.JUMP, 300));
-    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(20.5, 29)), FlyingEnemyBase.JUMP, 350));
-    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(25.5, 29)), FlyingEnemyBase.JUMP, 400));
+    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(8.5, 29)), FlyingEnemyBase.JUMP_SMALL, 300));
+    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(20.5, 29)), FlyingEnemyBase.JUMP_BIG, 350));
+    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(25.5, 29)), FlyingEnemyBase.JUMP_BIG, 400));
 
     GAME.addEntity(new EelBoss(Vector.blockToWorldSpace(new Vector(145, 18))));
 

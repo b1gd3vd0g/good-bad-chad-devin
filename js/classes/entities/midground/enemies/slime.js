@@ -140,6 +140,7 @@ class Slime {
         this.base.update();
 
         const deathAnim = this.animations[this.base.getFacing()]["dying"];
+        console.log("deathAnim: ", deathAnim);
 
         if (this.health > 0) {
             if (this.base.chadDistance() < Slime.SCALED_SIZE.x / 2
@@ -149,7 +150,7 @@ class Slime {
                 CHAD.takeDamage(Slime.ATTACK_DAMAGE);
                 ASSET_MGR.playSFX(SFX.SLIME_ATTACK.path, SFX.SLIME_ATTACK.volume);
             }
-        } else if (deathAnim.currentFrame() === deathAnim.frameCount - 1) {
+        } else if (deathAnim.currentFrame === deathAnim.frameCount - 1) {
             this.removeFromWorld = true;
             if (STORY.slimesKilled) {
                 STORY.slimesKilled++;
