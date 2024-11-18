@@ -52,12 +52,14 @@ const loadEndZone = () => {
         ASSET_MGR.queueDownload(Wizard.SPRITESHEET);
 
         ASSET_MGR.queueDownload(MUSIC.END.path);
-
-
+        ASSET_MGR.queueDownload(MUSIC.LAVA_TENSE.path);
+        ASSET_MGR.queueDownload(SFX.EVIL_LAUGH.path);
 
     };
 
     const addEntities = () => {
+
+        STORY.botsKilled = 0; // Reset to 0 for a fresh battle
 
         GAME.addEntity(new Border(
             new Vector(ZONE.MIN_PT.x, 0),
@@ -196,16 +198,19 @@ const loadEndZone = () => {
             null));
         GAME.addEntity(new MamaChad(Vector.blockToWorldSpace(new Vector(93.5, 27))));
         ASSET_MGR.playMusic(MUSIC.END.path, MUSIC.END.volume);
+        // ASSET_MGR.playMusic(MUSIC.LAVA_TENSE.path, MUSIC.LAVA_TENSE.volume);
 
-        setTimeout(() => {
-            // teleport back to home
-            STORY.ending = true;
-            // STORY.tutorialComplete = true; // temp
-            CHAD.health = CHAD.maxHealth;
-            LAST_ZONE = null;
-            ZONE = Zone.getZones().village.main;
-            ZONE.load();
-        }, 1000);
+        // setTimeout(() => {
+        //     ASSET_MGR.stopAudio(SFX.PORTAL_IDLE.path);
+        //     // teleport back to home
+        //     STORY.ending = true;
+        //     STORY.tutorialComplete = true; // temp
+        //     LAST_ZONE = null;
+        //     ZONE = Zone.getZones().village.main;
+        //     SAVED_ZONE = ZONE;
+        //     ZONE.load();
+        //     CHAD.statusEffect.clearEffects();
+        //   }, 1000);
     };
 
     queueAssets();

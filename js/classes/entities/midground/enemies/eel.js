@@ -52,7 +52,7 @@ class Eel {
 
     /** The filepath to the spritesheet of the Eel. */
     static get SPRITESHEET() {
-        return "./sprites/snake_blue3.png";
+        return "./sprites/snake_blue.png";
     };
 
     /** The maximum health of the Eel. */

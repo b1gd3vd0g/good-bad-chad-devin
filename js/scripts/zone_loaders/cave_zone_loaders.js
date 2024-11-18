@@ -237,6 +237,7 @@ const loadCave2 = () => {
 
 
         ASSET_MGR.queueDownload(MUSIC.LAVA_NORMAL.path);
+        ASSET_MGR.queueDownload(MUSIC.LAVA_TENSE.path);
     };
 
     const addEntities = () => {

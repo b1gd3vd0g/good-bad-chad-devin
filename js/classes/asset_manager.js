@@ -275,6 +275,7 @@ class AssetManager {
             Rock.SPRITESHEET,
             Rock.SPRITESHEET_EASTER_EGG,
             WaterBalloon.SPRITESHEET,
+            Spawnpoint.SPRITESHEET,
 
             // Sounds:
             SFX.JUMP1.path,
@@ -328,7 +329,9 @@ class AssetManager {
             Broccoli.SPRITESHEET,
             SFX.BLEH.path,
             SFX.WATER_BALLOON.path,
-
+            SFX.HMM1.path,
+            SFX.HMM2.path,
+            SFX.REVIVE.path,
 
             //TEMPORARY
             SFX.SLIME_ATTACK.path,

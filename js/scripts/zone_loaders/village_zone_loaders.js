@@ -197,6 +197,8 @@ const loadVillageMain = () => {
         ASSET_MGR.queueDownload('./sprites/mama_chad_trapped.png');
         ASSET_MGR.queueDownload(Wizard.SPRITESHEET);
         ASSET_MGR.queueDownload(Slime.SPRITESHEET);
+
+        ASSET_MGR.queueDownload(SFX.EVIL_LAUGH.path);
     };
 
     const addEntities = () => {
@@ -281,6 +283,15 @@ const loadVillageMain = () => {
                     ASSET_MGR.playMusic(MUSIC.CHAD_PLAYFUL_ADVENTURE.path, MUSIC.CHAD_PLAYFUL_ADVENTURE.volume);
                 }, 500);
             }
+            
+            GAME.addEntity(new RuneDrop(Vector.blockToWorldSpace(new Vector(46, aboveGroundLevel - 4)), RuneDrop.GREEN, false));
+            GAME.addEntity(new RuneDrop(Vector.blockToWorldSpace(new Vector(73, aboveGroundLevel - 4)), RuneDrop.GRAY, false));
+
+            GAME.addEntity(new RuneDrop(Vector.blockToWorldSpace(new Vector(93, aboveGroundLevel - 4)), RuneDrop.WHITE, false));
+            GAME.addEntity(new RuneDrop(Vector.blockToWorldSpace(new Vector(95, aboveGroundLevel - 3)), RuneDrop.WHITE, false));
+            GAME.addEntity(new RuneDrop(Vector.blockToWorldSpace(new Vector(97, aboveGroundLevel - 2)), RuneDrop.WHITE, false));
+
+            
 
             // NPCs
             const blockPosPapa = new Vector(33, chadOnGround);
@@ -308,8 +319,6 @@ const loadVillageMain = () => {
                 FlyingEnemyBase.CIRCLE
             ));
 
-            console.log("ending: ", STORY.ending)
-
         } else if (STORY.ending) {
             console.log("ENDING TIME")
             ASSET_MGR.playMusic(MUSIC.CHAD_VICTORIOUS_EMOTIONAL.path, MUSIC.CHAD_VICTORIOUS_EMOTIONAL.volume);
@@ -327,6 +336,12 @@ const loadVillageMain = () => {
             GAME.addEntity(new BlackSmith(Vector.blockToWorldSpace(blockPosBlackSmith), new Conversation(getAllConversationArrays().village.blacksmith.ending)), 0);
             GAME.addEntity(new Mayor(Vector.blockToWorldSpace(blockPosMayor), new Conversation(getAllConversationArrays().village.mayor.ending)), 0);
             GAME.addEntity(idleMama);
+
+            for (let i = 0; i < 6; i++) {
+                for (let j = 0; j < 3; j++) {
+                    GAME.addEntity(new RuneDrop(Vector.blockToWorldSpace(new Vector(75 + i, aboveGroundLevel-2 - j)), RuneDrop.YELLOW, false));
+                }
+            }
         } else {
             setTimeout(() => {
                 ASSET_MGR.playMusic(MUSIC.VILLAGE_ATTACK.path, MUSIC.VILLAGE_ATTACK.volume);
@@ -365,17 +380,6 @@ const loadVillageMain = () => {
             const blockPos = new Vector(98, 16);
             CHAD.pos = Vector.blockToWorldSpace(blockPos);
         }
-
-        GAME.addEntity(new RuneDrop(Vector.blockToWorldSpace(new Vector(46, aboveGroundLevel - 4)), RuneDrop.GREEN, false));
-        GAME.addEntity(new RuneDrop(Vector.blockToWorldSpace(new Vector(73, aboveGroundLevel - 4)), RuneDrop.GRAY, false));
-
-        GAME.addEntity(new RuneDrop(Vector.blockToWorldSpace(new Vector(93, aboveGroundLevel - 4)), RuneDrop.WHITE, false));
-        GAME.addEntity(new RuneDrop(Vector.blockToWorldSpace(new Vector(95, aboveGroundLevel - 3)), RuneDrop.WHITE, false));
-        GAME.addEntity(new RuneDrop(Vector.blockToWorldSpace(new Vector(97, aboveGroundLevel - 2)), RuneDrop.WHITE, false));
-
-        // GAME.addEntity(new DrillBot(Vector.blockToWorldSpace(
-        //     new Vector(65, aboveGroundLevel - 5))
-        // ));
 
         LoadingAnimation.stop();
     };

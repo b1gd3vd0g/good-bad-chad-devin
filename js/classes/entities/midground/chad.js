@@ -619,6 +619,7 @@ class Chad {
                         if (!entity.locked) {
                             LAST_ZONE = ZONE;
                             ZONE = entity.target;
+                            SAVED_ZONE = ZONE;
                             ZONE.load();
                             setTimeout(() => {
                                 HUD.addComponents();

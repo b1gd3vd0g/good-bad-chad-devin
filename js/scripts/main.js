@@ -74,6 +74,7 @@ CANVAS.onfocus = () => {
 
 let ZONE = Zone.getZones().village.main;
 let LAST_ZONE = null;
+let SAVED_ZONE = Zone.getZones().village.main;
 // Load all assets, add all entities, place CHAD...
 ZONE.load();
 

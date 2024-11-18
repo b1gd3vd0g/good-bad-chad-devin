@@ -44,9 +44,9 @@ class Portal {
     update() {
         //! BUG: if multiple portals are active, they cause conflicts with the music
 
-        if (STORY.botsKilled >= 20) {
-            this.action = "inactive";
+        if (STORY.botsKilled >= 2) {
             ASSET_MGR.playSFX(SFX.PORTAL_IDLE.path, SFX.PORTAL_IDLE.volume);
+            this.removeRomWorld = true;
         }
 
         // check if chad has come into portal range, then activate
@@ -87,7 +87,7 @@ class Portal {
         }
 
         // release portal particles every 2 seconds
-        if (this.particleTimer <= 0) {
+        if (this.particleTimer <= 0 && !STORY.ending) {
             GAME.addEntity(new ParticleEffect(this.center, this.particleType));
             this.particleTimer = Portal.PARTICLE_DELAY;
         }

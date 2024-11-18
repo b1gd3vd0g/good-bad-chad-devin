@@ -11,10 +11,20 @@ const wizardConversationLoaderEnd = () => {
   const none = DialogBubble.SPEAKERS.NONE;
 
   return {
-      victory: [
-          // 0
-          new DialogBubble(wizard,
-              "What?!? How did you defeat my robot horde?!"),
+    victory: [
+      // 0
+      new DialogBubble(wizard,
+        "What?!? How did you defeat my robot horde?!", false, () => {
+            ASSET_MGR.stopAudio(SFX.PORTAL_IDLE.path);
+            STORY.ending = true;
+            STORY.tutorialComplete = true; // temp
+            CHAD.statusEffect.apply(StatusEffect.INVINCIBLE);
+            for (let entity of GAME.entities.midground) {
+              if (entity.base && entity.base.isEnemy) {
+                  entity.removeFromWorld = true;
+              }
+            }
+          }),
           // 1
           new DialogBubble(chad,
               "Your puny minions are no match for the power of CHAD, evil wizard!"),
@@ -23,7 +33,9 @@ const wizardConversationLoaderEnd = () => {
               "I should have known..."),
           // 3
           new DialogBubble(wizard,
-            "I wish I had more robots :("),
+            "I wish I had more robots :(", false, () => {
+            ASSET_MGR.playSFX(SFX.EVIL_LAUGH.path, SFX.EVIL_LAUGH.volume);
+            }),
           // 4
           new DialogBubble(none,
             "Congratulations! You defeated the wizard and won the game.")
@@ -42,7 +54,9 @@ const mamaConversationLoaderEnd = () => {
       new DialogBubble(chad,
         "I'm okay mama, are you?! I've come a long way to save you from this horrible wizard."),
       new DialogBubble(wiz,
-        "Fool! You know nothing of my motives. I am the greatest conjurer this plane has ever seen!"),
+        "Fool! You know nothing of my motives. I am the greatest conjurer this plane has ever seen!", false, () => {
+            ASSET_MGR.playSFX(SFX.EVIL_LAUGH.path, SFX.EVIL_LAUGH.volume);
+            }),
       new DialogBubble(chad,
         "Nor do I care, beast! I'm sick of you!",
         false,
@@ -59,9 +73,13 @@ const mamaConversationLoaderEnd = () => {
         true,
         () => {
           setTimeout(() => {
+            ASSET_MGR.stopAudio(SFX.PORTAL_IDLE.path);
             // teleport back to home
-            home = Zone.getZones().village.main;
-            home.load();
+            LAST_ZONE = null;
+            ZONE = Zone.getZones().village.main;
+            SAVED_ZONE = ZONE;
+            ZONE.load();
+            CHAD.statusEffect.clearEffects();
           }, 1000);
         })
     ]

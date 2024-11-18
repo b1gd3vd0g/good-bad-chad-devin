@@ -180,7 +180,9 @@ const blacksmithConversationLoader = () => {
         merchant: [
             // 0
             new DialogBubble(bs,
-                "Hello."),
+                "Hello.", false, () => {
+                    ASSET_MGR.playSFX(SFX.HMM2.path, SFX.HMM2.volume);
+                }),
             // 1
             new DecisionBubble('Blacksmith', 'Hello.', [
                 new Choice('I\'d like to see what you have for sale.', 2),
@@ -203,16 +205,19 @@ const blacksmithConversationLoader = () => {
             ]),
             // 4
             new DialogBubble(bs, "Here you go.", true, () => {
+                ASSET_MGR.playSFX(SFX.HMM1.path, SFX.HMM1.volume);
                 INVENTORY.spendRunes(25);
                 INVENTORY.adjustAmmo(AmmoItem.ROCK, 25);
             }),
             // 5
             new DialogBubble(bs, "Here you go.", true, () => {
+                ASSET_MGR.playSFX(SFX.HMM1.path, SFX.HMM1.volume);
                 INVENTORY.spendRunes(100);
                 INVENTORY.adjustAmmo(AmmoItem.ROCK, 100);
             }),
             // 6
             new DialogBubble(bs, "Here you go.", true, () => {
+                ASSET_MGR.playSFX(SFX.HMM1.path, SFX.HMM1.volume);
                 INVENTORY.spendRunes(50);
                 INVENTORY.adjustAmmo(AmmoItem.BOMB, 5);
             }),
@@ -226,7 +231,9 @@ const blacksmithConversationLoader = () => {
         merchantScared: [
             // 0
             new DialogBubble(bs,
-                "Ever since the attack I decided to leave the village. \nI will sell from here to support you as you bring our village to justice."),
+                "Ever since the attack I decided to leave the village. \nI will sell from here to support you as you bring our village to justice.", false, () => {
+                    ASSET_MGR.playSFX(SFX.HMM2.path, SFX.HMM2.volume);
+                }),
             // 1
             new DecisionBubble('Blacksmith', 'Hello.', [
                 new Choice('I\'d like to see what you have for sale.', 2),
@@ -239,7 +246,7 @@ const blacksmithConversationLoader = () => {
                 new Choice("Rock ammo (25 for 25 runes)", () => {
                     return INVENTORY.runes >= 25 ? 4 : 9;
                 }),
-                new Choice("Rock ammo (100 for 100 runes)", () => {
+                new Choice("Rock ammo (100 for 100 runes)", () => { //todo slime ammo
                     return INVENTORY.runes >= 100 ? 5 : 9;
                 }),
                 new Choice("Bomb ammo (5 for 40 runes)", () => {
@@ -249,16 +256,19 @@ const blacksmithConversationLoader = () => {
             ]),
             // 4
             new DialogBubble(bs, "Here you go.", true, () => {
+                ASSET_MGR.playSFX(SFX.HMM1.path, SFX.HMM1.volume);
                 INVENTORY.spendRunes(25);
                 INVENTORY.adjustAmmo(AmmoItem.ROCK, 25);
             }),
             // 5
             new DialogBubble(bs, "Here you go.", true, () => {
+                ASSET_MGR.playSFX(SFX.HMM1.path, SFX.HMM1.volume);
                 INVENTORY.spendRunes(100);
                 INVENTORY.adjustAmmo(AmmoItem.ROCK, 100);
             }),
             // 6
             new DialogBubble(bs, "Here you go.", true, () => {
+                ASSET_MGR.playSFX(SFX.HMM1.path, SFX.HMM1.volume);
                 INVENTORY.spendRunes(40);
                 INVENTORY.adjustAmmo(AmmoItem.BOMB, 5);
             }),
@@ -272,7 +282,9 @@ const blacksmithConversationLoader = () => {
         merchantSnow: [
             // 0
             new DialogBubble(bs,
-                "Brrr. It's cold out here. Did you see that huge yeti?!"),
+                "Brrr. It's cold out here. Did you see that huge yeti?!", false, () => {
+                    ASSET_MGR.playSFX(SFX.HMM2.path, SFX.HMM2.volume);
+                }),
             // 1
             new DecisionBubble('Blacksmith', 'Hello.', [
                 new Choice('I\'d like to see what you have for sale.', 2),
@@ -295,16 +307,19 @@ const blacksmithConversationLoader = () => {
             ]),
             // 4
             new DialogBubble(bs, "Here you go.", true, () => {
+                ASSET_MGR.playSFX(SFX.HMM1.path, SFX.HMM1.volume);
                 INVENTORY.spendRunes(25);
                 INVENTORY.adjustAmmo(AmmoItem.ROCK, 25);
             }),
             // 5
             new DialogBubble(bs, "Here you go.", true, () => {
+                ASSET_MGR.playSFX(SFX.HMM1.path, SFX.HMM1.volume);
                 INVENTORY.spendRunes(25);
                 INVENTORY.adjustAmmo(AmmoItem.SUS_SNOWBALL, 25);
             }),
             // 6
             new DialogBubble(bs, "Here you go.", true, () => {
+                ASSET_MGR.playSFX(SFX.HMM1.path, SFX.HMM1.volume);
                 INVENTORY.spendRunes(25);
                 INVENTORY.adjustAmmo(AmmoItem.SNOWBALL, 25);
             }),
@@ -318,7 +333,9 @@ const blacksmithConversationLoader = () => {
         merchantWater: [
             // 0
             new DialogBubble(bs,
-                "Well hello there! Watch out for the rushing water. Come to think of it, it probably wasn't a smart idea for me to setup shop in the middle of the river. ¯\\_(ツ)_/¯"), 
+                "Well hello there! Watch out for the rushing water. Come to think of it, it probably wasn't a smart idea for me to setup shop in the middle of the river. ¯\\_(ツ)_/¯", false, () => {
+                    ASSET_MGR.playSFX(SFX.HMM2.path, SFX.HMM2.volume);
+                }), 
             
             // 1
             new DecisionBubble('Blacksmith', 'Hello.', [
@@ -348,11 +365,13 @@ const blacksmithConversationLoader = () => {
             }),
             // 5
             new DialogBubble(bs, "Here you go.", true, () => {
+                ASSET_MGR.playSFX(SFX.HMM1.path, SFX.HMM1.volume);
                 INVENTORY.spendRunes(40);
                 INVENTORY.adjustAmmo(AmmoItem.SLIMEBALL, 25);
             }),
             // 6
             new DialogBubble(bs, "Here you go.", true, () => {
+                ASSET_MGR.playSFX(SFX.HMM1.path, SFX.HMM1.volume);
                 INVENTORY.spendRunes(40);
                 INVENTORY.adjustAmmo(AmmoItem.SNOWBALL, 10);
             }),
@@ -366,7 +385,9 @@ const blacksmithConversationLoader = () => {
         merchantCave: [
             // 0
             new DialogBubble(bs,
-                "Fancy seeing you down here!"),
+                "Fancy seeing you down here!", false, () => {
+                    ASSET_MGR.playSFX(SFX.HMM2.path, SFX.HMM2.volume);
+                }),
             // 1
             new DecisionBubble('Blacksmith', 'Hello.', [
                 new Choice('I\'d like to see what you have for sale.', 2),
@@ -395,11 +416,13 @@ const blacksmithConversationLoader = () => {
             }),
             // 5
             new DialogBubble(bs, "Here you go.", true, () => {
+                ASSET_MGR.playSFX(SFX.HMM1.path, SFX.HMM1.volume);
                 INVENTORY.spendRunes(40);
                 INVENTORY.adjustAmmo(AmmoItem.BOMB, 10);
             }),
             // 6
             new DialogBubble(bs, "Here you go.", true, () => {
+                ASSET_MGR.playSFX(SFX.HMM1.path, SFX.HMM1.volume);
                 INVENTORY.spendRunes(10);
                 INVENTORY.adjustAmmo(AmmoItem.ROCK, 25);
             }),
@@ -516,7 +539,9 @@ const wizardConversationLoader = () => {
     return {
         threateningIntroduction: [
             new DialogBubble(wiz,
-                "Stop right there, boy!"),
+                "Stop right there, boy!", false, () => {
+                    ASSET_MGR.playSFX(SFX.EVIL_LAUGH.path, SFX.EVIL_LAUGH.volume);
+                }),
             new DialogBubble(wiz,
                 "You've gotten lucky facing my army of slime. Do not spoil your luck now by trying anything stupid."),
             new DialogBubble(chad,
