@@ -125,7 +125,12 @@ const SFX = {
     COIN_COLLECT: {path: "./sfx/rune_collect.mp3", volume: 0.7},
     MEGA_MUSHROOM: {path: "./sfx/mega_mushroom.mp3", volume: 0.4},
     WATER_BALLOON: {path: "./sfx/water_balloon.wav", volume: 0.4},
-    LIFE_UP: {path: "./sfx/life_up.wav", volume: 0.4},
+    LIFE_UP: { path: "./sfx/life_up.wav", volume: 0.4 },
+    SWORD_UPGRADE: { path: "./sfx/sword_upgrade.mp3", volume: 0.4 },
+    REVIVE: { path: "./sfx/revive.wav", volume: 0.2 },
+
+    HMM1: { path: "./sfx/npc_hmm1.mp3", volume: 0.4 },
+    HMM2: { path: "./sfx/npc_hmm2.mp3", volume: 0.4 },
     
     
     // UI
@@ -167,6 +172,8 @@ const SFX = {
     MISSILE_LAUNCH: { path: "./sfx/missile_launch.mp3", volume: 0.4 },
     SNAKE_HISS: { path: "./sfx/snake_hiss.mp3", volume: 0.4 },
     SLIME_ATTACK: { path: "./sfx/slime_attack.mp3", volume: 0.4 },
+
+    EVIL_LAUGH: { path: "./sfx/evil_laugh.mp3", volume: 0.4 },
 }
 
 /**

@@ -92,11 +92,12 @@ class Yeti {
         // add a piece of bacon in the Yeti's place at bottom-center of yeti
         const pos = Vector.add(this.base.getCenter(), new Vector(0, -40));
         GAME.addEntity(new FoodDrop(pos, FoodDrop.BACON));
+        GAME.addEntity(new FoodDrop(Vector.add(pos, new Vector(-5, -2)), FoodDrop.BACON));
 
         if (Math.random() < 0.6) {
-            GAME.addEntity(new AmmoDrop(pos, AmmoDrop.SNOWBALL, 10));
+            GAME.addEntity(new AmmoDrop(Vector.add(pos, new Vector(5, -2)), AmmoDrop.SNOWBALL, 20));
         } else {
-            GAME.addEntity(new AmmoDrop(pos, AmmoDrop.SUS_SNOWBALL, 5));
+            GAME.addEntity(new AmmoDrop(Vector.add(pos, new Vector(5, -2)), AmmoDrop.SUS_SNOWBALL, 10));
         }
 
         GAME.addEntity(new RuneDrop(pos, RuneDrop.YELLOW));

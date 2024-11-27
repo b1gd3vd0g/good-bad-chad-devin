@@ -40,6 +40,17 @@ class FlyingEnemyBase {
     }
 
     /**
+     * Calculates the distance between Chad and the enemy, comparing their bottom left corners
+     * in order to avoid having to account for character/enemy height.
+     * 
+     * @returns {number} the distance between the bottom left corners of Chad and the enemy
+     */
+    chadDistance() {
+        return Vector.distance(Vector.add(CHAD.getCenter(), new Vector(0, CHAD.scaledSize.y / 2)),
+            Vector.add(this.enemy.getCenter(), new Vector(0, this.enemy.scaledSize.y / 2)));
+    }
+
+    /**
      * Convert the relative path to an absolute path.
      * 
      * @param {Vector[]} path the relative path
@@ -121,6 +132,21 @@ class FlyingEnemyBase {
 
     static get LEFT_AND_RIGHT() {
         return [new Vector(0, 0), new Vector(200, 0), new Vector(0, 0)];
+    }
+
+    static get JUMP_SMALL() {
+        const jumpDistance = 200;
+        return [new Vector(0, 0), new Vector(0, -jumpDistance/4), new Vector(0, -jumpDistance), new Vector(0, 0)];
+    }
+
+    static get JUMP_MEDIUM() {
+        const jumpDistance = 400;
+        return [new Vector(0, 0), new Vector(0, -jumpDistance/4), new Vector(0, -jumpDistance), new Vector(0, 0)];
+    }
+
+    static get JUMP_BIG() {
+        const jumpDistance = 600;
+        return [new Vector(0, 0), new Vector(0, -jumpDistance/4), new Vector(0, -jumpDistance), new Vector(0, 0)];
     }
 
 }

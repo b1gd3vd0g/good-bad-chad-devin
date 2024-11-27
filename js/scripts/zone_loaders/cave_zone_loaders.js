@@ -14,7 +14,7 @@ const loadCave1 = () => {
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.flowers.PRIDE_FLOWER_1.SPRITESHEET);
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.flowers.TALL_PURPLE_FLOWER_1.SPRITESHEET);
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.grass.GRASS_1.SPRITESHEET);
-
+        
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.houses.BLACKSMITH_HOUSE.SPRITESHEET);
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.houses.CHAD_HOUSE.SPRITESHEET);
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.houses.MAYOR_HOUSE.SPRITESHEET);
@@ -24,6 +24,7 @@ const loadCave1 = () => {
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.trees.OAK_1.SPRITESHEET);
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.trees.SPRUCE_1.SPRITESHEET);
         ASSET_MGR.queueDownload(Miner.SPRITESHEET);
+        ASSET_MGR.queueDownload(BlackSmith.SPRITESHEET);
 
         ASSET_MGR.queueDownload(Bird.SPRITESHEET);
         ASSET_MGR.queueDownload(Bunny.SPRITESHEET);
@@ -85,6 +86,9 @@ const loadCave1 = () => {
 
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.crystals.CRYSTALS_2, Vector.blockToWorldSpace(new Vector(90, 106))), -1);
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.crystals.CRYSTALS_1, Vector.blockToWorldSpace(new Vector(43, 100))), -1);
+
+        const blockPosBlackSmith = new Vector(5, 5);
+        GAME.addEntity(new BlackSmith(Vector.blockToWorldSpace(blockPosBlackSmith), new Conversation(getAllConversationArrays().village.blacksmith.merchantCave)), 0);
 
         for (let i = 0; i < 5; i++) {
             GAME.addEntity(new Decoration(Decoration.DECORATIONS.crystals.CRYSTALS_5, Vector.blockToWorldSpace(new Vector(3 + i * 6, 79))), -1);
@@ -233,6 +237,7 @@ const loadCave2 = () => {
 
 
         ASSET_MGR.queueDownload(MUSIC.LAVA_NORMAL.path);
+        ASSET_MGR.queueDownload(MUSIC.LAVA_TENSE.path);
     };
 
     const addEntities = () => {

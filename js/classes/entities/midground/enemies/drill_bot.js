@@ -120,8 +120,6 @@ class DrillBot {
             GAME.addEntity(new RuneDrop(pos, RuneDrop.RED));
         }
 
-        this.statusEffect.removeAll;
-
         if (STORY.botsKilled) {
             STORY.botsKilled++;
         } else {

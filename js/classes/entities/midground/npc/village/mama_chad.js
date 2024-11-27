@@ -53,7 +53,7 @@ class MamaChad {
                 return;
             }
             if (ZONE.name === "End Fight Section") {
-                if (STORY.botsKilled && STORY.botsKilled >= 20) {
+                if (STORY.botsKilled && STORY.botsKilled >= 2) {
                     this.action = "idle";
                     this.conversation = new Conversation(getAllConversationArrays().end.mama.thanks);
                 }

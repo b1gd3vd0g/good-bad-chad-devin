@@ -92,8 +92,9 @@ class EelBoss {
         const pos = Vector.add(this.base.getCenter(), new Vector(0, -60));
 
         // add a piece of food in the eel_boss's place at bottom-center of eel_boss
-        GAME.addEntity(new FoodDrop(pos, FoodDrop.BURGER, true, true));
-        GAME.addEntity(new FoodDrop(pos, FoodDrop.ROAST_TURKEY))
+        GAME.addEntity(new FoodDrop(pos, FoodDrop.ROAST_TURKEY, true, true));
+        GAME.addEntity(new FoodDrop(Vector.add(pos, new Vector(-5, 5)), FoodDrop.BURGER, true, true));
+
 
         GAME.addEntity(new RuneDrop(pos, RuneDrop.RED, true, true));
         GAME.addEntity(new RuneDrop(Vector.add(pos, new Vector(5, 0)), RuneDrop.GREEN, true, true));
@@ -101,6 +102,13 @@ class EelBoss {
         GAME.addEntity(new RuneDrop(Vector.add(pos, new Vector(2, -2)), RuneDrop.GREEN, true, true));
 
         ASSET_MGR.stopAudio(MUSIC.RIVER_BOSS.path);
+
+        // Unlock all borders in the current zone.
+        GAME.entities.midground.forEach((entity) => {
+            if (entity instanceof Border) {
+                entity.locked = false;
+            }
+        });
     }
 
     /** Change what the EelBoss is doing and where it is. */

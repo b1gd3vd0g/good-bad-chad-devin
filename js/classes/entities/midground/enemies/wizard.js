@@ -116,7 +116,7 @@ class Wizard {
         // Step 5: Now that your position is actually figured out, draw your correct bounding box.
         this.boundingBox = new BoundingBox(this.pos, Wizard.SCALED_SIZE);
 
-        if (ZONE.name === "End Fight Section" && STORY.botsKilled >= 20) {
+        if (ZONE.name === "End Fight Section" && STORY.botsKilled >= 2) {
             this.conversation = new Conversation(getAllConversationArrays().end.wizard.victory)
         }
     };

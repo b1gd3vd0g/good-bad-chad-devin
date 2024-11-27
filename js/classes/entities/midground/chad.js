@@ -45,6 +45,8 @@ class Chad {
         this.speed = Chad.DEFAULT_SPEED;
         /** Chad's damage multiplier (applied on sword/slingshot hit) */
         this.damageMultiplier = 1;
+        /** level of sword */
+        this.swordLevel = 1; 
 
         /** The size of Chad on the canvas */
         this.scaledSize = new Vector(Chad.DEFAULT_BOUNDING_BOX_SIZE.x * Chad.DEFAULT_SCALE.x,
@@ -171,7 +173,7 @@ class Chad {
      * Initialize Chad's slingshot and sword.
      */
     initWeapons() {
-        this.sword = new Sword();
+        this.sword = new Sword(this.swordLevel);
         GAME.addEntity(this.sword, 1);
 
         this.slingshot = new Slingshot();
@@ -617,6 +619,7 @@ class Chad {
                         if (!entity.locked) {
                             LAST_ZONE = ZONE;
                             ZONE = entity.target;
+                            SAVED_ZONE = ZONE;
                             ZONE.load();
                             setTimeout(() => {
                                 HUD.addComponents();
