@@ -45,6 +45,8 @@ class Chad {
         this.speed = Chad.DEFAULT_SPEED;
         /** Chad's damage multiplier (applied on sword/slingshot hit) */
         this.damageMultiplier = 1;
+        /** level of sword */
+        this.swordLevel = 1; 
 
         /** The size of Chad on the canvas */
         this.scaledSize = new Vector(Chad.DEFAULT_BOUNDING_BOX_SIZE.x * Chad.DEFAULT_SCALE.x,
@@ -114,7 +116,7 @@ class Chad {
 
     /** The delay between dashes in seconds. */
     static get DASH_COOLDOWN() {
-        return 1.5;
+        return 1.3;
     }
 
     /** The maximum amount of health Chad can have. */
@@ -171,7 +173,7 @@ class Chad {
      * Initialize Chad's slingshot and sword.
      */
     initWeapons() {
-        this.sword = new Sword();
+        this.sword = new Sword(this.swordLevel);
         GAME.addEntity(this.sword, 1);
 
         this.slingshot = new Slingshot();
@@ -353,7 +355,7 @@ class Chad {
                 this.isDashing = true;
             }
 
-            // release wind particles every 0.05 seconds
+            // release wind particles every 0.07 seconds
             if (GAME.gameTime % 0.07 < 0.01) { // we use `< 0.01` instead of `== 0` to avoid floating point errors
                 GAME.addEntity(new ParticleEffect(this.getCenter(), ParticleEffect.WIND));
             }
@@ -579,12 +581,12 @@ class Chad {
                         if (isOverlapY) {
                             if (this.lastBoundingBox.right <= entity.boundingBox.left
                                 && this.boundingBox.right > entity.boundingBox.left
-                                ) { //&& !entity.canPassThru.left
+                            ) { //&& !entity.canPassThru.left
                                 // We are colliding with the left side.
                                 this.pos = new Vector(entity.boundingBox.left - this.scaledSize.x - bbOffset.x, this.pos.y);
                             } else if (this.lastBoundingBox.left >= entity.boundingBox.right
                                 && this.boundingBox.left < entity.boundingBox.right
-                                ) { //&& !entity.canPassThru.right
+                            ) { //&& !entity.canPassThru.right
                                 // We are colliding with the right side.
                                 this.pos = new Vector(entity.boundingBox.right - bbOffset.x, this.pos.y);
                             }
@@ -599,7 +601,7 @@ class Chad {
                         if (isOverlapX) {
                             if (this.lastBoundingBox.bottom <= entity.boundingBox.top
                                 && this.boundingBox.bottom > entity.boundingBox.top
-                                ) { //&& !entity.canPassThru.top
+                            ) { //&& !entity.canPassThru.top
                                 // We are colliding with the top.
                                 this.pos = new Vector(this.pos.x, entity.boundingBox.top - this.scaledSize.y - bbOffset.y);
                                 this.velocity = new Vector(this.velocity.x, 0);
@@ -607,7 +609,7 @@ class Chad {
                                 this.prevYPosOnGround = this.pos.y;
                             } else if (this.lastBoundingBox.top >= entity.boundingBox.bottom
                                 && this.boundingBox.top < entity.boundingBox.bottom
-                                ) { //&& !entity.canPassThru.bottom
+                            ) { //&& !entity.canPassThru.bottom
                                 // We are colliding with the bottom.
                                 this.pos = new Vector(this.pos.x, entity.boundingBox.bottom - bbOffset.y);
                             }
@@ -617,6 +619,7 @@ class Chad {
                         if (!entity.locked) {
                             LAST_ZONE = ZONE;
                             ZONE = entity.target;
+                            SAVED_ZONE = ZONE;
                             ZONE.load();
                             setTimeout(() => {
                                 HUD.addComponents();
@@ -633,12 +636,12 @@ class Chad {
                             if (isOverlapY) {
                                 if (this.lastBoundingBox.right <= entity.boundingBox.left
                                     && this.boundingBox.right > entity.boundingBox.left
-                                    ) { //&& !entity.canPassThru.left
+                                ) { //&& !entity.canPassThru.left
                                     // We are colliding with the left side.
                                     this.pos = new Vector(entity.boundingBox.left - this.scaledSize.x - bbOffset.x, this.pos.y);
                                 } else if (this.lastBoundingBox.left >= entity.boundingBox.right
                                     && this.boundingBox.left < entity.boundingBox.right
-                                    ) { //&& !entity.canPassThru.right
+                                ) { //&& !entity.canPassThru.right
                                     // We are colliding with the right side.
                                     this.pos = new Vector(entity.boundingBox.right - bbOffset.x, this.pos.y);
                                 }
@@ -653,7 +656,7 @@ class Chad {
                             if (isOverlapX) {
                                 if (this.lastBoundingBox.bottom <= entity.boundingBox.top
                                     && this.boundingBox.bottom > entity.boundingBox.top
-                                    ) { //&& !entity.canPassThru.top
+                                ) { //&& !entity.canPassThru.top
                                     // We are colliding with the top.
                                     this.pos = new Vector(this.pos.x, entity.boundingBox.top - this.scaledSize.y - bbOffset.y);
                                     this.velocity = new Vector(this.velocity.x, 0);
@@ -661,7 +664,7 @@ class Chad {
                                     this.prevYPosOnGround = this.pos.y;
                                 } else if (this.lastBoundingBox.top >= entity.boundingBox.bottom
                                     && this.boundingBox.top < entity.boundingBox.bottom
-                                    ) { //&& !entity.canPassThru.bottom
+                                ) { //&& !entity.canPassThru.bottom
                                     // We are colliding with the bottom.
                                     this.pos = new Vector(this.pos.x, entity.boundingBox.bottom - bbOffset.y);
                                 }
@@ -678,7 +681,7 @@ class Chad {
                             this.statusEffect.didSomeStomping();
                         }
                     }
-                } 
+                }
                 // There's no collision - don't do anything!
             }
             // There's no bounding box, so who gives a shrek?
@@ -693,6 +696,15 @@ class Chad {
                 this.takeDamage(this.maxHealth);
             }
         }
+        if (ZONE.name === "End Fight Section") {
+            if (this.pos.y > Vector.blockToWorldSpace(new Vector(0, 75)).y) {
+                this.takeDamage(this.maxHealth);
+            }
+        }
+        // Step 7: Check general zone conditions
+        // if (this.pos.y > Vector.blockToWorldSpace(new Vector(0, 75)).y) {
+        //     this.takeDamage(this.maxHealth);
+        // }
     };
 
     /** Draw Chad on the canvas. */
@@ -733,22 +745,22 @@ class Chad {
             Chad.SPRITESHEET,
             new Vector(0, 0),
             Chad.SIZE,
-            31, 1 / 10);
+            30, 1 / 10);
         this.animations["left"]["walking"] = new Animator(
             Chad.SPRITESHEET,
             new Vector(96, 64),
             Chad.SIZE,
-            31, 1 / 10, true, true);
+            30, 1 / 10, true, true);
         this.animations["right"]["running"] = new Animator(
             Chad.SPRITESHEET,
             new Vector(0, 0),
             Chad.SIZE,
-            31, 1 / 10);
+            30, 1 / 10);
         this.animations["left"]["running"] = new Animator(
             Chad.SPRITESHEET,
             new Vector(96, 64),
             Chad.SIZE,
-            31, 1 / 10, true, true);
+            30, 1 / 10, true, true);
 
         this.animations["right"]["dashing"] = new Animator(
             Chad.SPRITESHEET,
@@ -775,13 +787,13 @@ class Chad {
             Chad.SPRITESHEET,
             new Vector(0, 128),
             Chad.SIZE,
-            32, 1 / 20);
+            30, 1 / 20);
         this.animations["left"]["slicing"] = new Animator(
             Chad.SPRITESHEET,
             new Vector(
                 0, 192),
             Chad.SIZE,
-            32, 1 / 20, true, true);
+            30, 1 / 20, true, true);
 
         this.animations["right"]["slicingStill"] = new Animator(
             Chad.SPRITESHEET,

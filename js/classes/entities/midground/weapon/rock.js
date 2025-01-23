@@ -72,7 +72,7 @@ class Rock {
     }
 
     static get ALIVE_TIME() {
-        return 3;
+        return 2;
     }
 
     static get DAMAGE() {

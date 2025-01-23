@@ -27,7 +27,7 @@ class Hud {
      * Switch the mouse icon to a crosshair.
      */
     swapToCrosshair() {
-        const crosshairUnclicked = 'url(../sprites/crosshair_unclicked.png) 16 16, auto';
+        const crosshairUnclicked = 'url(./sprites/crosshair_unclicked.png) 16 16, auto';
         document.body.style.cursor = crosshairUnclicked;
     }
 
@@ -35,7 +35,7 @@ class Hud {
      * Switch the mouse icon to a pointer.
      */
     swapToPointer() {
-        const pointerUnclicked = 'url(../sprites/pointer_unclicked.png) 10 4, auto';
+        const pointerUnclicked = 'url(./sprites/pointer_unclicked.png) 10 4, auto';
         document.body.style.cursor = pointerUnclicked;
     }
 
@@ -67,6 +67,51 @@ class Hud {
         });
     }
 
+    // /**
+    //  * Switch the mouse icon to a crosshair.
+    //  */
+    // swapToCrosshair() {
+    //     document.body.classList.remove('pointer-cursor');
+    //     document.body.classList.add('crosshair-cursor');
+    // }
+
+    // /**
+    //  * Switch the mouse icon to a pointer.
+    //  */
+    // swapToPointer() {
+    //     document.body.classList.remove('crosshair-cursor');
+    //     document.body.classList.add('pointer-cursor');
+    // }
+
+    // /**
+    //  * Add the mouse listeners for switching between pointers.
+    //  */
+    // addMouseListeners() {
+    //     document.body.addEventListener('mousedown', () => {
+    //         if (GAME.running) {
+    //             document.body.classList.remove('crosshair-cursor-unclicked');
+    //             document.body.classList.add('crosshair-cursor-clicked');
+    //         } else {
+    //             document.body.classList.remove('pointer-cursor-unclicked');
+    //             document.body.classList.add('pointer-cursor-clicked');
+    //             ASSET_MGR.playSFX(SFX.UI_SNAP.path, SFX.UI_SNAP.volume);
+    //         }
+    //     });
+
+    //     document.body.addEventListener('mouseup', () => {
+    //         if (GAME.running) {
+    //             document.body.classList.remove('crosshair-cursor-clicked');
+    //             document.body.classList.add('crosshair-cursor-unclicked');
+    //             console.log("game stopped")
+    //         } else {
+    //             document.body.classList.remove('pointer-cursor-clicked');
+    //             document.body.classList.add('pointer-cursor-unclicked');
+    //             console.log("game continue")
+
+    //         }
+    //     });
+    // }
+
     /**
      * Add a component to the HUD. Creates a field for the component and adds the component
      * to the game engine as an entity. This means that the component must have an update
@@ -89,7 +134,7 @@ class Hud {
      */
     addComponents() {
         // clean up leftover event listeners from old components
-        this.componentListeners.forEach(([event, listener]) => 
+        this.componentListeners.forEach(([event, listener]) =>
             document.body.removeEventListener(event, listener));
 
         // add Chad's head, rune counter, and health bar
@@ -111,8 +156,19 @@ class Hud {
 
         // add slingshot ammo hotbar
         const hotbarItemWidth = ItemLabel.DEFAULT_SIZE.x;
+        const hotbarItemHeight = ItemLabel.DEFAULT_SIZE.y;
         const hotbarXStart = (Camera.SIZE.x - hotbarItemWidth * 5) / 2 - 100;
         const hotbarY = Camera.SIZE.y - ItemLabel.DEFAULT_SIZE.y - Hud.MARGIN;
+        const hotbarItemCount = 7;
+
+        // add ammo related things
+        this.addComponent("hotBarRectangle", new HotBarRectangle(
+            hotbarXStart - HotBarRectangle.PADDING,
+            hotbarY - HotBarRectangle.PADDING,
+            ((hotbarItemWidth + 4) * hotbarItemCount) + 2 * HotBarRectangle.PADDING,
+            hotbarItemHeight + 2 * HotBarRectangle.PADDING
+        ));
+
         this.addComponent("ammoRockLabel", new AmmoLabel(
             new Vector(hotbarXStart, hotbarY),
             AmmoItem.ROCK,
@@ -285,7 +341,7 @@ class AmmoLabel {
     constructor(pos, type, inputName) {
         this.type = type;
         this.ammoItem = INVENTORY.getAmmo(type);
-        
+
         const ammoItemName = AmmoItem.AMMO_ITEM_MAP[type.toLowerCase()];
         this.animator = new Animator(
             ammoItemName.SPRITESHEET,
@@ -386,7 +442,7 @@ class ItemLabel {
     }
 
     setImageVisible(isVisible) {
-        
+
     }
 
     /** 
@@ -445,6 +501,37 @@ class ItemLabel {
     }
 }
 
+class HotBarRectangle {
+    /**
+     * Constructor for a HotBarRectangle.
+     * 
+     * @param {number} x the x-coordinate of the HotBarRectangle on the canvas
+     * @param {number} y the y-coordinate of the HotBarRectangle on the canvas
+     * @param {number} width the width of the HotBarRectangle on the canvas
+     * @param {number} height the height of the HotBarRectangle on the canvas
+     */
+    constructor(x, y, width, height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+
+    static get PADDING() {
+        return 0;
+    }
+
+    update() {
+
+    }
+
+    draw() {
+        CTX.fillStyle = COLORS.LIGHT_GRAY;
+        CTX.lineWidth = 5;
+        CTX.strokeRect(this.x, this.y, this.width, this.height);
+    }
+}
+
 /** 
  * A class which serves as a pause button.
  * 
@@ -459,7 +546,7 @@ class PauseButton {
     constructor(pos) {
         this.pos = pos;
         this.controls = new Controls();
-        
+
         const listener = () => {
             const mouseOverButton = GAME.mousePos.x > this.pos.x
                 && GAME.mousePos.y > this.pos.y
@@ -479,7 +566,7 @@ class PauseButton {
             }
         };
         document.body.addEventListener("click", listener);
-        HUD.componentListeners.push([ "click", listener ]);
+        HUD.componentListeners.push(["click", listener]);
     }
 
     /** The size (in pixels) of the PauseButton on the canvas. */
@@ -559,7 +646,7 @@ class PauseButton {
             CTX.lineTo(this.pos.x + size.x - margin, this.pos.y + size.y / 2);
             CTX.lineTo(this.pos.x + margin, this.pos.y + size.y - margin);
             CTX.fill();
-        }    
+        }
     }
 }
 
@@ -616,7 +703,7 @@ class HudHealthBar {
         // draw text for health / max health
         CTX.fillStyle = "white";
         CTX.font = Hud.TEXT_SIZE + "px vt323";
-        CTX.fillText(CHAD.health + " / " + CHAD.maxHealth + " HP", this.pos.x + this.length + 10, this.pos.y + Hud.TEXT_SIZE/2);
+        CTX.fillText(CHAD.health + " / " + CHAD.maxHealth + " HP", this.pos.x + this.length + 10, this.pos.y + Hud.TEXT_SIZE / 2);
     };
 }
 

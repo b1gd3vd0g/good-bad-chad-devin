@@ -8,20 +8,20 @@ class StartMenu {
      * Constructor for the StartMenu.
      */
     constructor() {
-        this.title = new Animator(StartMenu.TITLE_SPRITESHEET, new Vector(0, 0), 
+        this.title = new Animator(StartMenu.TITLE_SPRITESHEET, new Vector(0, 0),
             StartMenu.TITLE_SIZE, 1, 1);
-        this.startButton = new Button(new Vector((Camera.SIZE.x - StartMenu.BUTTON_SIZE.x) / 2, 
-            Camera.SIZE.y / 2 + StartMenu.BUTTON_MARGIN), StartMenu.BUTTON_SIZE, 
+        this.startButton = new Button(new Vector((Camera.SIZE.x - StartMenu.BUTTON_SIZE.x) / 2,
+            Camera.SIZE.y / 2 + StartMenu.BUTTON_MARGIN), StartMenu.BUTTON_SIZE,
             StartMenu.START_BUTTON_TEXT, StartMenu.BUTTON_FONT_SIZE, () => this.handleStartClick());
-        
-        this.controlsButton = new Button(new Vector((Camera.SIZE.x - StartMenu.BUTTON_SIZE.x) / 2, 
-            Camera.SIZE.y / 2 + StartMenu.BUTTON_SIZE.y + 2 * StartMenu.BUTTON_MARGIN), StartMenu.BUTTON_SIZE, 
+
+        this.controlsButton = new Button(new Vector((Camera.SIZE.x - StartMenu.BUTTON_SIZE.x) / 2,
+            Camera.SIZE.y / 2 + StartMenu.BUTTON_SIZE.y + 2 * StartMenu.BUTTON_MARGIN), StartMenu.BUTTON_SIZE,
             StartMenu.CONTROLS_BUTTON_TEXT, StartMenu.BUTTON_FONT_SIZE, () => this.handleControlsClick());
 
         this.controls = null;
 
-        this.controlsOKButton = new Button(new Vector((Camera.SIZE.x - StartMenu.BUTTON_SIZE.x) / 2, 
-            (Camera.SIZE.y + Controls.SIZE.y) / 2 + StartMenu.BUTTON_MARGIN), StartMenu.BUTTON_SIZE, 
+        this.controlsOKButton = new Button(new Vector((Camera.SIZE.x - StartMenu.BUTTON_SIZE.x) / 2,
+            (Camera.SIZE.y + Controls.SIZE.y) / 2 + StartMenu.BUTTON_MARGIN), StartMenu.BUTTON_SIZE,
             "OK", StartMenu.BUTTON_FONT_SIZE, () => this.handleControlsOKClick());
     }
 
@@ -49,7 +49,7 @@ class StartMenu {
     static get START_BUTTON_TEXT() {
         return "Start";
     }
-    
+
     /** The text to be displayed on the controls button. */
     static get CONTROLS_BUTTON_TEXT() {
         return "Controls";
@@ -75,9 +75,7 @@ class StartMenu {
         GAME.mode = GameEngine.GAMEPLAY_MODE;
         HUD.addComponents();
         this.removeFromWorld = true;
-        // setTimeout(() => {
-        //     ASSET_MGR.playMusic(MUSIC.PEACEFUL_CHIPTUNE.path, MUSIC.PEACEFUL_CHIPTUNE.volume);
-        // }, 1000);
+        ASSET_MGR.playMusic(MUSIC.CHAD_PLAYFUL_ADVENTURE.path, MUSIC.CHAD_PLAYFUL_ADVENTURE.volume);
     }
 
     /** Respond to a controls button click. */
@@ -92,7 +90,7 @@ class StartMenu {
 
     /** Update the start menu. */
     update() {
-    
+
     }
 
     /** Draw the start menu. */
@@ -106,7 +104,7 @@ class StartMenu {
             this.controlsOKButton.draw();
         } else {
             this.title.drawFrame(new Vector((Camera.SIZE.x - StartMenu.TITLE_SCALED_SIZE.x) / 2,
-            Camera.SIZE.y / 2 - StartMenu.TITLE_SCALED_SIZE.y), StartMenu.TITLE_SCALE);
+                Camera.SIZE.y / 2 - StartMenu.TITLE_SCALED_SIZE.y), StartMenu.TITLE_SCALE);
             this.startButton.draw();
             this.controlsButton.draw();
         }

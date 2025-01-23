@@ -15,21 +15,21 @@ class FlyingEnemyBase {
      * @param {number} speed the speed of the enemy
      * @param {number} health the initial health of the enemy
      * @param {function} onDeath callback function invoked when the enemy dies
-     * @param {Vector[]} path array of ordered Vectors that delineate the enemy's path
+     * @param {Vector[]} path array of ordered Vectors that delineate the enemy's path RELATIVE TO ITS SPAWN POSITION
      */
     constructor(enemy, pos, scaledSize, speed, health, onDeath, path) {
         this.enemy = enemy;
         this.base = new EnemyBase(enemy, pos, scaledSize, speed, health, onDeath);
 
         this.path = this.relativeToAbsolute(path, pos);
-    
+
         enemy.getDirection = () => this.getDirection();
-        
+
         // set the enemy's target position as the nearest path node
         for (let i = 0; i < path.length; i++) {
-            if (!this.target || Vector.distance(enemy.pos, path[i]) 
+            if (!this.target || Vector.distance(enemy.pos, path[i])
                 < Vector.distance(enemy.pos, this.target)) {
-                
+
                 this.target = i;
             }
         }
@@ -37,6 +37,17 @@ class FlyingEnemyBase {
         if (!enemy.takeDamage) {
             enemy.takeDamage = (amount) => this.takeDamage(amount);
         }
+    }
+
+    /**
+     * Calculates the distance between Chad and the enemy, comparing their bottom left corners
+     * in order to avoid having to account for character/enemy height.
+     * 
+     * @returns {number} the distance between the bottom left corners of Chad and the enemy
+     */
+    chadDistance() {
+        return Vector.distance(Vector.add(CHAD.getCenter(), new Vector(0, CHAD.scaledSize.y / 2)),
+            Vector.add(this.enemy.getCenter(), new Vector(0, this.enemy.scaledSize.y / 2)));
     }
 
     /**
@@ -63,7 +74,7 @@ class FlyingEnemyBase {
      * Does nothing. For compatibility with StatusEffect.
      */
     flee() {
-        
+
     }
 
     /**
@@ -78,7 +89,7 @@ class FlyingEnemyBase {
         if (Vector.distance(this.enemy.pos, this.path[this.target]) < this.enemy.scaledSize.x / 2) {
             const hasPrev = this.target > 0;
             const hasNext = this.target < this.path.length - 1
-            
+
             // if there are previous AND next nodes in the path, randomly choose between them
             // otherwise, choose whichever is available
             if (hasPrev && hasNext) {
@@ -94,4 +105,48 @@ class FlyingEnemyBase {
             this.path[this.target], this.enemy.pos)), this.enemy.speed * GAME.clockTick);
         this.enemy.pos = Vector.add(this.enemy.pos, velocity);
     }
+
+
+
+    // presets for paths
+
+    static get STRAIGHT_LINE() {
+        return [new Vector(0, 0), new Vector(400, 0)];
+    }
+
+    static get ZIG_ZAG() {
+        return [new Vector(0, 0), new Vector(200, 200), new Vector(400, 0), new Vector(200, -200), new Vector(0, 0)];
+    }
+
+    static get SINE_WAVE() {
+        return [new Vector(0, 0), new Vector(200, 200), new Vector(400, 0), new Vector(600, -200), new Vector(800, 0)];
+    }
+
+    static get CIRCLE() {
+        return [new Vector(0, 0), new Vector(200, 200), new Vector(400, 0), new Vector(200, -200), new Vector(0, 0)];
+    }
+
+    static get UP_AND_DOWN() {
+        return [new Vector(0, 0), new Vector(0, 200), new Vector(0, 0)];
+    }
+
+    static get LEFT_AND_RIGHT() {
+        return [new Vector(0, 0), new Vector(200, 0), new Vector(0, 0)];
+    }
+
+    static get JUMP_SMALL() {
+        const jumpDistance = 200;
+        return [new Vector(0, 0), new Vector(0, -jumpDistance/4), new Vector(0, -jumpDistance), new Vector(0, 0)];
+    }
+
+    static get JUMP_MEDIUM() {
+        const jumpDistance = 400;
+        return [new Vector(0, 0), new Vector(0, -jumpDistance/4), new Vector(0, -jumpDistance), new Vector(0, 0)];
+    }
+
+    static get JUMP_BIG() {
+        const jumpDistance = 600;
+        return [new Vector(0, 0), new Vector(0, -jumpDistance/4), new Vector(0, -jumpDistance), new Vector(0, 0)];
+    }
+
 }

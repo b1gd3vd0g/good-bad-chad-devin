@@ -59,7 +59,7 @@ class WaterBalloon {
     }
 
     static get DAMAGE() {
-        return 10;
+        return 12;
     }
 
     static get ALIVE_TIME_AFTER_HIT() {

@@ -37,3 +37,19 @@ body::contextmenu {
 #options {
     margin: 10px 0 10px 0;
 }
+
+.crosshair-cursor-unclicked {
+    cursor: url('../sprites/crosshair_unclicked.png') 16 16, crosshair;
+}
+
+.crosshair-cursor-clicked {
+    cursor: url('../sprites/crosshair_clicked.png') 16 16, crosshair;
+}
+
+.pointer-cursor-unclicked {
+    cursor: url('../sprites/pointer_unclicked.png') 10 4, pointer;
+}
+
+.pointer-cursor-clicked {
+    cursor: url('../sprites/pointer_clicked.png') 10 4, pointer;
+}

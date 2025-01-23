@@ -125,7 +125,12 @@ const SFX = {
     COIN_COLLECT: {path: "./sfx/rune_collect.mp3", volume: 0.7},
     MEGA_MUSHROOM: {path: "./sfx/mega_mushroom.mp3", volume: 0.4},
     WATER_BALLOON: {path: "./sfx/water_balloon.wav", volume: 0.4},
-    LIFE_UP: {path: "./sfx/life_up.wav", volume: 0.4},
+    LIFE_UP: { path: "./sfx/life_up.wav", volume: 0.4 },
+    SWORD_UPGRADE: { path: "./sfx/sword_upgrade.mp3", volume: 0.4 },
+    REVIVE: { path: "./sfx/revive.wav", volume: 0.2 },
+
+    HMM1: { path: "./sfx/npc_hmm1.mp3", volume: 0.4 },
+    HMM2: { path: "./sfx/npc_hmm2.mp3", volume: 0.4 },
     
     
     // UI
@@ -166,6 +171,9 @@ const SFX = {
     SONIC_WAVE: { path: "./sfx/sonic_wave.mp3", volume: 0.4 },
     MISSILE_LAUNCH: { path: "./sfx/missile_launch.mp3", volume: 0.4 },
     SNAKE_HISS: { path: "./sfx/snake_hiss.mp3", volume: 0.4 },
+    SLIME_ATTACK: { path: "./sfx/slime_attack.mp3", volume: 0.4 },
+
+    EVIL_LAUGH: { path: "./sfx/evil_laugh.mp3", volume: 0.4 },
 }
 
 /**
@@ -173,7 +181,7 @@ const SFX = {
  */
 const MUSIC = {
     // Misc.
-    PEACEFUL_CHIPTUNE: { path: "./music/peaceful_chiptune.mp3", volume: 0.1 }, // testing music
+    PEACEFUL_CHIPTUNE: { path: "./music/peaceful_chiptune.mp3", volume: 0.06 }, // testing music
     HIGH_ENERGY: { path: "./music/high_energy_sample.wav", volume: 0.1 },
     VICTORY: { path: "./music/victory_sample.wav", volume: 0.1 },
     UPBEAT_CHIPTUNE_2: { path: "./music/upbeat_chiptune_2.mp3", volume: 0.1 },
@@ -195,7 +203,7 @@ const MUSIC = {
     // FOREST_NORMAL: {path: "./music/forest_normal.mp3", volume: 0.1},
     
     // River themes
-    RIVER_BOSS: { path: "./music/river_boss.mp3", volume: 0.1 },
+    RIVER_BOSS: { path: "./music/river_boss.mp3", volume: 0.2 },
 
     // Factory themes
     FACTORY_BOSS: { path: "./music/factory_boss_sample.wav", volume: 0.1 },

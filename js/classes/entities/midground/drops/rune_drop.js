@@ -15,17 +15,18 @@ class RuneDrop {
         this.amount = RuneDrop.VALUE_MAP[type];
         this.hasGravity = hasGravity;
 
-        this.yVelocity = 0;
+        this.velocity = new Vector(0, 0);
         if (popInAir) {
             // give the drop a little pop in the air when it spawns
             this.yVelocity = -300;
         }
         this.scale = RuneDrop.SCALE;
         this.scaledSize = Vector.multiply(RuneDrop.SIZE, this.scale);
+        this.center = Vector.add(this.pos, Vector.multiply(this.scaledSize, 0.5));
         this.boundingBox = new BoundingBox(this.pos, this.scaledSize);
         this.lastBoundingBox = this.boundingBox;
 
-        this.animation = new Animator(RuneDrop.SPRITESHEET, 
+        this.animation = new Animator(RuneDrop.SPRITESHEET,
             new Vector(RuneDrop.SIZE.x, type * RuneDrop.SIZE.y),
             RuneDrop.SIZE, 8, 0.15);
     }
@@ -35,7 +36,7 @@ class RuneDrop {
         const center = Vector.add(this.pos, Vector.divide(this.scaledSize, 2));
         GAME.addEntity(new ParticleEffect(center, ParticleEffect.RUNE_PICKUP));
         ASSET_MGR.playSFX(SFX.COIN_COLLECT.path, SFX.COIN_COLLECT.volume);
-        
+
         this.removeFromWorld = true;
 
         //TODO send ammo to inventory
@@ -49,10 +50,21 @@ class RuneDrop {
 
         if (this.hasGravity) {
 
-            this.yVelocity += PHYSICS.GRAVITY_ACC * GAME.clockTick;
+            // move toward player like a magnet when close enough
+            const chadDist = Vector.distance(this.center, CHAD.getCenter());
+            if (chadDist < 300) {
+                const chadDir = Vector.direction(this.pos, CHAD.pos);
+                const speedMultiplier = chadDist / 10; // make the speed increase as the distance decreases
+                this.velocity = Vector.add(this.velocity, Vector.multiply(chadDir, speedMultiplier));
+                console.log("CHAD SIGHTING. Moving towards player.");
+
+            } else {
+                this.velocity = Vector.add(this.velocity, new Vector(0, PHYSICS.GRAVITY_ACC * GAME.clockTick));
+            }
+
 
             // update position
-            this.pos.y += this.yVelocity * GAME.clockTick;
+            this.pos = Vector.add(this.pos, Vector.multiply(this.velocity, GAME.clockTick));
 
             // update bounding box
             this.lastBoundingBox = this.boundingBox;
@@ -60,6 +72,7 @@ class RuneDrop {
 
             // check for collision with the ground
             checkBlockCollisions(this, this.scaledSize);
+
         }
     }
 
@@ -68,7 +81,7 @@ class RuneDrop {
         this.animation.drawFrame(Vector.worldToCanvasSpace(this.pos), this.scale);
 
         CTX.fillStyle = "white";
-        CTX.font = ItemLabel.TEXT_SIZE + "px vt323";
+        CTX.font = RuneDrop.TEXT_SIZE + "px vt323";
 
         const text = "$" + this.amount;
         const textWidth = CTX.measureText(text).width;
@@ -112,6 +125,10 @@ class RuneDrop {
 
     static get SIZE() {
         return new Vector(36, 36);
+    }
+
+    static get TEXT_SIZE() {
+        return 32;
     }
 
     //map for type of rune to value

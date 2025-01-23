@@ -74,7 +74,7 @@ class Missile {
     onBlockCollision(block) {
         if (!this.hasHit) {
             this.hasHit = true;
-            this.explode();        
+            this.explode();
         }
     }
 
@@ -111,43 +111,43 @@ class Missile {
         this.animations["firing"] = [];
 
         this.animations["firing"]["right"] = new Animator(
-            Missile.SPRITESHEET, 
-            new Vector(0, Missile.SIZE.y * 0), 
+            Missile.SPRITESHEET,
+            new Vector(0, Missile.SIZE.y * 0),
             Missile.SIZE, 2, 0.5); // 0 degree angle
 
         this.animations["firing"]["rightDown"] = new Animator(
-            Missile.SPRITESHEET, 
-            new Vector(0, Missile.SIZE.y * 1), 
+            Missile.SPRITESHEET,
+            new Vector(0, Missile.SIZE.y * 1),
             Missile.SIZE, 2, 0.5); // 45 degree angle
 
         this.animations["firing"]["down"] = new Animator(
-            Missile.SPRITESHEET, 
-            new Vector(0, Missile.SIZE.y * 2), 
+            Missile.SPRITESHEET,
+            new Vector(0, Missile.SIZE.y * 2),
             Missile.SIZE, 2, 0.5); // 90 degree angle
 
         this.animations["firing"]["leftDown"] = new Animator(
-            Missile.SPRITESHEET, 
-            new Vector(0, Missile.SIZE.y * 3), 
+            Missile.SPRITESHEET,
+            new Vector(0, Missile.SIZE.y * 3),
             Missile.SIZE, 2, 0.5); // 135 degree angle
 
         this.animations["firing"]["left"] = new Animator(
-            Missile.SPRITESHEET, 
-            new Vector(0, Missile.SIZE.y * 4), 
+            Missile.SPRITESHEET,
+            new Vector(0, Missile.SIZE.y * 4),
             Missile.SIZE, 2, 0.5); // 180 degree angle
 
         this.animations["firing"]["leftUp"] = new Animator(
-            Missile.SPRITESHEET, 
-            new Vector(0, Missile.SIZE.y * 5), 
+            Missile.SPRITESHEET,
+            new Vector(0, Missile.SIZE.y * 5),
             Missile.SIZE, 2, 0.5); // 225 degree angle
 
         this.animations["firing"]["up"] = new Animator(
             Missile.SPRITESHEET,
-            new Vector(0, Missile.SIZE.y * 6), 
+            new Vector(0, Missile.SIZE.y * 6),
             Missile.SIZE, 2, 0.5); // 270 degree angle
 
         this.animations["firing"]["rightUp"] = new Animator(
-            Missile.SPRITESHEET, 
-            new Vector(0, Missile.SIZE.y * 7), 
+            Missile.SPRITESHEET,
+            new Vector(0, Missile.SIZE.y * 7),
             Missile.SIZE, 2, 0.5); // 315 degree angle
     }
 
@@ -159,6 +159,7 @@ class Missile {
             this.removeFromWorld = true;
         }
 
+        // "every 1/10th of a second" with 0.01 as a margin of error
         if (this.action == "firing" && !this.hasHit && GAME.gameTime % 0.1 < 0.01) {
             // release particle trail
             const center = Vector.add(this.pos, Vector.divide(Missile.SCALED_SIZE, 2));

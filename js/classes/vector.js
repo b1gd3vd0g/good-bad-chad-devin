@@ -115,7 +115,7 @@ class Vector {
         return Vector.unit(Vector.subtract(b, a));
     };
 
-    /**d
+    /**
      * Reflects a Vector across another Vector.
      * 
      * @param {Vector} a the Vector to reflect

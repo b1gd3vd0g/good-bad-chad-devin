@@ -66,7 +66,7 @@ class StatusEffect {
     apply(effect, duration) {
         console.log("applying status effect: " + effect);
 
-        switch(effect) {
+        switch (effect) {
             case StatusEffect.INVINCIBLE:
                 this.invincibleTimer = duration ? duration : StatusEffect.INVINCIBLE_DURATION;
                 if (!this.invincible) { // if already invincible, don't take the same effect again
@@ -96,7 +96,7 @@ class StatusEffect {
                 if (!this.fast) { // if already fast, don't take the same effect again
                     this.fast = true;
                     this.entity.speed *= 1.5;
-    
+
                     if (this.entity === CHAD) {
                         this.entity.firstJumpVelocity = Chad.DEFAULT_FIRST_JUMP_VELOCITY * 1.2;
                         this.entity.secondJumpVelocity = Chad.DEFAULT_SECOND_JUMP_VELOCITY * 1.2;
@@ -133,7 +133,7 @@ class StatusEffect {
                 this.fleeingTimer = duration ? duration : StatusEffect.FLEEING_DURATION;
                 if (!this.fleeing) { // if already fleeing, don't take the same effect again
                     this.fleeing = true;
-                    if (this.entity.isEnemy) {
+                    if (this.entity.isGroundEnemy) {
                         this.entity.base.flee();
                     }
                 }
@@ -152,7 +152,7 @@ class StatusEffect {
     remove(effect) {
         console.log("removing status effect: " + effect);
 
-        switch(effect) {
+        switch (effect) {
             case StatusEffect.INVINCIBLE:
                 this.invincible = false;
                 if (this.entity === CHAD) {
@@ -194,7 +194,7 @@ class StatusEffect {
 
             case StatusEffect.FLEEING:
                 this.fleeing = false;
-                if (this.entity.isEnemy) {
+                if (this.entity.isGroundEnemy) {
                     this.entity.base.pursue();
                 }
                 break;
@@ -258,7 +258,7 @@ class StatusEffect {
             }
             if (this.slowTimer <= 0) {
                 this.remove(StatusEffect.SLOW);
-            }   
+            }
         }
 
         if (this.giant) {
@@ -300,13 +300,13 @@ class StatusEffect {
     }
 
     draw() {
-        
+
     }
 
     /**
      * Remove all status effects from the entity.
      */
-    removeAll() {
+    clearEffects() {
         this.remove(StatusEffect.INVINCIBLE);
         this.remove(StatusEffect.STRONG);
         this.remove(StatusEffect.FAST);
@@ -331,18 +331,18 @@ class StatusEffect {
         if (this.giant) {
             // default to the giant's scale first
             this.entity.scale = new Vector(
-                this.defaultScale.x * StatusEffect.GIANT_SCALE_MODIFIER.x, 
+                this.defaultScale.x * StatusEffect.GIANT_SCALE_MODIFIER.x,
                 this.defaultScale.y * StatusEffect.GIANT_SCALE_MODIFIER.y);
 
         } else if (this.invincible) {
             // default to the invincible's scale next if giant is not active
             this.entity.scale = new Vector(
-                this.defaultScale.x * StatusEffect.INVINCIBLE_SCALE_MODIFIER.x, 
+                this.defaultScale.x * StatusEffect.INVINCIBLE_SCALE_MODIFIER.x,
                 this.defaultScale.y * StatusEffect.INVINCIBLE_SCALE_MODIFIER.y);
         } else if (this.strong) {
             // default to the strong's scale last if neither giant nor invincible are active
             this.entity.scale = new Vector(
-                this.defaultScale.x * StatusEffect.STRONG_SCALE_MODIFIER.x, 
+                this.defaultScale.x * StatusEffect.STRONG_SCALE_MODIFIER.x,
                 this.defaultScale.y * StatusEffect.STRONG_SCALE_MODIFIER.y);
         } else {
             // lastly, default to the entity's default scale

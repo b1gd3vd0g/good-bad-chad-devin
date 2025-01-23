@@ -62,8 +62,10 @@ class DeathScreen {
     handleRespawnButtonClick() {
         CHAD.health = CHAD.maxHealth;
         LAST_ZONE = null;
-        ZONE = Zone.getZones().village.main;
+        ZONE = SAVED_ZONE; // Restore the last saved zone
         ZONE.load();
+        // create spawnpoint for 3 seconds before it gets removed from world
+        GAME.addEntity(new Spawnpoint(CHAD.getCenter()), 0);
         this.removeFromWorld = true;
     }
 

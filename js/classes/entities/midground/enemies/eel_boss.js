@@ -10,15 +10,15 @@ class EelBoss {
      * @param {Vector} pos the position at which the EelBoss should start
      */
     constructor(pos) {
-        this.base = new EnemyBase(
-            this, 
-            pos, 
-            EelBoss.SCALED_SIZE, 
-            EelBoss.SPEED, 
-            EelBoss.MAX_HEALTH, 
-            EelBoss.PACE_DISTANCE, 
+        this.base = new GroundEnemyBase(
+            this,
+            pos,
+            EelBoss.SCALED_SIZE,
+            EelBoss.SPEED,
+            EelBoss.MAX_HEALTH,
+            EelBoss.PACE_DISTANCE,
             () => this.handleDeath(),
-            EnemyBase.DEFENSIVE_STANCE
+            EnemyBase.AGGRESSIVE_STANCE
         );
 
         /** An associative array of the animations for this EelBoss. Arranged [facing][action]. */
@@ -46,7 +46,7 @@ class EelBoss {
 
     /** The speed of the EelBoss. */
     static get SPEED() {
-        return 50;
+        return 100;
     }
 
     /** The filepath to the spritesheet of the EelBoss. */
@@ -56,12 +56,12 @@ class EelBoss {
 
     /** The maximum health of the EelBoss. */
     static get MAX_HEALTH() {
-        return 150;
+        return 200;
     };
 
     /** The distance the EelBoss will "pace" back and forth. */
     static get PACE_DISTANCE() {
-        return EelBoss.SCALED_SIZE.x * 2;
+        return EelBoss.SCALED_SIZE.x;
     };
 
     /** The number of seconds between attacks. */
@@ -76,7 +76,11 @@ class EelBoss {
 
     /** Number of seconds after the start of the attack animation when damage should be dealt. */
     static get DAMAGE_DELAY() {
-        return 0.6;
+        return 0.4;
+    }
+
+    static get ATTACK_DISTANCE() {
+        return EelBoss.SCALED_SIZE.x / 1.8;
     }
 
     /**
@@ -88,7 +92,9 @@ class EelBoss {
         const pos = Vector.add(this.base.getCenter(), new Vector(0, -60));
 
         // add a piece of food in the eel_boss's place at bottom-center of eel_boss
-        GAME.addEntity(new FoodDrop(pos, FoodDrop.BURGER, true, true));
+        GAME.addEntity(new FoodDrop(pos, FoodDrop.ROAST_TURKEY, true, true));
+        GAME.addEntity(new FoodDrop(Vector.add(pos, new Vector(-5, 5)), FoodDrop.BURGER, true, true));
+
 
         GAME.addEntity(new RuneDrop(pos, RuneDrop.RED, true, true));
         GAME.addEntity(new RuneDrop(Vector.add(pos, new Vector(5, 0)), RuneDrop.GREEN, true, true));
@@ -96,15 +102,23 @@ class EelBoss {
         GAME.addEntity(new RuneDrop(Vector.add(pos, new Vector(2, -2)), RuneDrop.GREEN, true, true));
 
         ASSET_MGR.stopAudio(MUSIC.RIVER_BOSS.path);
+
+        // Unlock all borders in the current zone.
+        GAME.entities.midground.forEach((entity) => {
+            if (entity instanceof Border) {
+                entity.locked = false;
+            }
+        });
     }
-    
+
     /** Change what the EelBoss is doing and where it is. */
     update() {
         this.base.update();
 
-        if (!this.playingBossMusic && this.base.isInView()) {
+        if (!this.playingBossMusic && this.isInView()) {
             ASSET_MGR.playMusic(MUSIC.RIVER_BOSS.path, MUSIC.RIVER_BOSS.volume);
             this.playingBossMusic = true;
+            this.state = "pursue";
         }
 
         const deathAnim = this.animations[this.base.getFacing()]["dying"];
@@ -113,14 +127,14 @@ class EelBoss {
             const secondsSinceLastAttack = Date.now() / 1000 - this.lastAttack;
 
             // if we've finished our current attack, change action to idle
-            if (this.action === "attacking" 
+            if (this.action === "attacking"
                 && this.animations[this.base.getFacing()]["attacking"].totalTime < secondsSinceLastAttack) {
-                    
+
                 this.action = "idle";
             }
-    
+
             // if Chad is close enough, bite him
-            if (this.base.chadDistance() < EelBoss.SCALED_SIZE.x) {
+            if (this.base.chadDistance() < EelBoss.ATTACK_DISTANCE) {
                 if (secondsSinceLastAttack > EelBoss.ATTACK_COOLDOWN) {
                     // if it's been long enough, start a new attack 
                     this.state = "pursue";
@@ -129,18 +143,19 @@ class EelBoss {
                     this.action = "attacking";
                     this.lastAttack = Date.now() / 1000;
                     this.dealtDamage = false;
-                } else if (this.action === "attacking" 
+                } else if (this.action === "attacking"
                     && secondsSinceLastAttack > EelBoss.DAMAGE_DELAY && !this.dealtDamage) {
                     // if we're at the proper point in our attack animation, deal damage
-    
+
                     CHAD.takeDamage(EelBoss.ATTACK_DAMAGE);
+                    ASSET_MGR.playSFX(SFX.SNAKE_HISS.path, SFX.SNAKE_HISS.volume);
                     this.dealtDamage = true;
                 }
             }
-        } else if (deathAnim.currentFrame() === deathAnim.frameCount - 1) {
+        } else if (deathAnim.currentFrame === deathAnim.frameCount - 1) {
             this.removeFromWorld = true;
         }
-        
+
 
     };
 
@@ -164,19 +179,19 @@ class EelBoss {
             new Vector(0, EelBoss.SIZE.y),
             EelBoss.SIZE,
             1, 1);
-        
+
         // SLITHERING ANIMATIONS
         // (it takes him 1s to slither)
         this.animations["right"]["moving"] = new Animator(
             EelBoss.SPRITESHEET,
             new Vector(0, 0),
             EelBoss.SIZE,
-            9, 1/9);
+            9, 1 / 9);
         this.animations["left"]["moving"] = new Animator(
             EelBoss.SPRITESHEET,
             new Vector(0, EelBoss.SIZE.y),
             EelBoss.SIZE,
-            9, 1/9);
+            9, 1 / 9);
 
         // ATTACKING ANIMATIONS
         this.animations["right"]["attacking"] = new Animator(
@@ -195,12 +210,12 @@ class EelBoss {
             EelBoss.SPRITESHEET,
             new Vector(0, EelBoss.SIZE.y * 4),
             EelBoss.SIZE,
-            7, 1/14);
+            7, 1 / 14);
         this.animations["left"]["dying"] = new Animator(
             EelBoss.SPRITESHEET,
             new Vector(0, EelBoss.SIZE.y * 5),
             EelBoss.SIZE,
-            7, 1/14);
-        
+            7, 1 / 14);
+
     };
 };

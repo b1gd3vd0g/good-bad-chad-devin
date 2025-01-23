@@ -89,6 +89,7 @@ const loadMountainSlope2 = () => {
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.clouds.CLOUD_JUST_CLOUD_DARK.SPRITESHEET);
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.clouds.CLOUD_BUSHY_DARK.SPRITESHEET);
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.clouds.CLOUD_LANKY_DARK.SPRITESHEET);
+        ASSET_MGR.queueDownload(BlackSmith.SPRITESHEET);
 
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.trees.SPRUCE_1.SPRITESHEET);
 
@@ -136,6 +137,9 @@ const loadMountainSlope2 = () => {
 
         const groundLevel = 90;
 
+        const blockPosBlackSmith = new Vector(60, -50);
+        GAME.addEntity(new BlackSmith(Vector.blockToWorldSpace(blockPosBlackSmith), new Conversation(getAllConversationArrays().village.blacksmith.merchantSnow)), 0);
+
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.trees.SPRUCE_2, Vector.blockToWorldSpace(new Vector(0, groundLevel))), -1);
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.trees.SPRUCE_2, Vector.blockToWorldSpace(new Vector(6.3, 79))), -1);
         GAME.addEntity(new Decoration(Decoration.DECORATIONS.trees.SPRUCE_2, Vector.blockToWorldSpace(new Vector(18, 63))), -1);
@@ -168,6 +172,7 @@ const loadMountainSlope2 = () => {
         }
 
         GAME.addEntity(new AmmoDrop(Vector.blockToWorldSpace(new Vector(25, 60)), AmmoDrop.SNOWBALL, 5, false));
+
     };
 
     setTimeout(() => {

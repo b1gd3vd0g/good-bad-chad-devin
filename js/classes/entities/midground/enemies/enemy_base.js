@@ -36,6 +36,7 @@ class EnemyBase {
         enemy.getCenter = () => this.getCenter(); // re-direct any references towards the enemy's getCenter to this one
         enemy.getTopLeft = () => this.getTopLeft(); // re-direct any references towards the enemy's getTopLeft to this one
         enemy.getFacing = () => this.getFacing();
+        enemy.isInView = () => this.isInView();
 
         this.maxHealth = health; 
         this.onDeath = onDeath;
@@ -65,6 +66,17 @@ class EnemyBase {
             if (this.onDamage) this.onDamage();
         }
     };
+
+    /**
+     * Calculates the distance between Chad and the enemy, comparing their bottom left corners
+     * in order to avoid having to account for character/enemy height.
+     * 
+     * @returns {number} the distance between the bottom left corners of Chad and the enemy
+     */
+    chadDistance() {
+        return Vector.distance(Vector.add(CHAD.getCenter(), new Vector(0, CHAD.scaledSize.y / 2)),
+            Vector.add(this.enemy.getCenter(), new Vector(0, this.enemy.scaledSize.y / 2)));
+    }
 
     /**
      * NOTE: Slight bug where enemy is considered "out of view" when it's at the LEFT edge of the camera. Should be insignificant.

@@ -21,8 +21,6 @@ class BoundingBox {
         this.top = pos.y;
         /** The y coordinate of the bottom boundary of the box. */
         this.bottom = pos.y + size.y;
-        /** Whether the bounding box is disabled. */
-        this.disabled = false;
     };
 
     /**
@@ -31,7 +29,6 @@ class BoundingBox {
      * @returns true if the two bounding boxes intersect; else false.
      */
     collide(other) {
-        if (this.disabled) return false;
         return (this.top < other.bottom) && (this.left < other.right) && (this.bottom > other.top) && (this.right > other.left);
     };
 };

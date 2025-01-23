@@ -1,7 +1,6 @@
 const loadRiver = () => {
     const queueAssets = () => {
 
-        // TODO don't forget to add in your water sprites.
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.clouds.CLOUD_JUST_CLOUD.SPRITESHEET);
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.clouds.CLOUD_BUSHY.SPRITESHEET);
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.clouds.CLOUD_LANKY.SPRITESHEET);
@@ -26,6 +25,8 @@ const loadRiver = () => {
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.trees.SPRUCE_2.SPRITESHEET);
         ASSET_MGR.queueDownload(Decoration.DECORATIONS.trees.SPRUCE_3.SPRITESHEET);
         ASSET_MGR.queueDownload(LiquidBlock.SPRITESHEET);
+        ASSET_MGR.queueDownload(BlackSmith.SPRITESHEET);
+
         ASSET_MGR.queueDownload(EelBoss.SPRITESHEET);
         ASSET_MGR.queueDownload(Eel.SPRITESHEET);
 
@@ -46,7 +47,8 @@ const loadRiver = () => {
         GAME.addEntity(new Border(
             new Vector(ZONE.MAX_PT.x, 0), // start at the far right side of the Zone, and at the top
             new Vector(1, ZONE.PIXEL_SIZE.y), // only one pixel wide, but as tall as the entire Zone.
-            Zone.getZones().mountain.slope1
+            Zone.getZones().mountain.slope1,
+            true
         ));
 
         // spread water in a line
@@ -73,11 +75,14 @@ const loadRiver = () => {
         }
     };
 
+    const blockPosBlackSmith = new Vector(60, -25);
+    GAME.addEntity(new BlackSmith(Vector.blockToWorldSpace(blockPosBlackSmith), new Conversation(getAllConversationArrays().village.blacksmith.merchantWater)), 0);
+
     // spawn a water balloon ammo drop
     GAME.addEntity(new AmmoDrop(
         Vector.blockToWorldSpace(new Vector(6, 27)),
         AmmoDrop.WATER_BALLOON,
-        10,
+        5,
         false
     ));
 
@@ -85,21 +90,22 @@ const loadRiver = () => {
     GAME.addEntity(new AmmoDrop(
         Vector.blockToWorldSpace(new Vector(32, 27)),
         AmmoDrop.WATER_BALLOON,
-        20,
+        10,
         false
     ));
 
-    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(8.5, 29)), 500, 0, 8));
-    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(20.5, 29)), 700, 30, 10));
-    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(25.5, 29)), 700, -30, 12));
+    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(8.5, 29)), FlyingEnemyBase.JUMP_SMALL, 450));
+    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(20.5, 29)), FlyingEnemyBase.JUMP_BIG, 550));
+    GAME.addEntity(new Eel(Vector.blockToWorldSpace(new Vector(25.5, 29)), FlyingEnemyBase.JUMP_BIG, 600));
 
-    GAME.addEntity(new EelBoss(Vector.blockToWorldSpace(new Vector(140, 10))));
+    GAME.addEntity(new EelBoss(Vector.blockToWorldSpace(new Vector(145, 18))));
+
 
 
     setTimeout(() => {
         ASSET_MGR.playMusic(MUSIC.RUSHING_WATER.path, MUSIC.RUSHING_WATER.volume);
     }, 500);
-    
+
 
     // Set background color:
     BG_COLOR = COLORS.SKY_BLUE;

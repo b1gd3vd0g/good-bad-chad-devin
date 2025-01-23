@@ -25,7 +25,9 @@ class GroundEnemyBase {
     constructor(enemy, pos, scaledSize, speed, health, maxRoamDistance, onDeath, stance, reactionDistance) {
         this.enemy = enemy;
         this.base = new EnemyBase(enemy, pos, scaledSize, speed, health, onDeath, () => this.handleDamage());
-        
+
+        this.enemy.isGroundEnemy = true;
+
         enemy.state = "roam";
         enemy.action = "idle";
         enemy.maxRoamDistance = maxRoamDistance; // *
@@ -40,7 +42,7 @@ class GroundEnemyBase {
         this.reactionDistance = reactionDistance ?? Camera.SIZE.x / 2 - scaledSize.x;
 
         // for backwards compatibility with enemy classes that expect the base to have these methods
-        this.getFacing = enemy.getFacing; 
+        this.getFacing = enemy.getFacing;
         this.getCenter = enemy.getCenter;
     }
 
@@ -77,7 +79,7 @@ class GroundEnemyBase {
     get jumpVelocity() {
         return 450;
     }
-    
+
     /**
      * Make the enemy react to taking damage.
      */
@@ -95,9 +97,9 @@ class GroundEnemyBase {
 
     knockback(amount) {
         if (this.getDirection() == 1) {
-            this.enemy.pos.x -= amount;
+            this.enemy.pos = Vector.add(this.enemy.pos, new Vector(-amount, 0));
         } else {
-            this.enemy.pos.x += amount;
+            this.enemy.pos = Vector.add(this.enemy.pos, new Vector(amount, 0));
         }
     }
 
@@ -146,7 +148,7 @@ class GroundEnemyBase {
         return Vector.distance(Vector.add(CHAD.getCenter(), new Vector(0, CHAD.scaledSize.y / 2)),
             Vector.add(this.enemy.getCenter(), new Vector(0, this.enemy.scaledSize.y / 2)));
     }
-    
+
     /**
      * Update the enemy. Updates its position, state variables, and handles block collision.
      */
@@ -203,6 +205,6 @@ class GroundEnemyBase {
             if ((collisions.left || collisions.right) && collisions.top) {
                 this.enemy.yVelocity = -this.jumpVelocity;
             }
-        } 
+        }
     }
 }

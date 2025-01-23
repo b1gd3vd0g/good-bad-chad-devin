@@ -27,7 +27,7 @@ class Inventory {
     }
 
     initAmmoBag() {
-        this.ammoBag.push(new AmmoItem(AmmoItem.ROCK, 10));
+        this.ammoBag.push(new AmmoItem(AmmoItem.ROCK, 15));
         this.ammoBag.push(new AmmoItem(AmmoItem.SLIMEBALL, 0));
         this.ammoBag.push(new AmmoItem(AmmoItem.BOMB, 0));
         this.ammoBag.push(new AmmoItem(AmmoItem.SNOWBALL, 0));

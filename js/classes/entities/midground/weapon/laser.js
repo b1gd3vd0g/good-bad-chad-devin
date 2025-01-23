@@ -93,43 +93,43 @@ class Laser {
         this.animations["firing"] = [];
 
         this.animations["firing"]["right"] = new Animator(
-            Laser.SPRITESHEET, 
-            new Vector(0, Laser.SIZE.y * 0), 
+            Laser.SPRITESHEET,
+            new Vector(0, Laser.SIZE.y * 0),
             Laser.SIZE, 1, 0.5); // 0 degree angle
 
         this.animations["firing"]["rightDown"] = new Animator(
-            Laser.SPRITESHEET, 
-            new Vector(0, Laser.SIZE.y * 1), 
+            Laser.SPRITESHEET,
+            new Vector(0, Laser.SIZE.y * 1),
             Laser.SIZE, 1, 0.5); // 45 degree angle
 
         this.animations["firing"]["down"] = new Animator(
-            Laser.SPRITESHEET, 
-            new Vector(0, Laser.SIZE.y * 2), 
+            Laser.SPRITESHEET,
+            new Vector(0, Laser.SIZE.y * 2),
             Laser.SIZE, 1, 0.5); // 90 degree angle
 
         this.animations["firing"]["leftDown"] = new Animator(
-            Laser.SPRITESHEET, 
-            new Vector(0, Laser.SIZE.y * 3), 
+            Laser.SPRITESHEET,
+            new Vector(0, Laser.SIZE.y * 3),
             Laser.SIZE, 1, 0.5); // 135 degree angle
 
         this.animations["firing"]["left"] = new Animator(
-            Laser.SPRITESHEET, 
-            new Vector(0, Laser.SIZE.y * 4), 
+            Laser.SPRITESHEET,
+            new Vector(0, Laser.SIZE.y * 4),
             Laser.SIZE, 1, 0.5); // 180 degree angle
 
         this.animations["firing"]["leftUp"] = new Animator(
-            Laser.SPRITESHEET, 
-            new Vector(0, Laser.SIZE.y * 5), 
+            Laser.SPRITESHEET,
+            new Vector(0, Laser.SIZE.y * 5),
             Laser.SIZE, 1, 0.5); // 225 degree angle
 
         this.animations["firing"]["up"] = new Animator(
             Laser.SPRITESHEET,
-            new Vector(0, Laser.SIZE.y * 6), 
+            new Vector(0, Laser.SIZE.y * 6),
             Laser.SIZE, 1, 0.5); // 270 degree angle
 
         this.animations["firing"]["rightUp"] = new Animator(
-            Laser.SPRITESHEET, 
-            new Vector(0, Laser.SIZE.y * 7), 
+            Laser.SPRITESHEET,
+            new Vector(0, Laser.SIZE.y * 7),
             Laser.SIZE, 1, 0.5); // 315 degree angle
     }
 
@@ -141,6 +141,7 @@ class Laser {
             this.removeFromWorld = true;
         }
 
+        // "every 1/10th of a second" with 0.01 as a margin of error
         if (this.action == "firing" && !this.hasHit && GAME.gameTime % 0.1 < 0.01) {
             // release particle trail
             const center = Vector.add(this.pos, Vector.divide(Laser.SCALED_SIZE, 2));

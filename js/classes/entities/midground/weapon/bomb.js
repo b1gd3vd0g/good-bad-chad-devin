@@ -135,7 +135,7 @@ class Bomb {
 
         // deal damage to nearby enemies
         // NOTE: Yes, we could just expand the bomb's bounding box. I realized that after I implemented the getNearbyEntities function.
-        const nearbyEntities = getNearbyEntities(this.pos, 150);
+        const nearbyEntities = getNearbyEntities(this.pos, 165);
         for (const entity of nearbyEntities) {
             if (entity.takeDamage) { // ensure entity has a takeDamage method
                 entity.takeDamage(Bomb.DAMAGE);

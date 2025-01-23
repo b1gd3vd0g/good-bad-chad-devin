@@ -65,7 +65,7 @@ class Broccoli {
     }
 
     static get ALIVE_TIME() {
-        return 1;
+        return 2;
     }
 
     /** Called when the broccoli collides with a block. */
@@ -95,7 +95,11 @@ class Broccoli {
             this.hasHitEnemy = true;
             this.removeFromWorld = true;
         }
+    }
 
+    /** Called when the broccoli collides with the player. */
+    onPlayerCollision(player) {
+        // do nothing
     }
 
     loadAnimations() {

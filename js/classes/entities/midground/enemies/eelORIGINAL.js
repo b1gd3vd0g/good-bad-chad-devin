@@ -1,26 +1,15 @@
 /** 
- * Eels are enemies that jump out of the water and bite Chad.
  * 
- * @author Nathan Hinthorne
+ * @author Nathan Hinthorne (modified from Snake.js) 
  */
 class Eel {
     /**
      * Constructor for a Eel.
      * 
      * @param {Vector} pos the position at which the Eel should start
-     * @param {Array<Vector>} path array of ordered Vectors that delineate the enemy's path
-     * @param {number} speed the speed at which the Eel should move
      */
-    constructor(pos, path, speed) {
-        this.base = new FlyingEnemyBase(
-            this,
-            pos,
-            Eel.SCALED_SIZE,
-            speed,
-            Eel.MAX_HEALTH,
-            () => this.handleDeath(),
-            path
-        );
+    constructor(pos, maxJumpHeight, currentJumpHeight, speed) {
+        this.pos = pos;
 
         /** An associative array of the animations for this Eel. Arranged [facing][action]. */
         this.animations = [];
@@ -29,6 +18,9 @@ class Eel {
         this.action = "moving";
 
         this.isJumping = false;
+        this.maxJumpHeight = maxJumpHeight;
+        this.currentJumpHeight = currentJumpHeight;
+        this.speed = speed * 70;
 
         this.lastAttack = 0;
         this.dealtDamage = false;
@@ -36,12 +28,12 @@ class Eel {
 
     /** The size, in pixels, of the Eel ON THE SPRITESHEET. */
     static get SIZE() {
-        return new Vector(13, 40);
+        return new Vector(40, 13);
     }
 
     /** How much bigger should the Eel be drawn on the canvas than it is on the spritesheet? */
     static get SCALE() {
-        return 3.5;
+        return 3;
     };
 
     /** This will be the size of the Eel ON THE CANVAS. */
@@ -77,7 +69,7 @@ class Eel {
 
     /** Number of seconds after the start of the attack animation when damage should be dealt. */
     static get DAMAGE_DELAY() {
-        return 0.3;
+        return 0.4;
     }
 
     /**
@@ -123,11 +115,9 @@ class Eel {
     getCenter() {
         return Vector.add(this.pos, new Vector(Eel.SCALED_SIZE.x / 2, Eel.SCALED_SIZE.y / 2));
     }
-
+    
     /** Change what the Eel is doing and where it is. */
     update() {
-        this.base.update();
-
         this.targetX = CHAD.getCenter().x;
         const deathAnim = this.animations[this.getFacing()]["dying"];
 
@@ -135,39 +125,34 @@ class Eel {
             const secondsSinceLastAttack = Date.now() / 1000 - this.lastAttack;
 
             // if we've finished our current attack, change action to idle
-            if (this.action === "attacking"
+            if (this.action === "attacking" 
                 && this.animations[this.getFacing()]["attacking"].totalTime < secondsSinceLastAttack) {
-                this.action = "moving";
+                    
+                this.action = "idle";
             }
-
-
-
-            // if Chad is close enough, bite em'
-            if (this.base.chadDistance() < Eel.SCALED_SIZE.x * 1.4) {
+    
+            // if Chad is close enough, bite him
+            if (this.chadDistance() < Eel.SCALED_SIZE.x / 2) {
                 if (secondsSinceLastAttack > Eel.ATTACK_COOLDOWN) {
+                    console.log("attacking")
+                    this.action = "attacking";
                     // if it's been long enough, start a new attack 
                     this.animations[this.getFacing()]["attacking"].elapsedTime = 0;
-                    this.action = "attacking";
                     this.lastAttack = Date.now() / 1000;
                     this.dealtDamage = false;
-                } else if (this.action === "attacking"
+                } else if (this.action === "attacking" 
                     && secondsSinceLastAttack > Eel.DAMAGE_DELAY && !this.dealtDamage) {
                     // if we're at the proper point in our attack animation, deal damage
-
+    
                     CHAD.takeDamage(Eel.ATTACK_DAMAGE);
                     this.dealtDamage = true;
                 }
-            }
-
-            if (deathAnim.currentFrame === deathAnim.frameCount - 1) {
-                this.removeFromWorld = true;
-                console.log("DEFEATED EEL. VANISH YOU FOUL CREATURE");
             }
         }
 
         if (this.currentJumpHeight <= 0) {
             this.isJumping = true;
-        }
+        } 
 
         if (this.currentJumpHeight >= this.maxJumpHeight) {
             this.isJumping = false;
@@ -179,7 +164,7 @@ class Eel {
             // jump up
             this.pos = Vector.add(this.pos, new Vector(0, -this.speed * GAME.clockTick));
             this.currentJumpHeight += this.speed * GAME.clockTick;
-        }
+        } 
         else {
             // fall down
             this.pos = Vector.add(this.pos, new Vector(0, this.speed * GAME.clockTick));
@@ -208,19 +193,19 @@ class Eel {
             new Vector(0, Eel.SIZE.y),
             Eel.SIZE,
             1, 1);
-
+        
         // SLITHERING ANIMATIONS
         // (it takes him 1s to slither)
         this.animations["right"]["moving"] = new Animator(
             Eel.SPRITESHEET,
             new Vector(0, 0),
             Eel.SIZE,
-            9, 1 / 9);
+            9, 1/9);
         this.animations["left"]["moving"] = new Animator(
             Eel.SPRITESHEET,
             new Vector(0, Eel.SIZE.y),
             Eel.SIZE,
-            9, 1 / 9);
+            9, 1/9);
 
         // ATTACKING ANIMATIONS
         this.animations["right"]["attacking"] = new Animator(
@@ -239,12 +224,12 @@ class Eel {
             Eel.SPRITESHEET,
             new Vector(0, Eel.SIZE.y * 4),
             Eel.SIZE,
-            7, 1 / 14);
+            7, 1/14);
         this.animations["left"]["dying"] = new Animator(
             Eel.SPRITESHEET,
             new Vector(0, Eel.SIZE.y * 5),
             Eel.SIZE,
-            7, 1 / 14);
-
+            7, 1/14);
+        
     };
 };
