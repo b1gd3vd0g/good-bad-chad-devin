@@ -1,0 +1,10 @@
+#save-manager {
+    width: 500px;
+    max-width: 75vw;
+    margin: auto;
+}
+
+.fg {
+    display: flex;
+    justify-content: space-between;
+}
