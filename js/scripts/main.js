@@ -38,7 +38,7 @@ debugButton.addEventListener('click', () => {
 
 // If specials keys are pressed, prevent their default action.
 document.addEventListener('keydown', (key) => {
-    if (key.altKey || key.ctrlKey || key.metaKey || key.code === 8) {
+    if (key.altKey || key.ctrlKey || key.metaKey) {
         key.preventDefault();
     }
 });
