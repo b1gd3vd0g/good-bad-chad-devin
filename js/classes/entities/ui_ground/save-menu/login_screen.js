@@ -3,7 +3,7 @@ class LoginScreen {
         this.un = new TextInputField('username', this, 50);
         this.pw = new TextInputField('password', this, 150, true);
         this.button = new LoginButton(250, this);
-        this.feedback = new Feedback(350);
+        this.feedback = new Feedback(375);
     }
 
     update() {}
@@ -46,6 +46,10 @@ class TextInputField {
         this.start = new Vector(PauseMenu.START.x + 50, PauseMenu.START.y + sy);
         this.size = new Vector(PauseMenu.WIDTH - 100, 75);
         this.pw = pw;
+        this.trash = new TrashCan(this.start.y, () => {
+            this.value = '';
+        });
+        // set listeners.
         const clickListener = () => {
             // return if the games not running
             if (GAME.running) return;
@@ -68,19 +72,22 @@ class TextInputField {
             if (GAME.running || !this.active) return;
             // so it is active! The keypress should be added to the value field.
             if (evt.key === 'Backspace') {
-                evt.preventDefault();
                 // delete a character on backspace
-                this.value = this.value.slice(0, this.value.length - 1);
-            } else if (evt.key === 'Tab') {
+                console.log('backspace');
+                this.value = '';
+                return;
+            } else if (evt.which === 9) {
                 // switch the active field on tab.
+                console.log('tab');
                 this.parent.un.active = this.parent.pw.active;
                 this.parent.pw.active = !this.parent.un.active;
+                return;
             }
             this.value += evt.key;
         };
-        document.body.addEventListener('click', clickListener);
+        CANVAS.addEventListener('click', clickListener);
         HUD.componentListeners.push(['click', clickListener]);
-        document.body.addEventListener('keypress', kpListener);
+        CANVAS.addEventListener('keypress', kpListener);
         HUD.componentListeners.push(['keypress', kpListener]);
     }
 
@@ -89,7 +96,7 @@ class TextInputField {
     }
 
     static get FIELD_SIZE() {
-        return new Vector((PauseMenu.WIDTH - 100) * (3 / 5) + 50, 75);
+        return new Vector((PauseMenu.WIDTH - 100) * (3 / 5) - 50, 75);
     }
 
     update() {}
@@ -128,6 +135,7 @@ class TextInputField {
             this.start.y + 55,
             TextInputField.FIELD_SIZE.x
         );
+        this.trash.draw();
     }
 }
 
@@ -175,12 +183,13 @@ class LoginButton {
 class Feedback {
     constructor(sy) {
         this.fb = '';
-        this.sy = PauseMenu.START.y + sy + 34;
+        this.sy = PauseMenu.START.y + sy;
         this.mood = 0;
     }
 
     setFb(fb, mood = 0) {
         this.fb = fb;
+        this.mood = mood;
     }
 
     draw() {
@@ -196,6 +205,40 @@ class Feedback {
             this.fb,
             PauseMenu.START.x + (PauseMenu.WIDTH - width) / 2,
             this.sy
+        );
+    }
+}
+
+class TrashCan {
+    constructor(sy, onClick) {
+        this.pos = new Vector(PauseMenu.START.x + PauseMenu.WIDTH - 100, sy);
+        this.size = new Vector(75, 75);
+        const listener = () => {
+            const mouseOver =
+                GAME.mousePos.x > this.pos.x &&
+                GAME.mousePos.y > this.pos.y &&
+                GAME.mousePos.x < this.pos.x + this.size.x &&
+                GAME.mousePos.y < this.pos.y + this.size.y;
+            if (mouseOver) {
+                onClick();
+            }
+        };
+
+        document.body.addEventListener('click', listener);
+        HUD.componentListeners.push(['click', listener]);
+    }
+
+    static get SPRITESHEET() {
+        return './sprites/trash.png';
+    }
+
+    draw() {
+        CTX.drawImage(
+            ASSET_MGR.getAsset(TrashCan.SPRITESHEET),
+            this.pos.x,
+            this.pos.y,
+            this.size.x,
+            this.size.y
         );
     }
 }
