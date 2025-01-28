@@ -15,7 +15,7 @@ class AssetManager {
         this.cache = [];
         /** The current background music */
         this.currentMusic = null;
-    };
+    }
 
     /**
      * This method simply adds a filepath to the downloadQueue.
@@ -23,14 +23,16 @@ class AssetManager {
     queueDownload(path) {
         // console.log("Queueing " + path);
         this.downloadQueue.push(path);
-    };
+    }
 
     /**
-     * @returns true if the AssetManager has put (or attempted to put) every Asset into the cache. 
+     * @returns true if the AssetManager has put (or attempted to put) every Asset into the cache.
      */
     isDone() {
-        return this.downloadQueue.length === this.successCount + this.errorCount;
-    };
+        return (
+            this.downloadQueue.length === this.successCount + this.errorCount
+        );
+    }
 
     /**
      * This method is going to take all paths from the downloadQueue and actually download them into images or audio, which will be stored in
@@ -40,12 +42,11 @@ class AssetManager {
     downloadAll(callback) {
         if (this.downloadQueue.length === 0) setTimeout(callback, 10);
         for (let i = 0; i < this.downloadQueue.length; i++) {
-
             const path = this.downloadQueue[i];
 
             // make sure the path is a string
             if (typeof path !== 'string') {
-                console.log("Error loading " + path + ": not a string");
+                console.log('Error loading ' + path + ': not a string');
             }
 
             const ext = path.substring(path.length - 3);
@@ -54,14 +55,14 @@ class AssetManager {
                 case 'jpg':
                 case 'png':
                     const img = new Image();
-                    img.addEventListener("load", () => {
+                    img.addEventListener('load', () => {
                         // console.log("Loaded " + path);
                         this.successCount++;
                         if (this.isDone()) callback();
                     });
 
-                    img.addEventListener("error", () => {
-                        console.log("Error loading " + path);
+                    img.addEventListener('error', () => {
+                        console.log('Error loading ' + path);
                         this.errorCount++;
                         if (this.isDone()) callback();
                     });
@@ -73,19 +74,19 @@ class AssetManager {
                 case 'mp3':
                 case 'wav':
                     const audio = new Audio();
-                    audio.addEventListener("loadeddata", () => {
+                    audio.addEventListener('loadeddata', () => {
                         // console.log("Loaded " + path);
                         this.successCount++;
                         if (this.isDone()) callback();
                     });
 
-                    audio.addEventListener("error", () => {
-                        console.log("Error loading " + path);
+                    audio.addEventListener('error', () => {
+                        console.log('Error loading ' + path);
                         this.errorCount++;
                         if (this.isDone()) callback();
                     });
 
-                    audio.addEventListener("ended", () => {
+                    audio.addEventListener('ended', () => {
                         audio.pause();
                         audio.currentTime = 0;
                     });
@@ -97,12 +98,14 @@ class AssetManager {
                     break;
 
                 default:
-                    console.log("Error loading " + path + ": unknown file extension");
+                    console.log(
+                        'Error loading ' + path + ': unknown file extension'
+                    );
                     this.errorCount++;
                     if (this.isDone()) callback();
             }
         }
-    };
+    }
 
     /**
      * @param {string} path The filepath of the Asset you are trying to access.
@@ -110,7 +113,7 @@ class AssetManager {
      */
     getAsset(path) {
         return this.cache[path];
-    };
+    }
 
     /**
      * This refreshes the AssetManager to be like new. This is done upon loading a zone to keep down space waste.
@@ -120,7 +123,7 @@ class AssetManager {
         this.errorCount = 0;
         this.downloadQueue = AssetManager.BAREBONES_DL_Q;
         this.cache = [];
-    };
+    }
 
     /**
      * Plays the audio associated with the given path.
@@ -134,11 +137,11 @@ class AssetManager {
 
         audio.play();
         if (loop) {
-            audio.addEventListener("ended", () => {
+            audio.addEventListener('ended', () => {
                 audio.play();
             });
         }
-    };
+    }
 
     /**
      * Plays the audio associated with the given path.
@@ -160,11 +163,11 @@ class AssetManager {
 
         audio.play();
         if (loop) {
-            audio.addEventListener("ended", () => {
+            audio.addEventListener('ended', () => {
                 audio.play();
             });
         }
-    };
+    }
 
     /**
      * Pauses the currently playing background music.
@@ -172,9 +175,9 @@ class AssetManager {
     pauseMusic() {
         if (this.currentMusic) {
             this.currentMusic.pause();
-            console.log("Music paused.");
+            console.log('Music paused.');
         } else {
-            console.log("No music to pause.");
+            console.log('No music to pause.');
         }
     }
 
@@ -184,9 +187,9 @@ class AssetManager {
     resumeMusic() {
         if (this.currentMusic) {
             this.currentMusic.play();
-            console.log("Music resumed.");
+            console.log('Music resumed.');
         } else {
-            console.log("No music to resume.");
+            console.log('No music to resume.');
         }
     }
 
@@ -208,7 +211,7 @@ class AssetManager {
         const audio = this.cache[path];
         audio.pause();
         audio.currentTime = 0;
-    };
+    }
 
     /**
      * Stops all audio currently playing.
@@ -221,7 +224,7 @@ class AssetManager {
                 audio.currentTime = 0;
             }
         }
-    };
+    }
 
     /**
      * Stops all sound effects currently playing.
@@ -237,7 +240,7 @@ class AssetManager {
         }
     }
 
-    /** 
+    /**
      * Sets the volume of all audio in the cache to the given volume.
      * @param {number} volume The volume to which you want to set the audio.
      */
@@ -248,7 +251,7 @@ class AssetManager {
                 audio.volume = volume;
             }
         }
-    };
+    }
 
     /**
      * The BAREBONES_DL_Q is an array of strings, filepaths to the most essential assets in our game.
@@ -353,21 +356,20 @@ class AssetManager {
             OculiBot.SPRITESHEET,
             Portal.SPRITESHEET,
             SFX.PORTAL_ACTIVATE.path,
-            SFX.PORTAL_IDLE.path, 
+            SFX.PORTAL_IDLE.path,
             SFX.LASER_FIRE.path,
             Laser.SPRITESHEET,
-            SFX.SONIC_WAVE.path,  
-            SonicWave.SPRITESHEET, 
+            SFX.SONIC_WAVE.path,
+            SonicWave.SPRITESHEET,
             SFX.MISSILE_LAUNCH.path,
             Missile.SPRITESHEET,
             SFX.EXPLOSION_BIG.path,
             SFX.SNAKE_HISS.path,
             SFX.LIFE_UP.path,
             SFX.SWORD_UPGRADE.path,
-
+            TrashCan.SPRITESHEET,
             // Music:
             DialogBubble.SPEAKERS.CHAD.spritesheet
         ];
-    };
-};
-
+    }
+}
