@@ -56,7 +56,7 @@ class GameEngine {
         this.conversation = null;
 
         this._mode = GameEngine.MENU_MODE;
-    };
+    }
 
     /**
      * The threshold in seconds at which a double tap is recognized.
@@ -70,10 +70,10 @@ class GameEngine {
         return this._mode;
     }
 
-    /** 
-     * Set the GameEngine's mode. 
-     * 
-     * @param {string} newMode the mode of the game engine - should be one of GameEngine.GAMEPLAY_MODE, 
+    /**
+     * Set the GameEngine's mode.
+     *
+     * @param {string} newMode the mode of the game engine - should be one of GameEngine.GAMEPLAY_MODE,
      *      .DIALOG_MODE, or .MENU_MODE
      */
     set mode(newMode) {
@@ -94,7 +94,7 @@ class GameEngine {
         } else {
             this.entities.midground.push(entity);
         }
-    };
+    }
 
     /** This is going to clear all of the entities so that a new set can be placed in. */
     clearEntities() {
@@ -114,7 +114,7 @@ class GameEngine {
             requestAnimFrame(gameLoop, CANVAS);
         };
         gameLoop();
-    };
+    }
 
     /** This is the update-render loop. */
     loop() {
@@ -122,7 +122,7 @@ class GameEngine {
         this.gameTime += this.clockTick;
         this.update();
         this.draw();
-    };
+    }
 
     /**
      * This method is going to go through all entities and allow them to update their position.
@@ -168,12 +168,11 @@ class GameEngine {
         this.lastKeyTime.keyA += GAME.clockTick;
         this.lastKeyTime.keyD += GAME.clockTick;
 
-
         // This fixed a bug where once you switched choices, it switched in an infinite loop.
         this.user.choiceUp = false;
         this.user.choiceDown = false;
         this.user.continuingConversation = false;
-    };
+    }
 
     /**
      * This method is going to clear the canvas and redraw ALL of the entities in their *new* positions.
@@ -184,10 +183,14 @@ class GameEngine {
         CTX.fillRect(0, 0, Camera.SIZE.x, Camera.SIZE.y);
 
         // (2) Draw the background entities.
-        this.entities.background.forEach((entity) => { entity.draw(); });
+        this.entities.background.forEach((entity) => {
+            entity.draw();
+        });
 
         // (3) Draw the midground entities.
-        this.entities.midground.forEach((entity) => { entity.draw(); });
+        this.entities.midground.forEach((entity) => {
+            entity.draw();
+        });
 
         // (4) Draw CHAD and the debugging grid:
         if (this.debug) {
@@ -196,8 +199,10 @@ class GameEngine {
         CHAD.draw();
 
         // (5) Draw the foreground entities.
-        this.entities.foreground.forEach((entity) => { entity.draw(); });
-    };
+        this.entities.foreground.forEach((entity) => {
+            entity.draw();
+        });
+    }
 
     /**
      * This method is going to start listening for user inputs. Affects the Game Engine's left/right/up/down booleans according
@@ -211,63 +216,169 @@ class GameEngine {
 
         if (this.mode === GameEngine.GAMEPLAY_MODE) {
             // Remove all other listeners.
-            CANVAS.removeEventListener("keypress", EVENT_HANDLERS.dialogKeyPress, false);
-            CANVAS.removeEventListener("keyup", EVENT_HANDLERS.dialogKeyUp, false);
-            CANVAS.removeEventListener("keydown", EVENT_HANDLERS.dialogKeyDown, false);
-            CANVAS.removeEventListener("keypress", EVENT_HANDLERS.mickeyKeyPresses, false);
+            CANVAS.removeEventListener(
+                'keypress',
+                EVENT_HANDLERS.dialogKeyPress,
+                false
+            );
+            CANVAS.removeEventListener(
+                'keyup',
+                EVENT_HANDLERS.dialogKeyUp,
+                false
+            );
+            CANVAS.removeEventListener(
+                'keydown',
+                EVENT_HANDLERS.dialogKeyDown,
+                false
+            );
+            CANVAS.removeEventListener(
+                'keypress',
+                EVENT_HANDLERS.mickeyKeyPresses,
+                false
+            );
             // Add the gameplay listeners.
-            CANVAS.addEventListener("mousedown", EVENT_HANDLERS.gameplayMouseDown, false);
-            CANVAS.addEventListener("mouseup", EVENT_HANDLERS.gameplayMouseUp, false);
-            CANVAS.addEventListener("mousemove", EVENT_HANDLERS.gameplayMouseMove, false);
-            CANVAS.addEventListener("keydown", EVENT_HANDLERS.gameplayKeyDown, false);
-            CANVAS.addEventListener("keyup", EVENT_HANDLERS.gameplayKeyUp, false);
-
+            CANVAS.addEventListener(
+                'mousedown',
+                EVENT_HANDLERS.gameplayMouseDown,
+                false
+            );
+            CANVAS.addEventListener(
+                'mouseup',
+                EVENT_HANDLERS.gameplayMouseUp,
+                false
+            );
+            CANVAS.addEventListener(
+                'mousemove',
+                EVENT_HANDLERS.gameplayMouseMove,
+                false
+            );
+            CANVAS.addEventListener(
+                'keydown',
+                EVENT_HANDLERS.gameplayKeyDown,
+                false
+            );
+            CANVAS.addEventListener(
+                'keyup',
+                EVENT_HANDLERS.gameplayKeyUp,
+                false
+            );
         } else if (this.mode === GameEngine.DIALOG_MODE) {
             // Remove all other listeners.
-            CANVAS.removeEventListener("mousedown", EVENT_HANDLERS.gameplayMouseDown, false);
-            CANVAS.removeEventListener("mouseup", EVENT_HANDLERS.gameplayMouseUp, false);
-            CANVAS.removeEventListener("mousemove", EVENT_HANDLERS.gameplayMouseMove, false);
-            CANVAS.removeEventListener("keydown", EVENT_HANDLERS.gameplayKeyDown, false);
-            CANVAS.removeEventListener("keyup", EVENT_HANDLERS.gameplayKeyUp, false);
-            CANVAS.addEventListener("keypress", EVENT_HANDLERS.mickeyKeyPresses, false);
+            CANVAS.removeEventListener(
+                'mousedown',
+                EVENT_HANDLERS.gameplayMouseDown,
+                false
+            );
+            CANVAS.removeEventListener(
+                'mouseup',
+                EVENT_HANDLERS.gameplayMouseUp,
+                false
+            );
+            CANVAS.removeEventListener(
+                'mousemove',
+                EVENT_HANDLERS.gameplayMouseMove,
+                false
+            );
+            CANVAS.removeEventListener(
+                'keydown',
+                EVENT_HANDLERS.gameplayKeyDown,
+                false
+            );
+            CANVAS.removeEventListener(
+                'keyup',
+                EVENT_HANDLERS.gameplayKeyUp,
+                false
+            );
+            CANVAS.addEventListener(
+                'keypress',
+                EVENT_HANDLERS.mickeyKeyPresses,
+                false
+            );
             // Add the dialog listeners
-            CANVAS.addEventListener("keypress", EVENT_HANDLERS.dialogKeyPress, false);
+            CANVAS.addEventListener(
+                'keypress',
+                EVENT_HANDLERS.dialogKeyPress,
+                false
+            );
 
             /*
             Note: For whatever reason, "keypress" event with code "Space" does not work -
             so I fixed it by doing keyup and keydown. Works fine now.
             */
-            CANVAS.addEventListener("keyup", EVENT_HANDLERS.dialogKeyUp, false);
-            CANVAS.addEventListener("keydown", EVENT_HANDLERS.dialogKeyDown, false);
+            CANVAS.addEventListener('keyup', EVENT_HANDLERS.dialogKeyUp, false);
+            CANVAS.addEventListener(
+                'keydown',
+                EVENT_HANDLERS.dialogKeyDown,
+                false
+            );
         } else if (this.mode === GameEngine.MENU_MODE) {
             // Remove all other listeners
-            CANVAS.removeEventListener("mousedown", EVENT_HANDLERS.gameplayMouseDown, false);
-            CANVAS.removeEventListener("mouseup", EVENT_HANDLERS.gameplayMouseUp, false);
-            CANVAS.removeEventListener("keydown", EVENT_HANDLERS.gameplayKeyDown, false);
-            CANVAS.removeEventListener("keyup", EVENT_HANDLERS.gameplayKeyUp, false);
-            CANVAS.removeEventListener("keypress", EVENT_HANDLERS.dialogKeyPress, false);
-            CANVAS.removeEventListener("keyup", EVENT_HANDLERS.dialogKeyUp, false);
-            CANVAS.removeEventListener("keydown", EVENT_HANDLERS.dialogKeyDown, false);
-            CANVAS.removeEventListener("keypress", EVENT_HANDLERS.mickeyKeyPresses, false);
+            CANVAS.removeEventListener(
+                'mousedown',
+                EVENT_HANDLERS.gameplayMouseDown,
+                false
+            );
+            CANVAS.removeEventListener(
+                'mouseup',
+                EVENT_HANDLERS.gameplayMouseUp,
+                false
+            );
+            CANVAS.removeEventListener(
+                'keydown',
+                EVENT_HANDLERS.gameplayKeyDown,
+                false
+            );
+            CANVAS.removeEventListener(
+                'keyup',
+                EVENT_HANDLERS.gameplayKeyUp,
+                false
+            );
+            CANVAS.removeEventListener(
+                'keypress',
+                EVENT_HANDLERS.dialogKeyPress,
+                false
+            );
+            CANVAS.removeEventListener(
+                'keyup',
+                EVENT_HANDLERS.dialogKeyUp,
+                false
+            );
+            CANVAS.removeEventListener(
+                'keydown',
+                EVENT_HANDLERS.dialogKeyDown,
+                false
+            );
+            CANVAS.removeEventListener(
+                'keypress',
+                EVENT_HANDLERS.mickeyKeyPresses,
+                false
+            );
 
             // Add menu listeners
-            CANVAS.addEventListener("mousemove", EVENT_HANDLERS.gameplayMouseMove, false);
+            CANVAS.addEventListener(
+                'mousemove',
+                EVENT_HANDLERS.gameplayMouseMove,
+                false
+            );
         }
-    };
+    }
 
     /**
      * This is (the only thing, currently, that is) called when Debug mode is active!
      * This draws a grid around all blocks, and every 5 block cells are labeled.
      */
     drawGrid() {
+        // (1) Draw the grid:
 
-        // (1) Draw the grid: 
-
-        CTX.strokeStyle = "white";
+        CTX.strokeStyle = 'white';
         CTX.strokeWeight = 1;
 
         // Draw all the vertical lines by iterating through the x values we need.
-        for (let x = ZONE.MIN_PT.x; x <= ZONE.MAX_PT.x; x += Block.SCALED_SIZE) {
+        for (
+            let x = ZONE.MIN_PT.x;
+            x <= ZONE.MAX_PT.x;
+            x += Block.SCALED_SIZE
+        ) {
             // Start a path
             CTX.beginPath();
             // Starting point
@@ -280,8 +391,12 @@ class GameEngine {
             CTX.closePath();
         }
 
-        // Draw all the horizontal lines by iterating through the y values we need. 
-        for (let y = ZONE.MIN_PT.y; y <= ZONE.MAX_PT.y; y += Block.SCALED_SIZE) {
+        // Draw all the horizontal lines by iterating through the y values we need.
+        for (
+            let y = ZONE.MIN_PT.y;
+            y <= ZONE.MAX_PT.y;
+            y += Block.SCALED_SIZE
+        ) {
             // Start a path
             CTX.beginPath();
             // Starting point
@@ -296,7 +411,7 @@ class GameEngine {
 
         // (2) Label the cells.
 
-        CTX.fillStyle = "red";
+        CTX.fillStyle = 'red';
         CTX.font = FONT.VT323_NORMAL;
 
         // Where we want to start drawing the label. Note: the +5 is so that it is clear which cell we are labeling.
@@ -310,12 +425,25 @@ class GameEngine {
         // As it is currently working, it will DEFINITELY label ZONE.MIN_BLOCK, and every 5 other than that.
         // Would like to refactor it eventually to DEFINITELY label the origin, but not super important.
         // Also, could be refactored to better use the Vector class's static methods.
-        for (let blockX = ZONE.MIN_BLOCK.x; blockX <= ZONE.MAX_BLOCK.x; blockX += 5) {
-            for (let blockY = ZONE.MIN_BLOCK.y; blockY <= ZONE.MAX_BLOCK.y; blockY += 5) {
+        for (
+            let blockX = ZONE.MIN_BLOCK.x;
+            blockX <= ZONE.MAX_BLOCK.x;
+            blockX += 5
+        ) {
+            for (
+                let blockY = ZONE.MIN_BLOCK.y;
+                blockY <= ZONE.MAX_BLOCK.y;
+                blockY += 5
+            ) {
                 // The string representing the cell we are labeling.
-                let pt = "(" + blockX + ", " + blockY + ")";
+                let pt = '(' + blockX + ', ' + blockY + ')';
                 // Draw it.
-                CTX.fillText(pt, gameX - CAMERA.pos.x, gameY - CAMERA.pos.y, Block.SCALED_SIZE);
+                CTX.fillText(
+                    pt,
+                    gameX - CAMERA.pos.x,
+                    gameY - CAMERA.pos.y,
+                    Block.SCALED_SIZE
+                );
                 // Skip 5 blocks.
                 gameY += Block.SCALED_SIZE * 5;
             }
@@ -324,29 +452,29 @@ class GameEngine {
             // Reset gameY! If you don't you'll only ever see the first column of labels.
             gameY = minY;
         }
-    };
+    }
 
     static get BACKGROUND() {
         return -1;
-    };
+    }
 
     static get MIDGROUND() {
         return 0;
-    };
+    }
 
     static get FOREGROUND() {
         return 1;
-    };
+    }
 
     static get GAMEPLAY_MODE() {
-        return "gameplay";
-    };
+        return 'gameplay';
+    }
 
     static get DIALOG_MODE() {
-        return "dialog";
-    };
+        return 'dialog';
+    }
 
     static get MENU_MODE() {
-        return "menu";
-    };
-};
+        return 'menu';
+    }
+}
