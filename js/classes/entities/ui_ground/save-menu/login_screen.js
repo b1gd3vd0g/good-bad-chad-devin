@@ -1,13 +1,17 @@
+/** The LoginScreen contains all the `entities` needing to be drawn on the menu to enable the player to
+ * log in to an account which already exists.
+ */
 class LoginScreen {
-    constructor() {
+    constructor(parent) {
         this.un = new TextInputField('username', this, 50);
         this.pw = new TextInputField('password', this, 150, true);
-        this.button = new LoginButton(250, this);
-        this.feedback = new Feedback(375);
+        this.kmsi = new KeepMeSignedIn(275);
+        this.button = new LoginButton(400, this);
+        this.feedback = new Feedback(525);
+        this.parent = parent;
     }
 
-    update() {}
-
+    /** Draw the login screen. */
     draw() {
         CTX.fillStyle = PauseMenu.BG_COLOR;
         CTX.fillRect(
@@ -18,6 +22,7 @@ class LoginScreen {
         );
         this.un.draw();
         this.pw.draw();
+        this.kmsi.draw();
         this.button.draw();
         this.feedback.draw();
     }
@@ -30,6 +35,9 @@ class LoginScreen {
         switch (result.status) {
             case 200:
                 this.feedback.setFb('success', 1);
+                const local = this.kmsi.selected;
+                SaveManager.setPlayerAuthToken(result.info.token, local);
+                this.parent.configureFromToken();
                 break;
             default:
                 this.feedback.setFb('fail', -1);
@@ -136,6 +144,43 @@ class TextInputField {
             TextInputField.FIELD_SIZE.x
         );
         this.trash.draw();
+    }
+}
+
+class KeepMeSignedIn {
+    constructor(sy) {
+        this.selected = false;
+        this.pos = new Vector(PauseMenu.START.x + 50, PauseMenu.START.y + sy);
+        this.size = new Vector(PauseMenu.WIDTH - 100, 75);
+        const listener = () => {
+            const mouseOver =
+                GAME.mousePos.x > this.pos.x &&
+                GAME.mousePos.y > this.pos.y &&
+                GAME.mousePos.x < this.pos.x + this.size.x &&
+                GAME.mousePos.y < this.pos.y + this.size.y;
+            if (mouseOver) {
+                this.selected = !this.selected;
+            }
+        };
+        document.body.addEventListener('click', listener);
+        HUD.componentListeners.push(['click', listener]);
+    }
+
+    draw() {
+        CTX.strokeStyle = 'rgb(255,255,255)';
+        CTX.lineWidth = 3;
+        CTX.strokeRect(this.pos.x, this.pos.y, this.size.y, this.size.y);
+        CTX.fillStyle = 'rgb(255,255,255)';
+        if (this.selected) {
+            CTX.fillRect(this.pos.x + 12.5, this.pos.y + 12.5, 50, 50);
+        }
+        CTX.font = FONT.VT323_HEADER;
+        CTX.fillText(
+            'Keep me signed in',
+            this.pos.x + this.size.y + 50,
+            this.pos.y + this.size.y,
+            this.size.x - this.size.y
+        );
     }
 }
 
