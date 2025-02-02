@@ -2,7 +2,6 @@ class PauseMenu {
     constructor() {
         this.tabs = new PauseMenuTabs([PauseMenu.CONTROLS, PauseMenu.SAVE]);
         this.controls = new Controls();
-        this.sm = new SaveManager();
     }
 
     static get CONTROLS() {
@@ -47,9 +46,14 @@ class PauseMenu {
         this.tabs.draw();
         // now, draw the correct menu based on the active tab.
         if (this.activeTab === PauseMenu.CONTROLS) {
+            // controls is just a simple menu that needs to be drawn
             this.controls.draw();
+            // but if we're drawing the controls, the SAVE_MGR should not be
+            // listening.
+            SAVE_MGR.listen(false);
         } else if (this.activeTab === PauseMenu.SAVE) {
-            this.sm.draw();
+            SAVE_MGR.listen();
+            SAVE_MGR.draw();
         }
     }
 }
