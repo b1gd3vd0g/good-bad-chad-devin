@@ -33,7 +33,10 @@ class SaveFetch {
      * @returns {object} { status: `<response status>`, info: `<response body>` }
      */
     static async createNewSave() {
+        // remove statusEffect for circular reference problems (JSON.stringify)
+        const { statusEffect } = CHAD;
         delete CHAD.statusEffect;
+        // attempt to make the save.
         const response = await fetch(SaveFetch.ROUTE, {
             method: 'POST',
             headers: authHeaders(),
@@ -44,6 +47,8 @@ class SaveFetch {
                 zone: ZONE
             })
         });
+        // replace the statusEffect, to remove any bugs.
+        CHAD.statusEffect = statusEffect;
         const info = await response.json();
         return { status: response.status, info: info };
     }
