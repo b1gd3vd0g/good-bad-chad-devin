@@ -16,6 +16,8 @@ const CAMERA = new Camera();
 const CHAD = new Chad(new Vector(0, 0));
 /** The inventory of the player. */
 const INVENTORY = new Inventory();
+/** The Save Manager, which keeps track of a player's personal info and saves, if they're logged in. */
+const SAVE_MGR = new SaveManager();
 /** The player's HUD. */
 const HUD = new Hud();
 
@@ -75,7 +77,7 @@ let SAVED_ZONE = Zone.getZones().village.main;
 ZONE.load();
 
 const STORY = {};
-// const SAVEARRAY = new SaveArray();
+
 // (4) Start the game! :)
 GAME.addEntity(new StartMenu(), 1);
 GAME.start();

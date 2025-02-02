@@ -1,5 +1,5 @@
 /** The route to the web service. */
-const API_HOST = 'http://goodbadchad.bigdevdog.com:6900';
+const API_HOST = 'https://goodbadchad.bigdevdog.com:6900';
 
 /** The header defining Content-Type. */
 const CT_HEADER = { 'Content-Type': 'application/json' };

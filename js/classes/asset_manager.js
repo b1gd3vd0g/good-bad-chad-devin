@@ -367,7 +367,7 @@ class AssetManager {
             SFX.SNAKE_HISS.path,
             SFX.LIFE_UP.path,
             SFX.SWORD_UPGRADE.path,
-            TrashCan.SPRITESHEET,
+            ClearFieldTrashCan.SPRITESHEET,
             // Music:
             DialogBubble.SPEAKERS.CHAD.spritesheet
         ];

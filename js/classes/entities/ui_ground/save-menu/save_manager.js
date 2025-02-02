@@ -1,29 +1,59 @@
 class SaveManager {
     constructor() {
+        this.listening = false;
         // just attempt configuration.
         this.configureFromToken();
     }
 
+    /** Clears the configuration to the defaults. */
     clearConfiguration() {
         this.player = null;
         this.saves = [];
-        this.screen = new LoginScreen(this);
+        this.setScreen(new LoginScreen());
     }
 
+    /** Sets the screen to be shown, ensuring to destroy the current screen first. */
+    setScreen(screen) {
+        // if the screen has already been set, make sure you destroy it before
+        // replacing it.
+        if (this.screen) {
+            this.screen.destroy();
+        }
+        this.screen = screen;
+    }
+
+    /**
+     * Sets the SaveManager to listen for events or not.
+     * @param {boolean} listening True if it should listen; else false.
+     */
+    listen(listening = true) {
+        this.listening = listening;
+        console.log(
+            `save manager is ${this.listening ? '' : 'not '}listening.`
+        );
+    }
+
+    /**
+     * Configures the save manager from the auth token, which ought to be located
+     * in either localStorage or sessionStorage. In the absence of the token, or
+     * in the case of failure (either fetching the player, or their saves),
+     * it will clear the SaveManager's configuration completely.
+     */
     async configureFromToken() {
         const token = SaveManager.getAuthToken();
+        // clear configuration in absence of a token.
         if (!token) {
             this.clearConfiguration();
         } else {
-            // there is a token stored.
+            // there is a token stored. try to fetch the player.
             const tokenLogin = await PlayerFetch.fetchPlayerByToken();
             switch (tokenLogin.status) {
                 case 200:
-                    // success: configure player object.
+                    // success: configure this.player
                     this.player = tokenLogin.info;
                     break;
                 default:
-                    // failure
+                    // failure: clear configuration.
                     this.pfFailure = tokenLogin.info;
                     console.error(this.pfFailure);
                     this.clearConfiguration();
@@ -39,7 +69,9 @@ class SaveManager {
                     this.saves = savesFetch.info;
                     break;
                 default:
-                    // failure
+                    // failure: clear configuration
+                    // NOTE: this does NOT include finding 0 saves (404 error)
+                    // as a failure.
                     this.sfFailure = savesFetch.info;
                     console.error(this.sfFailure);
                     this.clearConfiguration();
@@ -48,7 +80,8 @@ class SaveManager {
         // now, IF it has been configured properly, we can change the screen.
         if (this.player) {
             console.log('SaveManager configured', this);
-            this.screen = new PlayerScreen(this);
+            // this also ensures that the listeners from the previous screen will be destroyed.
+            this.setScreen(new PlayerScreen());
         }
     }
 
