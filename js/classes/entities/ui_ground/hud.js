@@ -682,10 +682,8 @@ class PauseButton {
             // draw a translucent background
             CTX.fillStyle = 'rgba(0, 0, 0, 0.5)';
             CTX.fillRect(0, 0, Camera.SIZE.x, Camera.SIZE.y);
-
             this.menu.draw();
         }
-
         const size = PauseButton.SIZE;
         const barSize = PauseButton.BAR_SIZE;
 
