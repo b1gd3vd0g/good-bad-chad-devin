@@ -22,6 +22,7 @@ class LoginScreen {
     this.createButton = new CreateAccountButton(this, 500);
     /** The feedback (from failing/succeeding a login.) */
     this.feedback = new Feedback(625);
+    this.feedback.setFb('Saves are not currently set up. Check back later!');
   }
 
   /**
