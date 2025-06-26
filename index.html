@@ -1,485 +1,439 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <!-- THIS LINE IS GOING TO SOLVE AN ERROR FROM FIREFOX. -->
-        <link
-            rel="icon"
-            type="image/png"
-            href="./sprites/html_tab_icon.png"
-        />
+  <head>
+    <!-- THIS LINE IS GOING TO SOLVE AN ERROR FROM FIREFOX. -->
+    <link rel="icon" type="image/png" href="./sprites/html_tab_icon.png" />
 
-        <title>The Good, The Bad, and Chad!</title>
-        <!-- <script type="module">
-        import { save, getSaves } from '/backend/functions.js';
-        window.save = save;
-        window.getSaves = getSaves;
-    </script> -->
+    <title>The Good, The Bad, and Chad!</title>
+    <!-- Configuration script for save functionality. -->
+    <script type="text/javascript" src="./config.js"></script>
 
-        <!-- Scripts containing info/functions for classes. -->
-        <script
-            type="text/javascript"
-            src="./js/scripts/util.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/fetching.js"
-        ></script>
-        <!--
+    <!-- Scripts containing info/functions for classes. -->
+    <script type="text/javascript" src="./js/scripts/util.js"></script>
+    <script type="text/javascript" src="./js/scripts/fetching.js"></script>
+    <!--
             Scripts
             containing
             dialog-building
             methods.
         -->
-        <script
-            type="text/javascript"
-            src="./js/scripts/conversation_loaders/main_conversation_loader.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/conversation_loaders/playground_conversation_loaders.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/conversation_loaders/village_conversation_loader.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/conversation_loaders/end_conversation_loader.js"
-        ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/conversation_loaders/main_conversation_loader.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/conversation_loaders/playground_conversation_loaders.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/conversation_loaders/village_conversation_loader.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/conversation_loaders/end_conversation_loader.js"
+    ></script>
 
-        <!-- Scripts containing Zone-loading functions: -->
-        <script
-            type="text/javascript"
-            src="./js/scripts/zone_loaders/cave_zone_loaders.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/zone_loaders/end_zone_loader.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/zone_loaders/mountain_zone_loaders.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/zone_loaders/playground_zone_loaders.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/zone_loaders/river_zone_loaders.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/zone_loaders/tilemap_interpreter.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/zone_loaders/village_zone_loaders.js"
-        ></script>
+    <!-- Scripts containing Zone-loading functions: -->
+    <script
+      type="text/javascript"
+      src="./js/scripts/zone_loaders/cave_zone_loaders.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/zone_loaders/end_zone_loader.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/zone_loaders/mountain_zone_loaders.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/zone_loaders/playground_zone_loaders.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/zone_loaders/river_zone_loaders.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/zone_loaders/tilemap_interpreter.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/zone_loaders/village_zone_loaders.js"
+    ></script>
 
-        <!-- Scripts containing dimension-building methods. -->
-        <!-- <script type="text/javascript" src="./js/scripts/dimension/playground_dimension.js"></script>
+    <!-- Scripts containing dimension-building methods. -->
+    <!-- <script type="text/javascript" src="./js/scripts/dimension/playground_dimension.js"></script>
     <script type="text/javascript" src="./js/scripts/dimension/village_dimension.js"></script>
     <script type="text/javascript" src="./js/scripts/dimension/lava_dimension.js"></script> -->
 
-        <!-- Tile maps here. -->
-        <script
-            type="text/javascript"
-            src="./js/scripts/tile_maps/caleb_zone_playground.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/tile_maps/cave_tilemap.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/tile_maps/cave_2_zone.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/tile_maps/end_tilemap.js"
-        ></script>
+    <!-- Tile maps here. -->
+    <script
+      type="text/javascript"
+      src="./js/scripts/tile_maps/caleb_zone_playground.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/tile_maps/cave_tilemap.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/tile_maps/cave_2_zone.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/tile_maps/end_tilemap.js"
+    ></script>
 
-        <script
-            type="text/javascript"
-            src="./js/scripts/tile_maps/field_tilemap.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/tile_maps/hill_tilemap.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/tile_maps/river_tilemap.js"
-        ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/tile_maps/field_tilemap.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/tile_maps/hill_tilemap.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/tile_maps/river_tilemap.js"
+    ></script>
 
-        <script
-            type="text/javascript"
-            src="./js/scripts/tile_maps/village_tilemap.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/tile_maps/woods_tilemap.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/tile_maps/mountain_slope1_tilemap.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/scripts/tile_maps/mountain_slope2_tilemap.js"
-        ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/tile_maps/village_tilemap.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/tile_maps/woods_tilemap.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/tile_maps/mountain_slope1_tilemap.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/scripts/tile_maps/mountain_slope2_tilemap.js"
+    ></script>
 
-        <!-- Put non-entity classes here! -->
-        <script
-            type="text/javascript"
-            src="./js/classes/animator.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/asset_manager.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/bounding_box.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/camera.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/game_engine.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/inventory.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/physics_component.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/status_effect.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/timer.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/vector.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/zone.js"
-        ></script>
+    <!-- Put non-entity classes here! -->
+    <script type="text/javascript" src="./js/classes/animator.js"></script>
+    <script type="text/javascript" src="./js/classes/asset_manager.js"></script>
+    <script type="text/javascript" src="./js/classes/bounding_box.js"></script>
+    <script type="text/javascript" src="./js/classes/camera.js"></script>
+    <script type="text/javascript" src="./js/classes/game_engine.js"></script>
+    <script type="text/javascript" src="./js/classes/inventory.js"></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/physics_component.js"
+    ></script>
+    <script type="text/javascript" src="./js/classes/status_effect.js"></script>
+    <script type="text/javascript" src="./js/classes/timer.js"></script>
+    <script type="text/javascript" src="./js/classes/vector.js"></script>
+    <script type="text/javascript" src="./js/classes/zone.js"></script>
 
-        <!-- Entities: -->
-        <!-- Background: -->
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/background/decoration.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/background/sun.js"
-        ></script>
+    <!-- Entities: -->
+    <!-- Background: -->
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/background/decoration.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/background/sun.js"
+    ></script>
 
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/background/bird.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/background/spawnpoint.js"
-        ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/background/bird.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/background/spawnpoint.js"
+    ></script>
 
-        <!-- Midground: -->
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/block.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/liquid_block.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/border.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/chad.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/transport_portal.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/portal.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/particle_effect.js"
-        ></script>
+    <!-- Midground: -->
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/block.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/liquid_block.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/border.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/chad.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/transport_portal.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/portal.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/particle_effect.js"
+    ></script>
 
-        <!-- Collectables: -->
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/drops/ammo_drop.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/drops/food_drop.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/drops/rune_drop.js"
-        ></script>
+    <!-- Collectables: -->
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/drops/ammo_drop.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/drops/food_drop.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/drops/rune_drop.js"
+    ></script>
 
-        <!-- Enemies: -->
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/enemies/enemy_base.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/enemies/flying_enemy_base.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/enemies/ground_enemy_base.js"
-        ></script>
+    <!-- Enemies: -->
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/enemies/enemy_base.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/enemies/flying_enemy_base.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/enemies/ground_enemy_base.js"
+    ></script>
 
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/enemies/slime.js"
-        ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/enemies/slime.js"
+    ></script>
 
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/enemies/bunny.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/enemies/flying_snake.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/enemies/snake.js"
-        ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/enemies/bunny.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/enemies/flying_snake.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/enemies/snake.js"
+    ></script>
 
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/enemies/eel.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/enemies/eel_boss.js"
-        ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/enemies/eel.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/enemies/eel_boss.js"
+    ></script>
 
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/enemies/yeti.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/enemies/overseer_bot.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/enemies/drill_bot.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/enemies/oculi_bot.js"
-        ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/enemies/yeti.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/enemies/overseer_bot.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/enemies/drill_bot.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/enemies/oculi_bot.js"
+    ></script>
 
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/enemies/wizard.js"
-        ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/enemies/wizard.js"
+    ></script>
 
-        <!-- NPCs: -->
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/npc/miner.js"
-        ></script>
+    <!-- NPCs: -->
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/npc/miner.js"
+    ></script>
 
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/npc/village/blacksmith.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/npc/village/mama_chad.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/npc/village/mayor.js"
-        ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/npc/village/blacksmith.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/npc/village/mama_chad.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/npc/village/mayor.js"
+    ></script>
 
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/npc/village/papa_chad.js"
-        ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/npc/village/papa_chad.js"
+    ></script>
 
-        <!-- Weapons: -->
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/weapon/projectile_factory.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/weapon/projectile_base.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/weapon/bomb.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/weapon/broccoli.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/weapon/missile.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/weapon/slimeball.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/weapon/snowball.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/weapon/sus_snowball.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/weapon/sonic_wave.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/weapon/laser.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/weapon/rock.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/weapon/water_balloon.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/weapon/slingshot.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/midground/weapon/sword.js"
-        ></script>
+    <!-- Weapons: -->
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/weapon/projectile_factory.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/weapon/projectile_base.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/weapon/bomb.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/weapon/broccoli.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/weapon/missile.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/weapon/slimeball.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/weapon/snowball.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/weapon/sus_snowball.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/weapon/sonic_wave.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/weapon/laser.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/weapon/rock.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/weapon/water_balloon.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/weapon/slingshot.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/midground/weapon/sword.js"
+    ></script>
 
-        <!-- Foreground: -->
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/foreground/overhead_icon.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/foreground/precipitation.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/foreground/weather_system.js"
-        ></script>
+    <!-- Foreground: -->
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/foreground/overhead_icon.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/foreground/precipitation.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/foreground/weather_system.js"
+    ></script>
 
-        <!-- User Interface -->
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/ui_ground/ammo_item.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/ui_ground/dash_cooldown.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/ui_ground/food_item.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/ui_ground/health_bar.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/ui_ground/loading_animation.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/ui_ground/button.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/ui_ground/controls.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/ui_ground/death_screen.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/ui_ground/hud.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/ui_ground/start_menu.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/ui_ground/pause_menu.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/ui_ground/save-menu/save_manager.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/ui_ground/save-menu/login_screen.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/ui_ground/save-menu/player_screen.js"
-        ></script>
+    <!-- User Interface -->
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/ui_ground/ammo_item.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/ui_ground/dash_cooldown.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/ui_ground/food_item.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/ui_ground/health_bar.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/ui_ground/loading_animation.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/ui_ground/button.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/ui_ground/controls.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/ui_ground/death_screen.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/ui_ground/hud.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/ui_ground/start_menu.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/ui_ground/pause_menu.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/ui_ground/save-menu/save_manager.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/ui_ground/save-menu/login_screen.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/ui_ground/save-menu/player_screen.js"
+    ></script>
 
-        <!-- Dialog: -->
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/foreground/dialog/conversation.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/foreground/dialog/decision_bubble.js"
-        ></script>
-        <script
-            type="text/javascript"
-            src="./js/classes/entities/foreground/dialog/dialog_bubble.js"
-        ></script>
+    <!-- Dialog: -->
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/foreground/dialog/conversation.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/foreground/dialog/decision_bubble.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./js/classes/entities/foreground/dialog/dialog_bubble.js"
+    ></script>
 
-        <!-- CSS: -->
-        <link
-            rel="stylesheet"
-            href="./css/general.css"
-        />
-    </head>
+    <!-- CSS: -->
+    <link rel="stylesheet" href="./css/general.css" />
+  </head>
 
-    <body>
-        <!-- 
+  <body>
+    <!-- 
         NOTE: 
         the width and height of this is unique.
         It refers not to the size on the window, but the amount of visible (GAME) pixels visible on the screen.
@@ -488,34 +442,27 @@
         If you change it here, change it in camera.js as well.
     -->
 
-        <div id="container">
-            <canvas
-                height="1080"
-                width="1920"
-                id="game-world"
-                tabindex="0"
-                autofocus
-            ></canvas>
-        </div>
+    <div id="container">
+      <canvas
+        height="1080"
+        width="1920"
+        id="game-world"
+        tabindex="0"
+        autofocus
+      ></canvas>
+    </div>
 
-        <div id="options">
-            <label for="debug">Debug</label>
-            <input
-                type="checkbox"
-                id="debug"
-                name="debug"
-            />
-        </div>
+    <div id="options">
+      <label for="debug">Debug</label>
+      <input type="checkbox" id="debug" name="debug" />
+    </div>
 
-        <div id="savetable"></div>
-        <h3>For best experience: Chrome is reccomended.</h3>
-        <!-- This doesn't work yet: 
+    <div id="savetable"></div>
+    <h3>For best experience: Chrome is reccomended.</h3>
+    <!-- This doesn't work yet: 
     <script type="module" src="./backend/savetable.js"></script> -->
 
-        <!-- Load the main script. -->
-        <script
-            type="text/javascript"
-            src="./js/scripts/main.js"
-        ></script>
-    </body>
+    <!-- Load the main script. -->
+    <script type="text/javascript" src="./js/scripts/main.js"></script>
+  </body>
 </html>
