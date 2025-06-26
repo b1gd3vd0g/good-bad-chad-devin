@@ -22,10 +22,6 @@ class LoginScreen {
     this.createButton = new CreateAccountButton(this, 500);
     /** The feedback (from failing/succeeding a login.) */
     this.feedback = new Feedback(625);
-    this.feedback.setFb(
-      'Saves are not currently set up. Check back later!',
-      -1
-    );
   }
 
   /**
@@ -394,17 +390,17 @@ class LoginButton {
       }
     };
 
-    // this.screen.addListener('click', listener);
+    this.screen.addListener('click', listener);
   }
 
   /** Draw the LoginButton on the canvas. */
   draw() {
-    CTX.fillStyle = 'rgba(255,255,255,0.2)';
+    CTX.fillStyle = 'rgba(255,255,255,0.4)';
     CTX.fillRect(this.pos.x, this.pos.y, this.size.x, this.size.y);
-    CTX.strokeStyle = 'rgb(255,255,255, 0.4)';
+    CTX.strokeStyle = 'rgb(255,255,255)';
     CTX.lineWidth = 5;
     CTX.strokeRect(this.pos.x, this.pos.y, this.size.x, this.size.y);
-    CTX.fillStyle = 'rgb(255,255,255, 0.4)';
+    CTX.fillStyle = 'rgb(255,255,255)';
     CTX.font = FONT.VT323_HEADER;
     const login = 'LOG IN';
     const textWidth = CTX.measureText(login).width;
@@ -438,16 +434,16 @@ class CreateAccountButton {
       }
     };
 
-    // this.screen.addListener('click', listener);
+    this.screen.addListener('click', listener);
   }
 
   draw() {
     CTX.fillStyle = 'rgba(255,255,255,0.2)';
     CTX.fillRect(this.pos.x, this.pos.y, this.size.x, this.size.y);
-    CTX.strokeStyle = 'rgb(255,255,255, 0.4)';
+    CTX.strokeStyle = 'rgb(255,255,255)';
     CTX.lineWidth = 5;
     CTX.strokeRect(this.pos.x, this.pos.y, this.size.x, this.size.y);
-    CTX.fillStyle = 'rgb(255,255,255, 0.4)';
+    CTX.fillStyle = 'rgb(255,255,255)';
     CTX.font = FONT.VT323_NORMAL;
     const create = 'CREATE ACCOUNT';
     const textSize = CTX.measureText(create);
