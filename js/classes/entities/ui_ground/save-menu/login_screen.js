@@ -22,6 +22,7 @@ class LoginScreen {
     this.createButton = new CreateAccountButton(this, 500);
     /** The feedback (from failing/succeeding a login.) */
     this.feedback = new Feedback(625);
+    this.feedback.setFb('Save functionality is temporarily disabled.', -1);
   }
 
   /**
@@ -175,7 +176,7 @@ class TextInputField {
         this.active = false;
       }
     };
-    this.screen.addListener('click', clickListener);
+    // this.screen.addListener('click', clickListener);
 
     // 2b. on keypress.
 
@@ -202,7 +203,7 @@ class TextInputField {
         this.value += evt.key;
       }
     };
-    this.screen.addListener('keypress', kpListener);
+    // this.screen.addListener('keypress', kpListener);
   }
 
   /** @returns {vector} The size of the label portion of the TextInputField. */
@@ -219,7 +220,7 @@ class TextInputField {
   draw() {
     // 1. Draw the label on the left.
     CTX.font = FONT.VT323_HEADER;
-    CTX.fillStyle = 'rgb(255,255,255)';
+    CTX.fillStyle = 'rgb(255,255,255,0.3)';
     CTX.fillText(
       this.label,
       this.pos.x,
@@ -278,7 +279,7 @@ class ClearFieldTrashCan {
       }
     };
 
-    field.screen.addListener('click', listener);
+    // field.screen.addListener('click', listener);
   }
 
   /** The location of the spritesheet for the ClearFieldTrashCan. */
@@ -290,6 +291,7 @@ class ClearFieldTrashCan {
    * Draws the ClearFieldTrashCan on the canvas.
    */
   draw() {
+    CTX.globalAlpha = 0.3;
     CTX.drawImage(
       ASSET_MGR.getAsset(ClearFieldTrashCan.SPRITESHEET),
       this.pos.x,
@@ -297,6 +299,7 @@ class ClearFieldTrashCan {
       this.size.x,
       this.size.y
     );
+    CTX.globalAlpha = 1;
   }
 }
 
@@ -340,13 +343,13 @@ class KeepMeSignedIn {
 
   /** Draw the KeepMeSignedIn box on the canvas. */
   draw() {
-    CTX.strokeStyle = 'rgb(255,255,255)';
+    CTX.strokeStyle = 'rgba(255,255,255,0.3)';
     CTX.lineWidth = 3;
     CTX.strokeRect(this.pos.x, this.pos.y, this.size.y, this.size.y);
-    CTX.fillStyle = 'rgb(255,255,255)';
-    if (this.selected) {
-      CTX.fillRect(this.pos.x + 12.5, this.pos.y + 12.5, 50, 50);
-    }
+    CTX.fillStyle = 'rgb(255,255,255,0.3)';
+    // if (this.selected) {
+    //   CTX.fillRect(this.pos.x + 12.5, this.pos.y + 12.5, 50, 50);
+    // }
     CTX.font = FONT.VT323_HEADER;
     CTX.fillText(
       'Keep me signed in',
@@ -390,17 +393,17 @@ class LoginButton {
       }
     };
 
-    this.screen.addListener('click', listener);
+    // this.screen.addListener('click', listener);
   }
 
   /** Draw the LoginButton on the canvas. */
   draw() {
-    CTX.fillStyle = 'rgba(255,255,255,0.4)';
+    CTX.fillStyle = 'rgba(255,255,255,0.1)';
     CTX.fillRect(this.pos.x, this.pos.y, this.size.x, this.size.y);
-    CTX.strokeStyle = 'rgb(255,255,255)';
+    CTX.strokeStyle = 'rgb(255,255,255,0.3)';
     CTX.lineWidth = 5;
     CTX.strokeRect(this.pos.x, this.pos.y, this.size.x, this.size.y);
-    CTX.fillStyle = 'rgb(255,255,255)';
+    CTX.fillStyle = 'rgb(255,255,255,0.3)';
     CTX.font = FONT.VT323_HEADER;
     const login = 'LOG IN';
     const textWidth = CTX.measureText(login).width;
@@ -438,12 +441,12 @@ class CreateAccountButton {
   }
 
   draw() {
-    CTX.fillStyle = 'rgba(255,255,255,0.2)';
+    CTX.fillStyle = 'rgba(255,255,255,0.1)';
     CTX.fillRect(this.pos.x, this.pos.y, this.size.x, this.size.y);
-    CTX.strokeStyle = 'rgb(255,255,255)';
+    CTX.strokeStyle = 'rgb(255,255,255,0.3)';
     CTX.lineWidth = 5;
     CTX.strokeRect(this.pos.x, this.pos.y, this.size.x, this.size.y);
-    CTX.fillStyle = 'rgb(255,255,255)';
+    CTX.fillStyle = 'rgb(255,255,255,0.3)';
     CTX.font = FONT.VT323_NORMAL;
     const create = 'CREATE ACCOUNT';
     const textSize = CTX.measureText(create);
