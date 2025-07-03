@@ -17,7 +17,8 @@ class Controls {
       'Dash: Alt/X',
       'Left mouse: Fire slingshot',
       'Right mouse/Q: Swing sword',
-      'Number keys: select ammo type'
+      'Number keys: select ammo type',
+      'Screenshot: `'
     ];
   }
 
