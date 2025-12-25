@@ -60,7 +60,7 @@ class PapaChad {
             this.velocity = new Vector(-Chad.DEFAULT_SPEED, 0);
         }
         // Add in gravity to the velocity.
-        this.velocity = Vector.add(this.velocity, Vector.multiply(new Vector(0, PHYSICS.GRAVITY_ACC), GAME.clockTick));
+        this.velocity = Vector.add(this.velocity, new Vector(0, PHYSICS.GRAVITY_ACC));
         this.pos = Vector.add(this.pos, Vector.multiply(this.velocity, GAME.clockTick));
         this.lastBoundingBox = this.boundingBox;
         this.boundingBox = new BoundingBox(this.pos, PapaChad.SCALED_SIZE);
