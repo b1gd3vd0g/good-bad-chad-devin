@@ -199,7 +199,7 @@ const loadVillageField = () => {
             new PapaChad(
                 new Vector(
                     ZONE.MAX_PT.x - 2 * PapaChad.SCALED_SIZE.x,
-                    ZONE.MAX_PT.y - 5 * Block.SCALED_SIZE // 12.25.25 try to keep papa from falling below ground.
+                    ZONE.MAX_PT.y - 7 * Block.SCALED_SIZE // 12.25.25 try to keep papa from falling below ground.
                 ),
                 new Conversation(
                     getAllConversationArrays().village.papaChad.huntingInstruction
